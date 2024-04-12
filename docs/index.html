@@ -1,0 +1,2067 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="icon" href="favicon.ico">
+
+    <title>RTOS for ML</title>
+
+    <link rel="stylesheet" href="dist/reset.css">
+    <link rel="stylesheet" href="dist/reveal.css">
+    <link rel="stylesheet" href="dist/theme/pb.css">
+    <link rel="stylesheet" href="pres-style.css">
+
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="plugin/highlight/monokai.css">
+  </head>
+
+  <body>
+    <div class="reveal">
+      <div class="slides">
+
+        <!-- -------------------- Preambule ---------------------------------------- -->
+        <section>
+          <h1>Introduction to the use of an RTOS</h1>
+          <h5>Pascal Bodin</h5>
+          <img src="images/iot.png" height="350">
+          <div class="pbverysmall">To enter the presentation, click the arrow to the right</div>
+        </section>
+        <section>
+          <h3>Document history</h3>
+          <table class="pbsmaller">
+            <thead>
+              <tr>
+                <th>When</th>
+                <th>What</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>22-Jan-2024</td>
+                <td>UDP example added</td>
+              </tr>
+              <tr>
+                <td>19-Jan-2024</td>
+                <td>Scan and GATT examples added</td>
+              </tr>
+              <tr>
+                <td>15-Jan-2024</td>
+                <td>Exercise 18 added</td>
+              </tr>
+              <tr>
+                <td>10-Jan-2024</td>
+                <td>Exercise 11a added</td>
+              </tr>
+              <tr>
+                <td>10-Jan-2024</td>
+                <td>Reformulate first practice session</td>
+              </tr>
+              <tr>
+                <td>09-Jan-2024</td>
+                <td>Exercises</td>
+              </tr>
+              <tr>
+                <td>02-Dec-2023</td>
+                <td>Creation</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <section>
+          <p>This work is licensed under a <a rel="license"
+                                              href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">
+              Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a></p>
+        </section>
+        <section>
+          <h3>Credits</h3>
+          <ul>
+            <li><a target="_blank" href="https://github.com/hakimel/reveal.js">reveal.js</a> - Copyright (C)
+              2020 Hakim El Hattab</li>
+            <li><a href="https://www.flaticon.com/authors/freepik" title="Freepik" target="_blank">Freepik</a>
+              from <a href="https://www.flaticon.com/" title="Flaticon" target="_blank">www.flaticon.com</a>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h3>How to navigate</h3>
+          <ul>
+            <li>Use the right and left arrows (in bottom right corner)
+            <li>Overview: press "O" letter - navigate with arrow keys - "ESC" or click on slide to exit</li>
+            <li>Full screen: press "F" letter - "ESC" to exit</li>
+          </ul>
+        </section>
+
+        <!-- -------------------- Contents ---------------------------------------- -->
+        
+        <section>
+          <h3>Contents</h3>
+          <div class="pbcolumns">
+            <div class="pbsmaller">
+              <ul>
+                <li><a href="#/foreword">Foreword</a></li>
+                <li><a href="#/introduction">Introduction</a>
+                  <ul>
+                    <li><a href="#/hardwareProgress">Hardware progress</a></li>
+                    <li><a href="#/embeddedApplications">Embedded applications</a></li>
+                    <li><a href="#/reminders">Reminders</a></li>
+                  </ul>
+                </li>
+                <li><a href="#/microcontrollerBoard">Microcontroller board</a>
+                  <ul>
+                    <li><a href="#/microcontrollerArchitecture">Microcontroller</a></li>
+                    <li><a href="#/boardArchitecture">Board architecture</a></li>
+                    <li><a href="#/importantCharacteristics">Important characteristics</a></li>
+                    <li><a href="#/someUcFamilies">Some µC families</a></li>
+                  </ul>
+                </li>
+                <li><a href="#/softwareDevelopment1">Software development - part 1</a>
+                  <ul>
+                    <li><a href="#/crossDevelopment">Cross development</a></li>
+                    <li><a href="#/practiceEsp32EspEye"><b>Practice: Hello World for the ESP-EYE</b></a></li>
+                  </ul>
+                </li>
+                <li><a href="#/peripherals">Peripherals</a></li>
+                <li><a href="#/Interfaces">Interfaces</a></li>
+              </ul>
+            </div>
+            <div class="pbsmaller">
+              <ul>
+                <li><a href="#/softwareDevelopment2">Software development - part 2</a>
+                  <ul>
+                    <li><a href="#/practiceButton"><b>Practice: GPIO and button</b></a></li>
+                    <li><a href="#/practiceLed"><b>Practice: GPIO and LED</b></a></li>
+                    <li><a href="#/floatingPoint">Floating point arithmetic</a></li>
+                    <li><a href="#/practiceFloatingPoint"><b>Practice: floating point</b></a></li>
+                  </ul>
+                </li>
+                <li><a href="#/softwareDevelopment3">Software development - part 3</a>
+                  <ul>
+                    <li><a href="#/startRunProgram">How a program starts and runs</a></li>
+                    <li><a href="#/interrupts">Interrupts</a></li>
+                    <li><a href="#/sleepMode">Sleep mode</a></li>
+                    <li><a href="#/practiceButtonInt"><b>Practice: button and interrupt</b></a></li>
+                    <li><a href="#/practiceTimerInt"><b>Practice: timer and interrupt</b></a></li>
+                    <li><a href="#/practiceBareMetalArch"><b>Practice: application architecture</b></a></li>
+                  </ul>
+                </li>
+                <li><a href="#executionEnvironments">Execution Environments</a>
+                  <ul>
+                    <li><a href="#/bareMetal">Bare metal</a></li>
+                    <li><a href="#/rtos">RTOS</a></li>
+                    <li><a href="#/os">OS</a></li>
+                  </ul>
+                </li>
+                <li><a href="rtos.html" target="_blank">RTOS</a></li>
+              </ul>
+            </div>
+          </div>
+        </section>
+        
+        <!-- -------------------- Foreword ---------------------------------------- -->
+        <section id="foreword">
+          <h2>Foreword</h2>
+        </section>
+        <section>
+          <h3>Who am I?</h3>
+          <ul>
+            <li><a href="https://systev.com" target="_blank">
+                Independent consultant and freelancer - connected devices</a> <br />
+              <a href="https://baylibre.com/" targe="_blank">
+                <img src="images/logo_baylibre_rvb_400-300x104.png.webp" width="160"></a>
+              &nbsp;
+              <a href="https://www.connectedcycle.com" target="_blank">
+                <img src="images/logo-connectedCycle.png"></a>
+              &nbsp;
+              <a href="https://www.ackl.io" target="_blank">
+                <img src="images/logo-acklio.png"></a>
+              &nbsp;
+              <a href="https://www.ademe.fr/en/frontpage/" target="_blank">
+                <img src="images/logoademe2020_gb_rvb.webp" height="100"></a>                                           
+            </li>
+            <li>Beforehand: software engineer, project leader, team manager, co-founder, technical expert</li>
+            <li>
+              McDonnell Douglas Informations Systems, Digital Equipement Corporation (DEC), Orange
+            </li>
+            <li>
+              Co-founded (and closed down) two companies
+            </li>
+            <li>First connected objects project: in 1990</li>
+          </ul>
+        </section>
+        <section>
+          <h3>More information</h3>
+          <ul>
+            <li><a href="https://fr.systev.com" target="_blank">Systev</a></li>
+            <li><a href="https://www.linkedin.com/in/pascalbodin/" target="_blank">LinkedIn</a></li>
+            <li><a href="https://github.com/PascalBod" target="_blank">GitHub</a></li>
+            <li><a href="https://mastodon.world/@pascalb06" target="_blank">Matomo</a></li>
+            <li><a href="https://twitter.com/pascalbod06" target="_blank">X</a></li>
+          </ul>
+        </section>
+        <section>
+          <h3>Aim</h3>
+          <ul>
+            <li>Provide an overview of what a general purpose microcontroller is</li>
+            <li>Provide an overview of microcontroller environment (hardware and software)</li>
+            <li>Provide an overview of how to use an RTOS</li>
+          </ul>
+        </section>
+
+        <!-- -------------------- Introduction ---------------------------------------- -->
+        <section id="introduction">
+          <h2>Introduction</h2>
+        </section>
+        <section id="hardwareProgress">
+          <h3>Hardware progress</h3>
+        </section>
+        <section>
+          <h4>1982 - Cray X-MP</h4>
+          <img src="images/CRAY-X-MP-1-1.jpg" height="500">
+          <div class="pbverysmall">Source: <a href="https://www.hpe.com/us/en/compute/hpc/cray.html"
+                                              title="HPE" target="_blank">HPE</a></div>
+        </section>
+        <section>
+          <ul>
+            <li>World most powerful computer</li>
+            <li>0.94 GFLOPS (giga floating-point operations per second)</li>
+            <li>Price: around US$15 million (would be US$45 million in 2022)</li>
+          </ul>
+          <div class="pbverysmall">Sources: 
+            <a href="https://www.hpe.com/us/en/compute/hpc/cray.html"
+               title="HPE" target="_blank">HPE</a>
+            <a href="https://www2.cisl.ucar.edu/ncar-supercomputing-history/cx"
+               title="NCAR" target="_blank">NCAR</a>
+          </div>                    
+        </section>
+        <section>
+          <h4>2022 - iPhone 14</h4>
+          <img src="images/iphone-14-model-unselect-gallery-2-202303_GEO_US.png" height="500">
+          <div class="pbverysmall">Source: <a href="https://www.apple.com/iphone-14/" title="Apple"
+                                              target="_blank">Apple</a></div>
+        </section>
+        <section>
+          <ul>
+            <li>1.37 TFLOPS (GPU)</li>
+            <li>Price: US$800</li>
+          </ul>
+          <div class="pbverysmall">Sources: 
+            <a href="https://en.wikipedia.org/wiki/Apple_silicon"
+               title="Wikipedia" target="_blank">Wikipedia</a>
+            <a href="https://www.apple.com/shop/buy-iphone/iphone-14"
+               title="Apple" target="_blank">Apple</a>
+          </div>
+        </section>
+        <section>
+          <p>In 40 years:</p>
+          <ul>
+            <li>Processing power multiplied by around 1,400</li>
+            <li>Cost divided by around 56,000</li>
+          </ul>
+          <div class="pbverysmall">
+            (Beware: comparing processing power in a really correct way is more complex than simply looking at the two FLOPS values. But, anyway, this gives an idea.)
+          </div>
+        </section>
+        <section>
+          <p class="pbcenter">What do the years to come have in store?!</p>
+        </section>
+        <section id="embeddedApplications">
+          <h3>Embedded applications</h3>
+        </section>
+        <section>
+          <h4>1969 - The computer that made it possible to land on the Moon</h4>
+          <img src="images/agc_dsky.jpg">
+          <div class="pbverysmall">Source: <a href="http://klabs.org/history/history_docs/mit_docs/agc.htm"
+                                              title="klabs.org" target="_blank">klabs.org</a></div>
+        </section>
+        <section>
+          <ul>
+            <li>Weight: aroung 32 kg (without the user interface)</li>
+            <li>Power supply: 28 V CC - 70 W</li>
+            <li>Permanent memory: 36 Kwords</li>
+            <li>Erasable memory: 2 Kwords</li>
+            <li>Clock: 1 MHz (83 kHz instruction cycle time)</li>
+            <li>Simple operating system, with priority handling</li>
+          </ul>
+        </section>
+        <section>
+          <p class="pbcenter">Compared to current configurations:</p>
+          <ul>
+            <li>Very little memory</li>
+            <li>Very little processing power</li>
+          </ul>
+          <p class="pbcenter">Yet it allowed to bring human beings to the Moon.</p>
+        </section>
+        <section>
+          <p class="pbcenter">It's not because you don't have a lot of memory and processing power
+            that you can't develop great applications &#x1F642;
+          </p>
+        </section>
+        <section>
+          <p class="pbcenter">A modern microcontroller with similar processing power:</p>
+          <img src="images/pic18f47k42.png" height="100">
+          <br />
+          <ul>
+            <li>Permanent memory: 128 Ko</li>
+            <li>Erasable memory: 8 Ko</li>
+            <li>Clock: up to 64 MHz</li>
+            <li>Power consumption: 30 mW (microcontroller alone)</li>
+            <li>Power consumption in sleep mode: 0,1 &mu;W</li>
+            <li>Price: around US$3.00</li>
+          </ul>
+          <div class="pbverysmall">
+            Note: this microcontroller is not radiation hardened, does not provide all required I/O, does
+            not provide all required reliability mechanisms, etc.
+          </div>
+          <div class="pbverysmall">Source : <a href="https://www.microchip.com/wwwproducts/en/PIC18F47K42"
+                                               title="Microchip" target="_blank">Microchip</a></div>
+        </section>
+
+        <!-- -------------------- Reminders ---------------------------------------- -->
+        <section id="reminders">
+          <h3>Reminders</h3>
+        </section>
+        <section>
+          <h4>Reminder: computer architecture</h4>
+          <img src="images/computerArchitecture.png">
+        </section>
+        <section>
+          <h4>Von Neumann architecture</h4>
+          <ul>
+            <li>Memory stores data and instructions</li>
+            <li>Same bus for data and instructions</li>
+          </ul>
+        </section>
+        <section>
+          <h4>Harvard architecture</h4>
+          <ul>
+            <li>Separate memory for data and for instructions</li>
+            <li>Bus for data and bus for instructions</li>
+          </ul>
+        </section>
+        <section>
+          <p>Variants exist: same memory but separate buses, etc.</p>
+        </section>
+        <section>
+          <h4>8-bit, 16-bit, 32-bit, 64-bit computers</h4>
+          <p><b>Register: </b>a memory cell inside the CPU. A CPU contains several of them.</p>
+          <p>n-bit: n is the number of bits of a register.</p>
+        </section>
+        <section>
+          <h4>Reminder: computer boot process</h4>
+        </section>
+        <section>
+          <div class="r-stack">
+            <div class="fragment fade-in-then-out">
+              <img src="images/computerBoot-1.png">
+              <p>The CPU starts executing a short program in ROM: the <em>bootstrap</em>.</p>
+            </div>
+            <div class="fragment fade-in-then-out">
+              <img src="images/computerBoot-2.png">
+              <p>The bootstrap loads the <em>boot loader</em> from a disk.</p>
+            </div>
+            <div class="fragment fade-in-then-out">
+              <img src="images/computerBoot-3.png">
+              <p>The bootloader loads the Operating System (OS) from a disk.</p>
+            </div>
+          </div>
+        </section>
+        <section>
+          <p>Of course, variants exist!</p>
+          <p>For a PC running Linux:
+            <ul>
+              <li>bootstrap: BIOS</li>
+              <li>bootloading:
+                <ul>
+                  <li>a first-stage bootloader is read from the Master Boot Record (MBR)</li>
+                  <li>the first-stage bootloader loads a second-stage bootloader</li>
+                  <li>the second-stage bootloader loads the Linux kernel</li>
+                </ul>
+              </li>
+            </ul>
+          </p>
+        </section>
+        <section>
+          <h4>Reminder: virtual memory</h4>
+          <img src="images/computerVirtualMemory.png">
+        </section>
+        <section>
+          <p>Main functions of virtual memory:</p>
+          <ul>
+            <li>Provide each process with its own address space</li>
+            <li>Ensure process isolation</li>
+            <li>Ensure OS isolation</li>
+            <li>Provide more memory than physical memory</li>
+          </ul>
+        </section>
+        <section>
+          <p>Nowadays, virtual memory is implemented thanks to an MMU (Memory Management Unit).</p>
+        </section>
+
+        <!-- -------------------- Microcontroller board ---------------------------------------- -->
+        <section id="microcontrollerBoard">
+          <h3>Microcontroller board</h3>
+        </section>
+        <section id="microcontrollerArchitecture">
+          <h4>Microcontroller</h4>
+          <ul>
+            <li>A computer in a chip:
+              <ul>
+                <li>Central Processing Unit (CPU)</li>
+                <li>Read-only memory (Flash memory)</li>
+                <li>Read/write memory (RAM - Random Access Memory)</li>
+                <li>Peripherals and interfaces:
+                  <ul>
+                    <li>Analog I/O</li>
+                    <li>Digital I/O</li>
+                    <li>Timers</li>
+                    <li>Serial links</li>
+                    <li>Serial buses</li>
+                    <li>Watchdog</li>
+                    <li>etc.</li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h4>Microcontroller memory</h4>
+          <img src="images/microcontrollerBoardMemory.png" height="500">
+        </section>
+        <section>
+          <h4>Bootloader</h4>
+          <ul>
+            <li>Allows easy software update</li>
+            <li>Waits for binary data, usually provided on a serial link</li>
+            <li>Is active only under specific conditions (pins set to some levels)</li>
+          </ul>
+          <p class="pbcenter">Note: depending on the µC, a software update may also be performed <em>Over the Air</em> (OTA)</p>
+        </section>
+        <section id="boardArchitecture">
+          <h4>Board architecture</h4>
+          <img src="images/deviceArchitecture.png">
+        </section>
+        <section>
+          <div class="row">
+            <div class="column">
+              <img src="images/deviceArchitecture.png">
+            </div>
+            <div class="column">
+              <div class="r-stack">
+                <div class="fragment fade-in-then-out">
+                  <ul>
+                    <li>Microcontroller
+                      <ul>
+                        <li>CPU + memory</li>
+                        <li>Some peripherals (e.g. timers, watchdog, etc.)</li>
+                        <li>Interfaces (serial links, serial buses, GPIO, etc.)</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="fragment fade-in-then-out">
+                  <ul>
+                    <li>Communication
+                      <ul>
+                        <li>Optional</li>
+                        <li>May be hosted by the microcontroller (Wi-Fi, Bluetooth, LoRa, etc.)
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="fragment fade-in-then-out">
+                  <ul>
+                    <li>Optionally:
+                      <ul>
+                        <li>Additional interfaces</li>
+                        <li>Peripherals (sensors, etc.)</li>
+                        <li>Positioning</li>
+                        <li>User interface</li>
+                        <li>Power supply management</li>
+                        <li>Data storage</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="fragment fade-in_then-out">
+                  <ul>
+                    <li>Not depicted: optional, additional memory, outside of the microcontroller
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section id="importantCharacteristics">
+          <h4>Important board/microcontroller characteristics?</h4>
+          <ul>
+            <li>Depend on the application!</li>
+            <li>Example:
+              <ul>
+                <li>General Purpose Input/Output (GPIO)</li>
+                <li>Serial links</li>
+                <li>Serial buses (SPI, I2C, etc.)</li>
+                <li>Analog to Digital Converters (ADC), Digital to Analog Converters (DAC)</li>
+                <li>Analog blocks</li>
+                <li>Instruction cycle time</li>
+                <li>Memory (size, type, expandable...)</li>
+                <li>Registers size (8/16/32 bits)</li>
+                <li>Packaging</li>
+                <li>etc.</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h4>Other important characteristics: hardware tools</h4>
+          <ul>
+            <li>Development board</li>
+            <li>Programmer, debugger</li>
+            <li>Open source hardware</li>
+          </ul>
+        </section>
+        <section>
+          <h4>Other important characteristics: software tools</h4>
+          <ul>
+            <li>Cross-compilation toolchain</li>
+            <li>Integrated Development Environment (IDE)</li>
+            <li>Open source software</li>
+          </ul>
+        </section>
+        <section>
+          <h4>Other important characteristics: support</h4>
+          <ul>
+            <li>Professional support</li>
+            <li>Active community (forums, examples...)</li>
+          </ul>
+        </section>
+        <section id="someUcFamilies">
+          <h4>Some common microcontroller families</h4>
+          <ul>
+            <li>Microcontrollers with Arm cores</li>
+            <li>ESP8266/ESP32</li>
+            <li>PSoC</li>
+            <li>RISC-V</li>
+            <li>PIC</li>
+            <li>AVR</li>
+            <li>MIPS32</li>
+            <li>etc.</li>
+          </ul>
+        </section>
+        <section>
+          <h4>Arm</h4>
+          <ul>
+            <li>UK company created in 1990</li>
+            <li>there isn't any Arm microcontroller</li>
+            <li>Arm provides Intellectual Property (IP) blocks, under a licensing agreement</li>
+            <li>among these blocks: RISC microcontrollers cores</li>
+            <li>for the IoT (low power, low cost): Cortex-M family</li>
+          </ul>
+          <p class="pbsmaller">RISC: Reduced Instruction Set Computer</p>
+        </section>
+        <section>
+          <h4>Shipped processors</h4>
+          <ul>
+            <li>end 2020: 180 billions</li>
+            <li>including 6.7 billions in Q4 2020</li>
+            <li>including 4.4 billions of Cortex-M in Q4 2020</li>
+          </ul>
+          <div class="pbverysmall">Source: <a
+                                             href="https://www.arm.com/company/news/2021/02/arm-ecosystem-ships-record-6-billion-arm-based-chips-in-a-single-quarter"
+                                             title="Arm" target="_blank">Arm</a>
+          </div>
+          <ul>
+            <li>Sep-2022: more than 250 billions</li>
+          </ul>
+          <div class="pbverysmall">Source: <a
+                                             href="https://www.arm.com/company/news/2023/02/arm-announces-q3-fy22-results"
+                                             title="Arm" target="_blank">Arm</a>
+          </div>
+          <p>Arm processor architecture is more popular than any other architecture.</p>
+        </section>
+        <section>
+          <p class="pbcenter">Some Cortex-M licensees:</p>
+          <ul>
+            <li><a href="https://www.infineon.com/cms/en/product/microcontroller/"
+                   target="_blank">Infineon</a></li>
+            <li><a href="https://www.microchip.com/en-us/products/microcontrollers-and-microprocessors/32-bit-mcus/pic32-32-bit-mcus/pic32cm-mc"
+                   target="_blank">Microchip</a></li>
+            <li><a href="https://www.nordicsemi.com/Products/Low-power-short-range-wireless"
+                   target="_blank">Nordic Semiconductor</a></li>
+            <li><a href="https://www.nxp.com/products/processors-and-microcontrollers/arm-microcontrollers:ARM-MICROCONTROLLERS"
+                   target="_blank">NXP Semiconductors</a></li>
+            <li><a href="https://www.renesas.com/eu/en/products/microcontrollers-microprocessors/ra-cortex-m-mcus"
+                   target="_blank">Renesas</a></li>
+            <li><a href="https://www.silabs.com/"
+                   target="_blank">Silicon Labs</a></li>
+            <li><a href="https://www.st.com/en/microcontrollers-microprocessors/stm32-32-bit-arm-cortex-mcus.html"
+                   target="_blank">STMicroelectronics</a></li>
+            <li><a href="https://www.ti.com/microcontrollers-mcus-processors/microcontrollers/arm-based-microcontrollers/overview.html"
+                   target="_blank">Texas Instruments</a></li>
+            <li>etc.</li>
+          </ul>
+        </section>
+        <section>
+          <h4>Arm cores</h4>
+          <div class="r-stack">
+            <div class="fragment fade-in-then-out">
+              <img src="images/armProcessorFamily.png" height="500">
+            </div>
+            <div class="fragment fade-in-then-out">
+              <img src="images/armProcessorFamilyCortexM.png" height="500">
+            </div>
+          </div>
+          <div class="pbverysmall">
+            Diagram a little bit old (2017) - new models are available
+          </div>
+          <div class="pbverysmall">Source: <a
+                                             href="https://community.arm.com/cn/b/blog/posts/2017-cortex-m-whitepaper-english"
+                                             title="Cortex-M for Beginners" target="_blank">Cortex-M for Beginners</a></div>
+        </section>
+        <section>
+          <h4>Instruction sets</h4>
+          <img src="images/armProcessorFamilyCortexMInstructions.png" height="500">
+          <div class="pbverysmall">Source: <a
+                                             href="https://community.arm.com/cn/b/blog/posts/2017-cortex-m-whitepaper-english"
+                                             title="Cortex-M for Beginners" target="_blank">Cortex-M for Beginners</a></div>
+        </section>
+        <section>
+          <h4>Provided elements</h4>
+          <img src="images/armCortexMArchitecture.png" height="500">
+          <div class="pbverysmall">Source: <a
+                                             href="https://community.arm.com/cn/b/blog/posts/2017-cortex-m-whitepaper-english"
+                                             title="Cortex-M for Beginners" target="_blank">Cortex-M for Beginners</a></div>
+        </section>
+        <section>
+          <h4>Example: STMicroelectronics - STM32 family</h4>
+        </section>
+        <section>
+          <img src="images/STM32Series.png" height="600">
+          <div class="pbverysmall">Source: <a
+                                             href="https://www.st.com/en/microcontrollers-microprocessors/stm32-32-bit-arm-cortex-mcus.html"
+                                             title="STMicroelectronics" target="_blank">STMicroelectronics</a></div>
+        </section>
+        <section>
+          <h4>STM32L073RZ</h4>
+        </section>
+        <section>
+          <img src="images/stm32l073xz_192k-medium.jpg">
+          <div class="pbverysmall">Source: <a
+                                             href="https://www.st.com/en/microcontrollers-microprocessors/stm32l073rz.html"
+                                             title="STMicroelectronics" target="_blank">STMicroelectronics</a></div>
+        </section>
+        <section>
+          <img src="images/stm32l073rz.png" height="600">
+          <div class="pbverysmall">Source: <a
+                                             href="https://www.st.com/en/microcontrollers-microprocessors/stm32l073rz.html#documentation"
+                                             title="STMicroelectronics" target="_blank">STMicroelectronics</a></div>
+        </section>
+        <section>
+          <ul>
+            <li>Price: US$6.95 (unit) - US$2.66 (10,000)</li>
+          </ul>
+        </section>
+        <section>
+          <h5>Development board</h5>
+          <img src="images/nucleo-l073rg.png">
+          <p class="pbcenter">Price: US$13</p>
+          <div class="pbverysmall">Source: <a
+                                             href="https://www.st.com/content/st_com/en/products/evaluation-tools/product-evaluation-tools/mcu-mpu-eval-tools/stm32-mcu-mpu-eval-tools/stm32-nucleo-boards/nucleo-l073rz.html"
+                                             title="STMicroelectronics" target="_blank">STMicroelectronics</a></div>
+        </section>
+        <section>
+          <h4>STM32WL55</h4>
+        </section>
+        <section>
+          <img src="images/stm32wlOverview.jpeg">
+          <div class="pbverysmall">Source: <a
+                                             href="https://www.st.com/content/st_com/en/products/microcontrollers-microprocessors/stm32-32-bit-arm-cortex-mcus/stm32-wireless-mcus/stm32wl-series.html"
+                                             title="STMicroelectronics" target="_blank">STMicroelectronics</a></div>
+        </section>
+        <section>
+          <img src="images/stm32wl55Architecture.png" height="600">
+          <div class="pbverysmall">Source: <a
+                                             href="https://www.st.com/content/st_com/en/products/microcontrollers-microprocessors/stm32-32-bit-arm-cortex-mcus/stm32-wireless-mcus/stm32wl-series.html"
+                                             title="STMicroelectronics" target="_blank">STMicroelectronics</a></div>
+        </section>
+        <section>
+          <ul>
+            <li>price: US$9.25 (unit) - US$4.54 (10,000)</li>
+          </ul>
+        </section>
+        <section>
+          <h5>Development board</h5>
+          <img src="images/nucleowl55jc.jpg" height="400">
+          <p class="pbcenter">US$42</p>
+          <div class="pbverysmall">Source: <a
+                                             href="https://www.st.com/content/st_com/en/products/evaluation-tools/product-evaluation-tools/mcu-mpu-eval-tools/stm32-mcu-mpu-eval-tools/stm32-nucleo-boards/nucleo-wl55jc.html"
+                                             title="STMicroelectronics" target="_blank">STMicroelectronics</a></div>
+        </section>
+        <section>
+          <h4>Example: Cypress PSoC 4200 family</h4>
+          <div class="row">
+            <div class="column">
+              <img src="images/PSoC_4200_Block_Diagram_rev5.png">
+            </div>
+            <div class="column">
+              <div class="r-stack">
+                <div class="fragment fade-in-then-out">
+                  <p class="pbsmaller">Microcontroller block:</p>
+                  <ul class="pbsmaller">
+                    <li>Cortex-M0 core</li>
+                    <li>Clock: up to 48 MHz</li>
+                    <li>Memory: up to 256 KB Flash, 32 KB RAM</li>
+                    <li>USB, CAN</li>
+                </div>
+                <div class="fragment fade-in-then-out">
+                  <p class="pbsmaller">Analog blocks:</p>
+                  <ul class="pbsmaller">
+                    <li>Up to 4 op amp</li>
+                    <li>A/D converter, up to 1 mega samples/s on 12 bits</li>
+                    <li>Up to 6 comparators</li>
+                    <li>Up to 4 D/A converters</li>
+                    <li>Capacitive sensing</li>
+                  </ul>
+                </div>
+                <div class="fragment fade-in_then-out">
+                  <p class="pbsmaller">Digital blocks:</p>
+                  <ul class="pbsmaller">
+                    <li>Up to 8 universal digital blocks</li>
+                    <li>Up to 8 timers/counters/PWM blocks</li>
+                    <li>Up to 4 serial communication blocks (UART, I2C, SPI)</li>
+                    <li>Segment LCD drive</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="pbverysmall">Source: <a
+                                             href="https://www.cypress.com/products/32-bit-arm-cortex-m0-psoc-4200-programmable-digital-blocks"
+                                             title="Infineon" target="_blank">Infineon</a></div>
+        </section>
+        <section>
+          <h5>Development board</h5>
+          <img src="images/CY8CKit-146.png">
+          <p class="pbcenter">Price: US$19.94</p>
+          <div class="pbverysmall">Source: <a
+                                             href="https://www.cypress.com/documentation/development-kitsboards/psoc-4-cy8ckit-146-4xxx-prototyping-kits"
+                                             title="Infineon" target="_blank">Infineon</a></div>
+        </section>
+        <section>
+          <h4>Espressif - ESP family</h4>
+          <img src="images/Espressif_Standard_Logo_CN_Horizontal.png" width="160"">
+                                                                                  </section>
+        <section>
+          <h4>Espressif family</h4>
+          <ul>
+            <li>ESP32-S Series</li>
+            <li>ESP32-C Series</li>
+            <li>ESP32-H Series</li>
+            <li>ESP32 Series</li>
+            <li>ESP8266 Series</li>
+            <li>Announced: ESP32-P Series</li>
+          </ul>
+          <div class="pbverysmall">Source: <a
+                                             href="https://www.espressif.com/en/products/socs"
+                                             title="Espressif" target="_blank">Espressif</a>
+          </div>
+        </section>
+        <section>
+          <h4>Main characteristics (depend on series)</h4>
+          <ul>
+            <li>Single-core or dual-core (Tensilica Xtensa LX7 / Tensilica L106 / RISC-V)</li>
+            <li>Wi-Fi 2.4 GHz / Wi-Fi 6 / Bluetooth / Bluetooth Low Energy / IEEE 802.15.4 (Thread / Zigbee)</li>
+            <li>Many peripherals</li>
+            <li>Vector instructions &rArr; neural network and digital signal processing</li>
+            <li>Security</li>
+            <li>Low power</li>
+            <li>Software Development Kits (IoT, AI, audio, etc.)</li>
+            <li>Low cost</li>
+          </ul>
+        </section>
+        <section>
+          <p>Price:</p>
+          <ul>
+            <li>ESP32-C3FH4 - 4MB Flash - Wi-Fi + Bluetooth LE: US$1.30</li>
+          </ul>
+        </section>
+        <section>
+          <h5>Development boards</h5>
+          <div class="row">
+            <div class="column">
+              <img src="images/ESP32-C3-DevKitC-02.png">
+              <p class="pbcentersmaller2">ESP32-C3-DevKitC-02 - US$8.00</p>
+            </div>
+            <div class="column">
+              <img src="images/ESP-EYE.png">
+              <p class="pbcentersmaller2">ESP32-EYE - US$19.90</p>
+            </div>
+          </div>
+          <div class="pbverysmall">Source: <a href="https://www.espressif.com/en/products/devkits"
+                                              title="Espressif" target="_blank">Espressif</a></div>
+        </section>
+
+        <!-- -------------------- Software development - part 1 ---------------------------------------- -->
+        <section id="softwareDevelopment1">
+          <h3>Software development - part 1</h3>
+        </section>
+        <section id="crossDevelopment">
+          <h4>Cross development</h4>
+          <img src="images/crossDevEsp32.png">
+          <div class="pbverysmall">Icons made by <a href="https://www.flaticon.com/authors/freepik"
+                                                    title="Freepik" target="_blank">Freepik</a> from <a href="https://www.flaticon.com/"
+                                                                                                        title="Flaticon" target="_blank">www.flaticon.com</a></div>
+        </section>
+        <section>
+          <p>With the computer:</p>
+          <ul>
+            <li>Edit source-code</li>
+            <li>Cross build (cross compile and link)</li>
+            <li>Emulate and debug</li>
+          </ul>
+        </section>
+        <section>
+          <p>With the computer and the microcontroller board:</p>
+          <ul>
+            <li>Program the Flash memory</li>
+            <li>Debug</li>
+          </ul>
+        </section>
+        <section>
+          <ul>
+            <li>Every microcontroller manufacturer: full development environnement</li>
+            <li>Often free</li>
+            <li>Often based on Open Source software (Eclipse, gcc, etc.)</li>
+          </ul>
+        </section>
+
+        <!-- -------------------- Practice: ESP32 and ESP-EYE ---------------------------------------- -->
+        
+        <section id="practiceEsp32EspEye">
+          <h3>Practice: Hello World for the ESP-EYE</h3>
+        </section>
+        <section>
+          <h4>ESP32</h4>
+          <img src="images/esp32FuncDiagram.png" height="500">
+          <div class="pbverysmall">Source: <a href="https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf"
+                                              title="ESP32 datasheet" target="_blank">ESP32 Series Datasheet</a></div>
+        </section>
+        <section>
+          <h4>Main characteristics</h4>
+          <ul>
+            <li>Wi-Fi</li>
+            <li>Bluetooth</li>
+            <li>Xtensa dual core LX6</li>
+            <li>448 KB ROM</li>
+            <li>520 KB SRAM</li>
+            <li>16 KB SRAM in RTC</li>
+            <li>Interface for external Flash and SRAM chips</li>
+            <li>Timers, GPIOs, ADC, DAC, SPI, I2S, I2C, UART, Ethernet, etc.</li>
+          </ul>
+        </section>
+        <section>
+          <h4>ESP-EYE</h4>
+          <img src="images/esp-eye_callout.png" height="500">
+          <div class="pbverysmall">Source: <a href="https://github.com/espressif/esp-who/blob/master/docs/en/get-started/ESP-EYE_Getting_Started_Guide.md"
+                                              title="ESP-EYE guide" target="_blank">ESP-EYE Getting Started Guide</a></div>
+        </section>
+        <section>
+          <h4>Documentation</h4>
+          <ul>
+            <li><a href="https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf"
+                   target="_blank">ESP32 Datasheet</a></li>
+            <li><a href="https://www.espressif.com/sites/default/files/documentation/esp32_technical_reference_manual_en.pdf"
+                   target="_blank">ESP32 Technical Reference Manual</a></li>
+            <li><a href="https://github.com/espressif/esp-who/blob/master/docs/en/get-started/ESP-EYE_Getting_Started_Guide.md"
+                   target="_blank">ESP-EYE Getting Started Guide</a></li>
+            <li><a href="https://www.espressif.com/sites/default/files/documentation/ESP-EYE_V2.1_Reference_Design_0.zip"
+                   target="_blank">ESP-EYE Schematic and Manufacturing Files</a></li>
+          </ul>
+        </section>
+
+        <section>
+          <h4>ESP32 development environment</h4>
+          <div class="r-stack">
+            <div class="fragment fade-out" data-fragment-index="0">
+              <img src="images/esp32DevEnvironmentWithoutCallouts.png">
+            </div>
+            <div class="fragment fade-in-then-out" data-fragment-index="0">
+              <img src="images/esp32DevEnvironmentCallouts1.png">
+            </div>
+            <div class="fragment fade-in-then-out">
+              <img src="images/esp32DevEnvironmentCallouts2.png">
+            </div>
+            <div class="fragment fade-in-then-out">
+              <img src="images/esp32DevEnvironmentCallouts3.png">
+            </div>
+            <div class="fragment fade-in-then-out">
+              <img src="images/esp32DevEnvironment.png">
+            </div>
+          </div>
+        </section>
+        <section>
+          <p>If you completed the prerequisites, you should have a local copy of <em>IMT-Atlantique-2024</em> repository,
+            and Eclipse with IDF plugin installed.</p>
+          <p>If not, clone the repository, and complete the prerequisites.</p>
+          <p>Then:</p>
+          <ul>
+            <li>Check that connecting the ESP32-EYE creates a serial port</li>
+            <li>Create the <em>Hello World</em> project</li>
+            <li>Build it</li>
+            <li>Flash the ESP32-EYE</li>
+            <li>Check the log messages</li>
+          </ul>
+        </section>
+
+        <!-- -------------------- Peripherals ---------------------------------------- -->
+
+        <section id="peripherals">
+          <h3>Peripherals</h3>
+        </section>
+        <section>
+          <h4>Sensors</h4>
+          <ul>
+            <li>Pressure</li>
+            <li>Temperature</li>
+            <li>Light level</li>
+            <li>Magnetic field</li>
+            <li>Gas flow</li>
+            <li>Tilt</li>
+            <li>Acceleration</li>
+            <li>Contact</li>
+            <li>etc.</li>
+          </ul>
+        </section>
+        <section>
+          <h4>Actuators</h4>
+          <ul>
+            <li>Relay</li>
+            <li>Motor</li>
+            <li>Stepper motor</li>
+            <li>Servomotor</li>
+            <li>etc.</li>
+          </ul>
+        </section>
+        <section>
+          <h4>Other peripherals</h4>
+          <ul>
+            <li>Printer</li>
+            <li>Display</li>
+            <li>OBD connector (On-Board Diagnostics)</li>
+            <li>RFID tag reader</li>
+            <li>etc. etc. etc.</li>
+          </ul>
+        </section>
+        
+        <!-- -------------------- Interfaces ---------------------------------------- -->
+
+        <section id="Interfaces">
+          <h3>Interfaces</h3>
+        </section>
+        <section>
+          <h4>GPIO (General Purpose digital Input Output)</h4>
+          <img src="images/gpio_high_low.png">
+          <div class="pbverysmall">Source: <a
+                                             href="https://oldwiki.archive.openwrt.org/doc/hardware/port.gpio" title="OpenWrt"
+                                             target="_blank">OpenWrt</a></div>
+        </section>
+        <section>
+          <p class="pbcenter">It may be required to add:</p>
+          <ul>
+            <li>Optocoupler</li>
+            <li>Relay</li>
+            <li>etc.</li>
+          </ul>
+        </section>
+        <section>
+          <h4>Analog/digital conversion (ADC)</h4>
+          <img src="images/adc.png">
+        </section>
+        <section>
+          <ul>
+            <li>Converting a continuous value into a discrete value</li>
+            <li>Resolution: number of possible discrete values, or number of required bits</li>
+            <li>Sampling frequency: number of conversions per second</li>
+          </ul>
+        </section>
+        <section>
+          <ul>
+            <li>It may be required to amplify the analog signal</li>
+            <li>Some microcontrollers include operational amplifiers (PIC16F527, PSoC 4, etc.)</li>
+          </ul>
+        </section>
+        <section>
+          <h4>Digital/analog conversion (DAC)</h4>
+          <img src="images/dac.png">
+        </section>
+        <section>
+          <h4>Serial connection</h4>
+          <ul>
+            <li>At least 3 wires: <b>Transmit</b>, <b>Receive</b>, <b>Ground</b></li>
+            <li>Additional wires possible: <b>Request to send</b>, <b>Ready for sending</b>, etc.</li>
+            <li>Wires definition: <b>V.24</b> (<b>RS232</b> in the USA)</li>
+          </ul>
+        </section>
+        <section>
+          <p>Electrical levels:</p>
+          <ul>
+            <li>V.28 and RS232 : -15 V to -3 V and +3 V to +15 V</li>
+            <li>0 and 5 V</li>
+            <li>0 and 3,3 V</li>
+          </ul>
+        </section>
+        <section>
+          <ul>
+            <li>Distance (V.28 and RS232): < 15 m</li>
+                                             <li>Maximum speed: 20 kb/s (according to V.28)</li>
+            <li>On short distances: 115 kb/s or more</li>
+          </ul>
+        </section>
+        <section>
+          <p>V.28 and RS232 connectors: DB9 or DB25 D-subminiature connectors</p>
+          <img src="images/db9male-medium.png" width="250">
+          <img src="images/db25male-medium.png" width="300">
+          <div class="pbverysmall">Source: <a
+                                             href="https://eu.mouser.com/Connectors/D-Sub-Connectors/D-Sub-Standard-Connectors/_/N-9gybx"
+                                             title="Mouser" target="_blank">Mouser</a></div>
+        </section>
+        <section>
+          <p>For today's computers, serial-USB adapters</p>
+          <img src="images/ftdi-TTL-232R1.png">
+          <div class="pbverysmall">Source: <a href="https://www.ftdichip.com/Products/Cables/USBTTLSerial.htm"
+                                              title="FTDI" target="_blank">FTDI</a></div>
+        </section>
+        <section>
+          <img src="images/uart-db9.png">
+          <p>UART: Universal Asynchronous Receiver Transmitter</p>
+          <div class="pbverysmall">Source: <a
+                                             href="https://eu.mouser.com/Connectors/D-Sub-Connectors/D-Sub-Standard-Connectors/_/N-9gybx"
+                                             title="Mouser" target="_blank">Mouser</a></div>
+        </section>
+        <section>
+          <p>Data transfer:</p>
+          <img src="images/serialCommFormat.png">
+        </section>
+        <section>
+          <p class="pbcenter">Important:</p>
+          <ul>
+            <li>Each side must be configured in the same way (speed, parity, etc.)</li>
+          </ul>
+        </section>
+        <section>
+          <h4>SPI (Serial Peripheral Interface)</h4>
+          <img src="images/spi.png">
+          <div class="pbverysmall">Source: <a
+                                             href="https://learn.sparkfun.com/tutorials/serial-peripheral-interface-spi" title="sparkfun"
+                                             target="_blank">sparkfun</a></div>
+        </section>
+        <section>
+          <ul>
+            <li>Synchronous communications: clock and data</li>
+            <li>Master/slave (or Main/Subnode)</li>
+            <li>4 wires:
+              <ul>
+                <li>Clock</li>
+                <li>Data, from master to slave</li>
+                <li>Data, from slave to master</li>
+                <li>Slave selection</li>
+              </ul>
+            </li>
+            <li>Full duplex</li>
+          </ul>
+        </section>
+        <section>
+          <img src="images/spiSlaves.png">
+          <div class="pbverysmall">Source: <a
+                                             href="https://learn.sparkfun.com/tutorials/serial-peripheral-interface-spi" title="sparkfun"
+                                             target="_blank">sparkfun</a></div>
+        </section>
+        <section>
+          <ul>
+            <li>Master side: one selection wire per slave</li>
+            <li>A decoder can be used, or slaves can be chained</li>
+          </ul>
+        </section>
+        <section>
+          <ul>
+            <li>Maximum speed: a few Mb/s</li>
+            <li>Maximum distance: a few tens of cm </li>
+          </ul>
+        </section>
+        <section>
+          <h4>I2C (Inter-Integrated Circuit)</h4>
+          <img src="images/i2c.png">
+          <div class="pbverysmall">Source: <a href="https://learn.sparkfun.com/tutorials/i2c" title="sparkfun"
+                                              target="_blank">sparkfun</a></div>
+        </section>
+        <section>
+          <ul>
+            <li>Synchronous communications: clock and data</li>
+            <li>Multi-master</li>
+            <li>2 wires:
+              <ul>
+                <li>Clock</li>
+                <li>Data</li>
+              </ul>
+            </li>
+            <li>Half duplex</li>
+          </ul>
+        </section>
+        <section>
+          <ul>
+            <li>A master can determine whether the bus is idle or not &rArr; arbitration</li>
+          </ul>
+        </section>
+        <section>
+          <p>Write operation:</p>
+          <img src="images/i2cWrite.png">
+          <div class="pbverysmall">Source: <a
+                                             href="https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf"
+                                             title="Bosch Sensortec" target="_blank">Bosch Sensortec</a></div>
+        </section>
+        <section>
+          <p>Read operation:</p>
+          <img src="images/i2cRead.png">
+          <div class="pbverysmall">Source: <a
+                                             href="https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf"
+                                             title="Bosch Sensortec" target="_blank">Bosch Sensortec</a></div>
+        </section>
+        <section>
+          <ul>
+            <li>Maximum speed: a few Mb/s</li>
+            <li>Maximum length: a few tens of cm </li>
+          </ul>
+        </section>
+        <section>
+          <h4>CAN (Controller Area Network)</h4>
+          <img src="images/canBus.png">
+          <div class="pbverysmall">Source: <a
+                                             href="https://www.embien.com/blog/working-automotive-can-protocol/" title="embien"
+                                             target="_blank">embien</a></div>
+        </section>
+        <section>
+          <ul>
+            <li>Designed for vehicles</li>
+            <li>Multi-master</li>
+            <li>Bus access: CSMA/CD+AMP (Carrier Sense Multiple Access / Collision Detection with
+              Arbitration on Message Priority)</li>
+            <li>Maximum speed: 1 Mb/s</li>
+            <li>Maximum distance: a few hundreds of m (for low speed)</li>
+          </ul>
+        </section>
+        
+        <!-- -------------------- Software development - part 2 ---------------------------------------- -->
+        
+        <section id=softwareDevelopment2>
+          <h3>Software development - part 2</h3>
+        </section>
+        
+        <!-- -------------------- Practice: GPIO and button ---------------------------------------- -->
+
+        <section id="practiceButton">
+          <h3>Practice: GPIO and button</h3>
+        </section>
+        <section>
+          <h4>Schematic</h4>
+          <div class="r-stack">
+            <img src="images/buttonSchematic.png" height="500" class="fragment fade-out" data-fragment-index="0">
+            <img src="images/buttonSchematicCallout.png" height="500" class="fragment" data-fragment-index="0">
+          </div>
+          <div class="pbverysmall">Source: <a href="https://www.espressif.com/sites/default/files/documentation/ESP-EYE_V2.1_Reference_Design_0.zip" 
+                                              title="Schematic" target="_blank">ESP-EYE Schematic and Manufacturing Files</a></div>
+        </section>
+        <section>
+          <h4>Datasheet</h4>
+          <div class="r-stack">
+            <img src="images/pinOverview.png" height="500" class="fragment fade-out" data-fragment-index="0">
+            <img src="images/pinOverviewCallout.png" height="500" class="fragment" data-fragment-index="0">
+          </div>
+          <div class="pbverysmall">Source: <a href="https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf" 
+                                              title="ESP32 Datasheet" target="_blank">ESP32 Datasheet</a></div>
+        </section>
+        <section>
+          <h5>3.8.1 General Purpose Input / Output Interface (GPIO)</h5>
+          <div class="r-stack">
+            <div class="fragment pbsmaller fade-out" data-fragment-index="0">
+              <p>
+                ESP32 has 34 GPIO pins which can be assigned various functions by programming the appropriate registers.
+                There are several kinds of GPIOs: digital-only, analog-enabled, capacitive-touch-enabled, etc. Analog-enabled
+                GPIOs and Capacitive-touch-enabled GPIOs can be configured as digital GPIOs.
+              </p>
+              <p>
+                Most of the digital GPIOs can be configured as internal pull-up or pull-down, or set to high impedance. When
+                configured as an input, the input value can be read through the register. The input can also be set to edge-trigger
+                or level-trigger to generate CPU interrupts. Most of the digital IO pins are bi-directional, non-inverting and tristate,
+                including input and output buffers with tristate control. These pins can be multiplexed with other functions, such
+                as the SDIO, UART, SPI, etc. (More details can be found in the Appendix, Table IO_MUX.) For low-power
+                operations, the GPIOs can be set to hold their states.
+              </p>
+              <p>
+                For details, see ESP32 Technical Reference Manual > Chapter IO_MUX and GPIO Matrix.
+              </p>
+            </div>
+            <div class="fragment pbsmaller" data-fragment-index="0">
+              <p>
+                ESP32 has 34 GPIO pins which can be assigned various functions by programming the appropriate registers.
+                There are several kinds of GPIOs: digital-only, analog-enabled, capacitive-touch-enabled, etc. Analog-enabled
+                GPIOs and Capacitive-touch-enabled GPIOs can be configured as digital GPIOs.
+              </p>
+              <p>
+                Most of the digital GPIOs can be configured as internal <mark>pull-up or pull-down</mark>, or set to high impedance. When
+                configured as an input, the input value can be read through the register. <mark>The input can also be set to edge-trigger
+                  or level-trigger to generate CPU interrupts</mark>. Most of the digital IO pins are bi-directional, non-inverting and tristate,
+                including input and output buffers with tristate control. These pins can be multiplexed with other functions, such
+                as the SDIO, UART, SPI, etc. (More details can be found in the Appendix, Table IO_MUX.) For low-power
+                operations, the GPIOs can be set to hold their states.
+              </p>
+              <p>
+                For details, see ESP32 Technical Reference Manual > Chapter IO_MUX and GPIO Matrix.
+              </p>
+            </div>
+          </div>
+          <div class="pbverysmall">Source: <a href="https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf" 
+                                              title="ESP32 Datasheet" target="_blank">ESP32 Datasheet</a></div>            
+        </section>
+        <section>
+          <h4>Reference Manual</h4>
+          <img src="images/gpioMatrixOverview.png" height="500">
+          <div class="pbverysmall">Source: <a href="https://www.espressif.com/sites/default/files/documentation/esp32_technical_reference_manual_en.pdf" 
+                                              title="ESP32 Reference Manual" target="_blank">ESP32 Technical Reference Manual</a></div> 
+        </section>
+        <section>
+          <img src="images/gpioMatrix.png" height="500">
+          <div class="pbverysmall">Source: <a href="https://www.espressif.com/sites/default/files/documentation/esp32_technical_reference_manual_en.pdf" 
+                                              title="ESP32 Reference Manual" target="_blank">ESP32 Technical Reference Manual</a></div> 
+        </section>
+        <section>
+          <h5>4.2.2 Functional Description</h5>
+          <div class="pbsmaller">
+            <p>
+              To read GPIO pad X into peripheral signal Y, follow the steps below:
+            </p>
+            <ol>
+              <li>Configure the GPIO_FUNCy_IN_SEL_CFG register corresponding to peripheral signal Y in the GPIO Matrix:
+                <ul>
+                  <li>Set GPIO_SIGy_IN_SEL to enable peripheral signal input via GPIO matrix.</li>
+                  <li>Set the GPIO_FUNCy_IN_SEL field in this register, corresponding to the GPIO pad X to read from.</li>
+                </ul>
+              </li>
+              <li>Configure the GPIO_FUNCx_OUT_SEL_CFG register and clear the GPIO_ENABLE_DATA[x] field corresponding to GPIO pad X in the GPIO Matrix:
+                <ul>
+                  <li>Set the GPIO_FUNCx_OEN_SEL bit in the GPIO_FUNCx_OUT_SEL_CFG register to force the pin’soutput state to be determined always by the GPIO_ENABLE_DATA[x] field.</li>
+                  <li>The GPIO_ENABLE_DATA[x] field is a bit in either GPIO_ENABLE_REG (GPIOs 0-31) or GPIO_ENABLE1_REG (GPIOs 32-39). Clear this bit to disable the output driver for the GPIO pad.</li>
+                </ul>
+              </li>
+              <li>Configure the IO_MUX to select the GPIO Matrix. Set the IO_MUX_x_REG register corresponding to GPIO pad X as follows:
+                <ul>
+                  <li>Set the function field (MCU_SEL) to the IO_MUX function corresponding to GPIO X (this is Function 2—numeric value 2—for all pins).</li>
+                  <li>Enable the input by setting the FUN_IE bit.</li>
+                  <li>Set or clear the FUN_WPU and FUN_WPD bits, as desired, to enable/disable internal pull-up/pull-down
+                    resistors.</li>
+                </ul>
+              </li>
+            </ol>
+          </div>
+          <div class="pbverysmall">Source: <a href="https://www.espressif.com/sites/default/files/documentation/esp32_technical_reference_manual_en.pdf" 
+                                              title="ESP32 Reference Manual" target="_blank">ESP32 Technical Reference Manual</a></div> 
+        </section>
+        <section>
+          <p class="pbcenter">Luckily, ESP-IDF provides an abstraction layer!</p>
+        </section>
+        <section>
+          <img src="images/espidfGpioChinese.png" height="500">
+          <div class="pbverysmall">Source: <a href="https://docs.espressif.com/projects/esp-idf/zh_CN/v5.0.4/esp32/api-reference/peripherals/gpio.html" 
+                                              title="ESP-IDF API Reference" target="_blank">ESP-IDF API Reference</a></div>
+        </section>
+        <section>
+          <img src="images/espidfGpio.png" height="500">
+          <div class="pbverysmall">Source: <a href="https://docs.espressif.com/projects/esp-idf/en/v5.0.4/esp32/api-reference/peripherals/gpio.html" 
+                                              title="ESP-IDF API Reference" target="_blank">ESP-IDF API Reference</a></div>
+        </section>
+        <section>
+          <img src="images/espidfGpioFunctions.png" height="500">
+          <div class="pbverysmall">Source: <a href="https://docs.espressif.com/projects/esp-idf/en/v5.0.4/esp32/api-reference/peripherals/gpio.html" 
+                                              title="ESP-IDF API Reference" target="_blank">ESP-IDF API Reference</a></div>
+        </section>
+        <section>
+          <h4>And there are examples</h4>
+          <img src="images/gpioExample.png" height="500">
+          <div class="pbverysmall">Source: <a href="https://github.com/espressif/esp-idf/tree/v5.0.4/examples/peripherals/gpio/generic_gpio" 
+                                              title="GPIO example" target="_blank">GPIO Example</a></div>
+        </section>
+        <section>
+          <h4>Last information: pullup/pulldown resistor</h4>
+          <div class="row">
+            <div class="column pbsmaller">
+              <p>The schematic shows that pushing the button connects IO15 to GND.</p>
+              <p>What's the voltage of IO15 when the button is not pushed?</p>
+              <p>Not defined &rArr; any value, depending on the environment.</p>
+              <p>Right value would be: 3.3 V</p>
+              <p>This is the role of a <em>pullup resistor</em>.</p>
+              <p>When the button is pushed, IO15 voltage is set to 0 V (some current goes through the pullup resistor).
+            </div>
+            <div class="column">
+              <div class="r-stack">
+                <img src="images/gpioNoPullupResistor.png" height="500" class="fragment fade-out" data-fragment-index="0">
+                <img src="images/gpioPullupResistor.png" height="500" class="fragment" data-fragment-index="0">
+              </div>
+            </div>
+          </div>
+        </section>
+        <section>
+          <p>No need to add resistors on the board:</p>
+          <p>Pullup and pulldown resistors are available in the GPIO block, their connection is configurable.</p>
+        </section>
+        <section>
+          <h4>Now, it's up to you!</h4>
+          <ul>
+            <li>Import the <code>01-sideButtonPolling</code> project from the <code>exercises</code> directory</li>
+            <li>Build it (to remove displayed errors)</li>
+            <li>Understand (all) the code / ask for what you don't understand</li>
+            <li>Perform the three <code>TODO</code> tasks</li>
+          </ul>
+        </section>
+        <section>
+          <p>Note:</p>
+          <ul>
+            <li>If nothing specific is done, closing or opening a switch generates bounces</li>
+            <li>Bounces have to be filtered:
+              <ul>
+                <li>At hardware level</li>
+                <li>Or at software level</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section id="practiceLed">
+          <h3>Practice: GPIO and LED</h3>
+        </section>
+        <section>
+          <ul>
+            <li>Import the <code>02-ledHandling</code> project</li>
+            <li>Add what is required to make the red LED blink 500 ms off / 500 ms on</li>
+            <li>Hint: see next page</li>
+          </ul>
+        </section>
+        <section>
+          <h4>DMN63D8LDW</h4>
+          <img src="images/DMN63D8LDW.png" height="200">
+          <ul>
+            <li>Dual MOSFET</li>
+            <li>Can be seen as a dual switch:</li>
+          </ul>
+          <br>
+          <img src="images/mosfetSwitch.png" height="200">
+          <div class="pbverysmall">Source: <a href="https://www.diodes.com/assets/Datasheets/DMN63D8LDW.pdf" 
+                                              title="DIODES" target="_blank">DIODES</a></div>
+        </section>
+        
+        <!-- -------------------- Floating point ---------------------------------------- -->
+
+        <section id="floatingPoint">
+          <h3>Floating-point arithmetic</h3>
+        </section>
+        <section>
+          <h4>Integer ranges</h4>
+          <ul>
+            <li>With <code>n</code> bits:
+              <ul>
+                <li>Signed integer: <code>[-2<sup>n-1</sup>, 2<sup>n-1</sup> - 1]</code></li>
+                <li>Unsigned integer: <code>[0, 2<sup>n</sup> - 1]</code></li>
+            </ul></li>
+          </ul>
+        </section>
+        <section>
+          <h4>Integer ranges</h4>
+          <ul>
+            <li>8 bits:
+              <ul>
+                <li><code>[-128, 127]</code></li>
+                <li><code>[0, 255]</code></li>
+              </ul>
+            </li>
+            <li>32 bits:
+              <ul>
+                <li><code>[-2,147,483,648, 2,147,483,647]</code></li>
+                <li><code>[0, 4,294,967,296]</code></li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h4>Problem</h4>
+          <ul>
+            <li>How to encode:
+              <ul>
+                <li>Very large numbers?</li>
+                <li>Rational numbers (<code>2/3</code>...)?</li>
+                <li>Irrational numbers (<code><math><msqrt><mi>2</mi></msqrt></math></code>...)?</li>
+                <li>Transcendental numbers (<code>e</code>...)?</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h4>When are those types of numbers needed?</h4>
+          <ul>
+            <li>Many algorithms: optimization, calculating distances, surfaces and volumes, etc.</li>
+            <li>Many machine learning algorithms</li>
+            <li>Simple example: calculate a long distance over the surface of the Earth</li>
+          </ul>
+        </section>
+        <section>
+          <h4>A solution: floating-point representation</h4>
+          <ul>
+            <li><code>sign x significand x base<sup>exponent</sup></code></li>
+            <li>The significand controls accuracy</li>
+            <li>The exponent controls range</li>
+            <li>Base is usually <code>2</code></li>
+          </ul>
+        </section>
+        <section>
+          <h4>A standard: IEEE 754</h4>
+          <ul>
+            <li>Single precision: 23 bit significand, 8 bit exponent</li>
+            <li>Double precision: 52 bit significand, 11 bit exponent</li>
+            <li>...</li>
+          </ul>
+          <div class="pbverysmall">Source: <a href="https://ieeexplore.ieee.org/document/8766229"
+                                              target="_blank">IEEE 754</a></div>
+        </section>
+        <section>
+          <h4>Actual IEEE 754 format</h4>
+          <ul>
+            <li>Sign: one bit</li>
+            <li>Significand: a decimal value greater than or equal to <code>1</code> 
+              and less than <code>2</code>. Leading <code>1</code>
+              is assumed and not encoded &rArr; actually 24 or 53 bits</li>
+            <li>Exponent: biased, so that resulting value is always positive. Bias is
+              <code>127</code> or <code>1024</code></li>
+          </ul>
+        </section>
+        <section>
+          <h4>Some complexity and side effects</h4>
+          <ul>
+            <li>Two zero values: a positive one and a negative one</li>
+            <li>Two infinities</li>
+            <li>NaN (Not a Number)
+              <ul>
+                <li>Quiet NaN (&rArr; indeterminate operation)</li>
+                <li>Signalling NaN (&rArr; invalid operation)</li>
+              </ul>
+            </li>
+            <li>Denormalized numbers</li>
+            <li>Rounding &rArr; a calculation result may be different from the theorical value</li>
+          </ul>
+        </section>
+        <section>
+          <h4>Floating-point arithmetic and microcontrollers</h4>
+          <ul>
+            <li>Low-cost microcontrollers: no instructions for floating-point arithmetic</li>
+            <li>Other microcontrollers: Floating-Point Unit (FPU)</li>
+          </ul>
+        </section>
+        <section>
+          <h4>A software solution when no FPU</h4>
+          <p>Floating-point library:</p>
+          <ul>
+            <li>Implements floating-point arithmetic in software</li>
+            <li>Drawbacks:
+              <ul>
+                <li>Increases the size of the application</li>
+                <li>Increases the number of executed instructions</li>
+                <li>May be distributed under paid license</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h4>Other solutions, depending on the context</h4>
+          <ul>
+            <li>Tensor Flow: post-training integer quantization</li>
+            <li>A short distance over the Earth's surface: integer operations are (almost) enough</li>
+            <li>Etc.</li>
+          </ul>
+        </section>
+        
+        <!-- -------------------- Practice: floating point ---------------------------------------- -->
+        
+        <section id="practiceFloatingPoint">
+          <h3>Practice: floating point</h3>
+        </section>
+        <section>
+          <ul>
+            <li>Import the <code>03-floatingPoint</code> project</li>
+            <li>Understand what the source code does</li>
+            <li>Build, flash, run, check the output</li>
+            <li>Test with some other numbers</li>
+          </ul>
+          <p><a href="https://numeral-systems.com/ieee-754-converter/" target="_blank">An online converter</a></p>
+        </section>
+        
+        <!-- -------------------- Software development - part 3 ---------------------------------------- -->
+        
+        <section id="softwareDevelomment3">
+          <h3>Software development - part 3</h3>
+        </section>
+        
+        <!-- -------------------- How a program starts and runs ---------------------------------------- -->
+        
+        <section id="startRunProgram">
+          <h4>Simplifications</h4>
+          <p>The ESP32 architecture is quite complex (for a microcontroller):</p>
+          <ul>
+            <li>Harvard architecture: data bus and instruction bus</li>
+            <li>Different types of RAM: instruction RAM, data RAM, RTC, etc.</li>
+            <li>Etc.</li>
+          </ul>
+          <p>In what follows, we consider a simpler architecture.</p>
+        </section>
+        <section>
+          <h4>Memory map</h4>
+          <div class="row">
+            <div class="column">
+              <img src="images/microcontrollerBoardMemorySimple.png" height="600">
+            </div>
+            <div class="column">
+              <br>
+              <p>Flash memory from 0x0000_0000 to 0xBFFF_FFFF</p>
+              <p>RAM from 0xC000_0000 to 0xFFFF_FFFF</p>
+              <p>Some address blocks for peripherals, some with no memory, etc.
+            </div>
+          </div>
+        </section>
+        <section>
+          <h4>Storage allocation</h4>
+          <div class="row">
+            <div class="column">
+              <pre><code data-trim data-noescape class="codeblock">
+                  uint32_t val1;
+                  
+                  int function1(void) {
+
+                  uint32_t val2;
+                  uint8_t *mem_block;
+                  
+                  mem_block = malloc(1024);
+                  
+                  ...
+                  
+                  free(mem_block);
+                  
+                  }
+              </code></pre>
+            </div>
+            <div class="column">
+              <br>
+              <p><code>val1</code>: <em>static storage</em></p>
+              <p><code>val2</code>: <em>automatic storage</em></p>
+              <p><code>mem_block</code>: <em>dynamic storage</em></p>
+            </div>
+          </div>
+        </section>
+        <section>
+          <p>Static storage: allocated at program startup and stays allocated</p>
+          <p>Automatic storage: allocated when entering the surrounding block, deallocated upon exit</p>
+          <p>Dynamic storage: allocated/deallocated under the control of the program</p>
+          <p>Note: try not to use dynamic storage in embedded code!</p>
+        </section>
+        <section>
+          <div class="row">
+            <div class="column">
+              <pre><code data-trim data-noescape data-line-numbers class="codeblock">
+                  int function1(int p) {
+                  int temp = p * 10;
+                  return temp;
+                  }
+                  
+                  int function2(int p) {
+                  int temp = function1(p);
+                  return temp + 3;
+                  }
+                  
+                  int res = function2(3);
+                  ...
+              </code></pre>
+            </div>
+            <div class="column">
+              <p class=pbsmaller>At line 7: <code>function2</code> needs automatic storage for 
+                <code>temp</code> and its parameter</p>
+              <p class=pbsmaller>At line 2:  <code>function1</code> needs automatic storage for its own
+                <code>temp</code> and its parameter</p>
+              <p class=pbsmaller>At line 8: when <code>function1</code> has returned, its automatic storage 
+                can be released</p>
+              <p class=pbsmaller>At line 12: when <code>function2</code> has returned, its automatic storage 
+                can be released</p>
+            </div>
+          </div>
+        </section>
+        <section>
+          <p>Automatic storage is allocated from the <em>stack</em> (first in - last out).</p>
+          <p class="fragment">Dynamic storage is allocated from the <em>heap</em>.</p>
+        </section>
+        <section>
+          <img src="images/microcontrollerBoardMemorySimpleStackHeap.png" height="600">
+        </section>
+        <section>
+          <p>What happens if the program requires too much automatic storage?</p>
+          <p class="fragment">The stack overwrites the heap (dynamic storage), and perhaps even statically allocated data.</p>
+        </section>
+        <section>
+          <p>At the end of the build process (compilation + linking): the amount of required static storage is known.</p>
+          <p class="fragment">A default stack size is provided by the development environment. It's up to the developer
+            to check that it is enough.</p>
+          <p class="fragment">Running a program with too small a stack makes developer's life fun &#x1F642;</p>
+        </section>
+        <section>
+          <h4>Controlling stack size, and other things</h4>
+          <p>The stack size can be modified in the <em>linker script</em>.</p>
+          <p class="fragment">Additionally, the linker script tells the linker about the memory map, the heap size, etc.</p>
+          <p class="fragment">&rArr; It allows to generate a binary file which can be written in the flash memory
+            at the right place.</p>
+        </section>
+        <section>
+          <p>Additionally, the linker script adds a small initialization code to the program:</p>
+          <ul>
+            <li>Initializes the stack pointer (pointer to top of stack)</li>
+            <li>Initializes interrupt vectors (see further)</li>
+            <li>Initializes some parts of the microcontroller</li>
+            <li>Calls the <code>main</code> function of the program</li>
+          </ul>
+        </section>
+        <section>
+          <h4>Reset</h4>
+          <p>When the microcontroller exits from reset state:</p>
+          <ul>
+            <li>It runs the initialization code (previous page)</li>
+          </ul>
+        </section>
+        
+        <!-- -------------------- Interrupts ---------------------------------------- -->
+        
+        <section id="interrupts">
+          <h4>Interrupt</h4>
+          <p>When the program runs, several events may occur:</p>
+          <ul>
+            <li>A specific condition from a peripheral</li>
+            <li>A software fault condition (e.g. undefined instruction)</li>
+            <li>A hardware fault condition (e.g. bus error)</li>
+            <li>Etc.</li>
+          </ul>
+          <p class="fragment">In what follows, we only consider events signalled by peripherals.</p>
+        </section>
+        <section>
+          <h4>Some events</h4>
+          <ul>
+            <li>UART:
+              <ul>
+                <li>A byte is received</li>
+                <li>Transmit buffer is empty</li>
+                <li>Parity error on received byte</li>
+                <li>Etc.</li>
+              </ul>
+            </li>
+            <li>ADC:
+              <ul>
+                <li>Conversion done</li>
+                <li>Etc.</li>
+              </ul>
+            </li>
+            <li>Timer:
+              <ul>
+                <li>End of period</li>
+                <li>Etc.</li>
+              </ul>
+            </li>
+            <li>GPIO:
+              <ul>
+                <li>Level transition</li>
+                <li>Etc.</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h4>From event to interrupt</h4>
+          <p>The microcontroller can be configured so that (some) events generate an interrupt.</p>
+        </section>
+        <section>
+          <h4>Effect of an interrupt</h4>
+          <img src="images/interrupt.png" height="600">
+        </section>
+        <section>
+          <p>Context:</p>
+          <ul>
+            <li>Address of next instruction to execute</li>
+            <li>Stack pointer</li>
+            <li>Etc.</li>
+          </ul>
+        </section>
+        <section>
+          <h4>Vocabulary</h4>
+          <p>Code servicing the interrupt: <em>Interrupt Handler, Interrupt Service Routine (ISR)</em>.</p>
+          <p>Code not running in the context of an interrupt: <em>background task</em>.</p>
+        </section>
+        <section>
+          <p>Question: what happens if an interrupt is triggered while an ISR is servicing a 
+            previous interrupt?</p>
+          <p class="fragment">Answer: it depends.</p>
+        </section>
+        <section>
+          <p>For most microcontrollers:</p>
+          <ul>
+            <li>Every interrupt may have a priority level (possibly configurable)</li>
+            <li>An interrupt of a higher priority interrupts an ISR servicing a lower priority interrupt</li>
+            <li>An interrupt of lower or equal level does not interrupt the ISR; it is saved for later servicing</li>
+          </ul>
+        </section>
+        <section>
+          <p>Beware: only the latest interrupt of a given type is saved.</p>
+          <p>&rArr; Always write short ISRs</p>
+        </section>
+        <section>
+          <h4>Usual interrupt processing</h4>
+          <ul>
+            <li>In the ISR:
+              <ul>
+                <li>Get information associated to the interrupt</li>
+                <li>Store it in a variable shared with the background task</li>
+                <li>Set a flag to tell the background task that the interrupt occurred</li>
+              </ul>
+            </li>
+            <li>In the background task, for a set interrupt flag: 
+              <ul>
+                <li>Reset the flag</li>
+                <li>Process the associated information</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <img src="images/backgroundTaskInterrupts.png">
+        </section>
+        <section>
+          <h4>More detailed view</h4>
+          <img src="images/backgroundIntDetailed.png">
+        </section>
+        
+        <!-- -------------------- Sleep mode ---------------------------------------- -->
+        
+        <section id="sleepMode">
+          <p>In many applications, there are not a lot of events</p>
+          <p>Question: how can energy be saved?</p>
+        </section>
+        <section>
+          <p>Answer: enter a sleep mode between two scans for events</p>
+        </section>
+        <section>
+          <img src="images/backgroundIntSleep.png">
+        </section>
+        <section>
+          <h4>Exiting from sleep mode</h4>
+        </section>
+        <section>
+          <div class="r-stack">
+            <div>
+              <img src="images/backgroundIntSleep-1.png">
+            </div>
+            <div class="fragment fade-in-then-out">
+              <img src="images/backgroundIntSleep-2.png">
+            </div>
+            <div class="fragment fade-in-then-out">
+              <img src="images/backgroundIntSleep-3.png">
+            </div>
+            <div class="fragment fade-in-then-out">
+              <img src="images/backgroundIntSleep-4.png">
+            </div>
+            <div class="fragment fade-in-then-out">
+              <img src="images/backgroundIntSleep.png">
+            </div>
+          </div>
+        </section>
+        <section>
+          <ul>
+            <li>Entering a sleep mode is important for devices without external power supply</li>
+            <li>Usually, several different sleep modes</li>
+            <li>The part(s) generating events must be kept active</li>
+          </ul>
+        </section>
+        
+        <!-- -------------------- Practice: button and interrupt ---------------------------------------- -->
+        
+        <section id="practiceButtonInt">
+          <h3>Practice: button and interrupt</h3>
+        </section>
+        <section>
+          <ul>
+            <li>Import the <code>04-sideButtonInt</code> project</li>
+            <li>Build it (to remove displayed errors)</li>
+            <li>Understand (all) the code / ask for what you don't understand</li>
+            <li>Perform the two <code>TODO</code> tasks</li>
+          </ul>
+          <p>ESP-IDF related documentation is 
+            <a href="https://docs.espressif.com/projects/esp-idf/en/v5.0.4/esp32/api-reference/peripherals/gpio.html"
+               target="_blank">here</a>. </p>
+          <p>Note: this exercise shows one way to use a sleep mode.</p>
+        </section>
+        
+        <!-- -------------------- Practice: timer and interrupt ---------------------------------------- -->
+        
+        <section id="practiceTimerInt">
+          <h3>Practice: timer and interrupt</h3>
+        </section>
+        <section>
+          <ul>
+            <li>Import the <code>05-timerInt</code> project</li>
+            <li>Perform the <code>TODO</code> tasks</li>
+          </ul>
+          <p>Hint: in a first stage, forget about the LED. Handle it only after the timer is correctly started.</p>
+          <p>ESP-IDF related documentation is
+            <a href="https://docs.espressif.com/projects/esp-idf/en/v5.0.5/esp32/api-reference/system/esp_timer.html"
+               target="_blank">here</a>.</p>
+        </section>
+        <section>
+          <p>Try not stopping the timer before exiting.</p>
+          <p>What happens? Why?</p>
+        </section>
+        
+        <!-- -------------------- Practice: application architecture ---------------------------------------- -->
+        
+        <section id="practiceBareMetalArch">
+          <h3>Practice: bare metal application architecture</h3>
+        </section>
+        <section>
+          <p>Functional specifications:</p>
+          <ul>
+            <li>The red LED may be in one of two states: blinking or not blinking</li>
+            <li>To make the LED transition from one state to the other one, the user
+              has to press the side button twice in less than one second</li>
+          </ul>
+        </section>
+        <section>
+          <ul>
+            <li>Import the <code>06-btnLed</code> project</li>
+            <li>Understand (all) the code / ask for what you don't understand</li>
+          </ul>
+          <p>Note: very simple application, but provides an idea about the general architecture of a bare metal 
+            application.</p>
+        </section>
+        <section id="noFullCompliance1">
+          <p>The code does not fully comply with the specifications:</p>
+          <pre><code data-trim data-noescape data-line-numbers class="codeblock">
+              void btn_task_run(void) {
+
+              if (!press_detected) {
+              return;
+              }
+
+              // At this stage, the button has been pushed.
+              press_detected = false;
+              ...
+          </code></pre>
+          <p>All pushes between the test at line 3 and the assignment at line 8 are ignored.</p>
+          <p>Possible solution: will be seen farther.</p>
+        </section>
+        
+        <!-- -------------------- Execution environments ---------------------------------------- -->
+        
+        <section id="executionEnvironments">
+          <h3>Execution environments</h3>
+        </section>
+        <section>
+          <p>Execution environment: what the target board provides to run an application.</p>
+        </section>
+        
+        <section id="bareMetal">
+          <h4>Bare metal</h4>
+          <ul>
+            <li>You write all the code, without any help to run concurrent tasks,
+              to share data between tasks, etc.</li>
+            <li>Nowadays, an abstraction layer is provided by almost all 
+              microcontroller manufacturers:
+              <ul>
+                <li>&rArr; Compatibility over a family of microcontrollers</li>
+                <li>&rArr; A little bit easier to use peripherals and interfaces</li>
+                <li>Arm: CMSIS</li>
+                <li>STMicroelectronics: HAL + LL</li>
+                <li>Etc.</li>
+              </ul>
+            </li>
+          </ul>
+          <p>What we did in the practical sessions is not far from bare metal.</p>
+        </section>
+        
+        <section id="rtos">
+          <h4>Real-Time Operating System (RTOS)</h4>
+          <ul>
+            <li>Provides real help to run concurrent tasks, share data between tasks, etc.</li>
+            <li>Allows for deterministic response time</li>
+            <li>Uses very little memory</li>
+            <li>No protection between tasks, nor between tasks and RTOS (no virtual memory)</li>
+            <li>No way to modify the application without rebuilding and reflashing (well, not fully true)</li>
+          </ul>
+        </section>
+        <section>
+          <p>Minimum required memory:</p>
+          <ul>
+            <li>RAM: a few KB</li>
+            <li>Flash: a few KB</li>
+            <li>Depends on the application</li>
+          </ul>
+        </section>
+        <section>
+          <img src="images/rtos.png">
+          <div class="pbverysmall">Sources: <a href="https://www.freertos.org/index.html" title="FreeRTOS"
+                                               target="_blank">FreeRTOS</a>,
+            <a href="https://www.ecoscentric.com/ecos/index.shtml" title="eCos" target="_blank">eCos</a>,
+            <a href="https://github.com/contiki-ng/contiki-ng" title="Contiki-NG"
+               target="_blank">Contiki-NG</a>,
+            <a href="http://riot-os.org/" title="RIOT" target="_blank">RIOT</a>,
+            <a href="https://blackberry.qnx.com/en" title="QNX" target="_blank">QNX</a>,
+            <a href="https://os.mbed.com/mbed-os/" title="Mbed OS" target="_blank">Mbed OS</a>,
+            <a href="https://www.rt-thread.io/index.html" title="RT-Thread" target="_blank">RT-Thread</a>,
+            <a href="https://www.zephyrproject.org/" title="Zephyr" target="_blank">Zephyr</a>,
+            <a href="https://github.com/azure-rtos/threadx" title="ThreadX"
+               target="_blank">ThreadX</a>,
+            <a href="https://www.micrium.com/rtos/" title="µC/OS" target="_blank">µC/OS</a>,
+            <a href="https://microware.com/" title="OS-9" target="_blank">OS-9</a>,
+            <a href="https://mynewt.apache.org/" title="Mynewt" target="_blank">Mynewt</a>,
+            <a href="https://www.windriver.com/products/vxworks/" title="VxWorks"
+               target="_blank">VxWorks</a>,
+            <a href="https://www.mentor.com/embedded-software/nucleus/" title="Nucleus"
+               target="_blank">Nucleus</a>,
+            <a href="https://www.huawei.com/minisite/liteos/en/about.html" title="LiteOS"
+               target="_blank">LiteOS</a>,
+            <a href="https://www.lynx.com/products/lynxos-posix-real-time-operating-system-rtos"
+               title="LynxOS" target="_blank">LynxOS</a>,
+            <a href="https://www.zerynth.com/zos/" title="Zerynth OS" target="_blank">Zerynth OS</a>,
+            <a href="https://nuttx.apache.org/" title="NuttX" target="_blank">NuttX</a>
+          </div>        
+        </section>
+        <section>
+          <ul>
+            <li>FreeRTOS acquired by Amazon - 2017</li>
+            <li>ThreadX acquired by Microsoft - 2019</li>
+            <li>Transferred to the Eclipse Foundation, as open source - 2023</li>
+            <li>Google and Meta support Zephyr</li>
+          </ul>
+        </section>
+        <section>
+          <p>Available services: will be seen farther.</p>
+          <p>Actually, ESP-IDF is built upon FreeRTOS.
+        </section>
+        
+        <section id="os">
+          <h4>Operating System (OS)</h4>
+          <ul>
+            <li>Mainly: Linux</li>
+            <li>Similar to a desktop computer environment:
+              <ul>
+                <li>Package manager, to install new applications</li>
+                <li>Graphical user interface is possible</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <p>Minimum required memory:</p>
+          <ul>
+            <li>RAM: a few MB or a few tens of MB</li>
+            <li>Depends on applications</li>
+          </ul>
+          <p>Usually:</p>
+          <ul>
+            <li>RAM: from 512 MB to 8 GB</li>
+            <li>Flash card: from 1 GB to 8 GB</li>
+          </ul>
+        </section>
+        <section>
+          <ul>
+            <li>Linux typically requires an MMU (Memory Management Unit) &rArr; virtual memory</li>
+            <li>The kernel can be configured to work without one
+              <ul>
+                <li>Thanks to μClinux project</li>
+                <li>Beware about applications compatibility</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <img src="images/embeddedOS.png">
+          <div class="pbverysmall">Sources: <a href="https://isc.tamu.edu/~lewing/linux/" title="Larry Ewing"
+                                               target="_blank">Larry Ewing</a>,
+            <a href="https://www.yoctoproject.org/" title="YP" target="_blank">YP</a>,
+            <a href="https://legato.io/" title="Legato" target="_blank">Legato</a>,
+            <a href="https://archlinuxarm.org/" title="Arch Linux ARM" target="_blank">Arch Linux ARM</a>,
+            <a href="https://openwrt.org/" title="OpenWrt Project" target="_blank">OpenWrt Project</a>,
+            <a href="https://www.balena.io/os/" title="balenaOS" target="_blank">balenaOS</a>,
+            <a href="https://www.windriver.com/products/linux/" title="Wind River" target="_blank">Wind
+              River</a>,
+            <a href="https://www.digi.com/resources/documentation/digidocs/embedded/index.html"
+               title="Digi Embedded" target="_blank">Digi Embedded</a>,
+            <a href="https://www.mvista.com/" title="MontaVista" target="_blank">MontaVista</a>,
+            <a href="https://www.lynx.com/products/lynx-mosaic-modular-development-framework"
+               title="LYNX MOSA.ic" target="_blank">LYNX MOSA.ic</a>,
+          </div>
+        </section>
+        <section>
+          <ul>
+            <li><a href="https://www.yoctoproject.org/" title="yocto" target="_blank">Yocto</a>: allows
+              creation of Linux distributions
+              <ul>
+                <li>&rArr; <a href="https://legato.io/" title="Legato" target="_blank">Legato</a>,
+                  <a href="https://www.balena.io/os/" title="balenaOS" target="_blank">balenaOS</a>,
+                  <a href="https://www.windriver.com/products/linux/" title="Wind River"
+                     target="_blank">Wind River Linux</a>,
+                  <a href="https://www.digi.com/resources/documentation/digidocs/embedded/dey/3.0/cc6ul/index.html"
+                     title="Digi Embedded Yocto" target="_blank">Digi Embedded Yocto</a>,
+                  <a href="https://www.yoctoproject.org/members/montavista/" title="MontaVista Linux"
+                     target="_blank">MontaVista Linux</a>
+                </li>
+              </ul>
+            </li>
+            <li><a href="https://www.balena.io/os/" title="balenaOS" target="_blank">balenaOS</a>: Docker
+              containers</li>
+            <li><a href="https://www.lynx.com/products/lynx-mosaic-modular-development-framework"
+                   title="LYNX MOSA.ic" target="_blank">LYNX MOSA.ic</a>: hypervisor</li>
+          </ul>
+        </section>
+        <section>
+          <p>This type of environment targets boards similar to desktop computer motherboards.</p>
+        </section>
+        <section>
+            <p>By default, a standard OS can't provide deterministic response time. It's not its job.</p>
+        </section>
+        
+        <section>
+            <p>Next part: <a href="rtos.html" target="_blank">RTOS</a>.</p>
+        </section>
+        
+        
+      </div>
+    </div>
+
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script>
+      // More info about initialization & config:
+      // - https://revealjs.com/initialization/
+      // - https://revealjs.com/config/
+      Reveal.initialize({
+      hash: true,
+      slideNumber: 'c/t',
+      // Scroll view inhibited until arrow keys can be used.
+      //view: 'scroll',
+      //scrollProgress: true,
+      // Learn about plugins: https://revealjs.com/plugins/
+      plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+      });
+    </script>
+  </body>
+</html>

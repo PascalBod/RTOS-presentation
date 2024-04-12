@@ -1,0 +1,1 @@
+# Shared structure and mutex
