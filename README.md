@@ -34,4 +34,8 @@ A detailed list will be provided soon.
 
 ## Presentation
 
-The presentation is at this URL: https://pascalbod.github.io/RTOS-presentation.
+The presentation is at this URL: https://pascalbod.github.io/RTOS-presentation. 
+
+Source code of the presentation is in the `docs` directory. 
+
+The presentation is licensed under the  [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/).
