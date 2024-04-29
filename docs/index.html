@@ -120,7 +120,7 @@
                 <li><a href="#/softwareDevelopment1">Software development - part 1</a>
                   <ul>
                     <li><a href="#/crossDevelopment">Cross development</a></li>
-                    <li><a href="#/practiceEsp32EspEye"><b>Practice: Hello World for the ESP-EYE</b></a></li>
+                    <li><a href="#/practiceEsp32C6"><b>Practice: Hello World for the ESP32-C6</b></a></li>
                   </ul>
                 </li>
                 <li><a href="#/peripherals">Peripherals</a></li>
@@ -841,45 +841,54 @@
 
         <!-- -------------------- Practice: ESP32 and ESP-EYE ---------------------------------------- -->
         
-        <section id="practiceEsp32EspEye">
-          <h3>Practice: Hello World for the ESP-EYE</h3>
+        <section id="practiceEsp32C6">
+          <h3>Practice: Hello World for the ESP32-C6</h3>
         </section>
         <section>
           <h4>ESP32</h4>
-          <img src="images/esp32FuncDiagram.png" height="500">
-          <div class="pbverysmall">Source: <a href="https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf"
-                                              title="ESP32 datasheet" target="_blank">ESP32 Series Datasheet</a></div>
+          <img src="images/esp32C6FuncDiagram.png" height="500">
+          <div class="pbverysmall">Source: <a href="https://www.espressif.com/sites/default/files/documentation/esp32-c6_datasheet_en.pdf"
+                                              title="ESP32-C6 datasheet" target="_blank">ESP32-C6 Series Datasheet</a></div>
         </section>
         <section>
           <h4>Main characteristics</h4>
           <ul>
-            <li>Wi-Fi</li>
-            <li>Bluetooth</li>
-            <li>Xtensa dual core LX6</li>
-            <li>448 KB ROM</li>
-            <li>520 KB SRAM</li>
+            <li>Wi-Fi 6 (b/g/n/ax)</li>
+            <li>Bluetooth 5 (LE, mesh)</li>
+            <li>Dual core:
+                <ul>
+                    <li>HP RISC-V processor - 160 MHz</li>
+                    <li>LP RISC-V processor - 20 MHz</li>
+                </ul>
+            </li>
+            <li>320 KB ROM</li>
+            <li>512 KB HP SRAM</li>
+            <li>16 KB LP SRAM</li>
             <li>16 KB SRAM in RTC</li>
             <li>Interface for external Flash and SRAM chips</li>
-            <li>Timers, GPIOs, ADC, DAC, SPI, I2S, I2C, UART, Ethernet, etc.</li>
+            <li>Timers, GPIOs, ADC, SPI, I2S, I2C, UART, etc.</li>
+            <li>Flash: 4 MB in chip package</li>
           </ul>
         </section>
         <section>
-          <h4>ESP-EYE</h4>
-          <img src="images/esp-eye_callout.png" height="500">
-          <div class="pbverysmall">Source: <a href="https://github.com/espressif/esp-who/blob/master/docs/en/get-started/ESP-EYE_Getting_Started_Guide.md"
-                                              title="ESP-EYE guide" target="_blank">ESP-EYE Getting Started Guide</a></div>
+          <h4>ESP32-C6-DevKitM-1</h4>
+          <img src="images/esp32C6DevKitMCallout.png" height="500">
+          <div class="pbverysmall">Source: <a href="https://docs.espressif.com/projects/espressif-esp-dev-kits/en/latest/esp32c6/esp32-c6-devkitm-1/user_guide.html#description-of-components"
+                                              title="ESP32-C6-DevKitM-1 guide" target="_blank">ESP32-C6-DevKitM-1 Getting Started Guide</a></div>
         </section>
         <section>
           <h4>Documentation</h4>
           <ul>
-            <li><a href="https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf"
-                   target="_blank">ESP32 Datasheet</a></li>
-            <li><a href="https://www.espressif.com/sites/default/files/documentation/esp32_technical_reference_manual_en.pdf"
-                   target="_blank">ESP32 Technical Reference Manual</a></li>
-            <li><a href="https://github.com/espressif/esp-who/blob/master/docs/en/get-started/ESP-EYE_Getting_Started_Guide.md"
-                   target="_blank">ESP-EYE Getting Started Guide</a></li>
-            <li><a href="https://www.espressif.com/sites/default/files/documentation/ESP-EYE_V2.1_Reference_Design_0.zip"
-                   target="_blank">ESP-EYE Schematic and Manufacturing Files</a></li>
+            <li><a href="https://www.espressif.com/sites/default/files/documentation/esp32-c6_datasheet_en.pdf"
+                   target="_blank">ESP32-C6 Series Datasheet</a></li>
+            <li><a href="https://www.espressif.com/sites/default/files/documentation/esp32-c6-mini-1_mini-1u_datasheet_en.pdf"
+                    target="_blank">ESP32-C6-MINI-1 Datasheet</a></li>
+            <li><a href="https://www.espressif.com/sites/default/files/documentation/esp32-c6_technical_reference_manual_en.pdf"
+                   target="_blank">ESP32-C6 Technical Reference Manual</a></li>
+            <li><a href="https://docs.espressif.com/projects/espressif-esp-dev-kits/en/latest/esp32c6/esp32-c6-devkitm-1/user_guide.html#getting-started"
+                   target="_blank">ESP32-C6-DevKitM-1 Getting Started Guide</a></li>
+            <li><a href="https://docs.espressif.com/projects/espressif-esp-dev-kits/en/latest/_static/esp32-c6-devkitm-1/schematics/esp32-c6-devkitm-1-schematics.pdf"
+                   target="_blank">ESP32-C6-DevKitM-1 Schematic</a></li>
           </ul>
         </section>
 
@@ -904,15 +913,15 @@
           </div>
         </section>
         <section>
-          <p>If you completed the prerequisites, you should have a local copy of <em>IMT-Atlantique-2024</em> repository,
-            and Eclipse with IDF plugin installed.</p>
-          <p>If not, clone the repository, and complete the prerequisites.</p>
+          <p>If you completed the prerequisites, you should have a VM with a copy of the <em>RTOS-presentation</em> repository,
+            and Espressif-IDE installed.</p>
+          <p>If not, complete the prerequisites.</p>
           <p>Then:</p>
           <ul>
-            <li>Check that connecting the ESP32-EYE creates a serial port</li>
+            <li>Check that connecting the ESP32-C6-DevKitM-1 creates a serial port</li>
             <li>Create the <em>Hello World</em> project</li>
             <li>Build it</li>
-            <li>Flash the ESP32-EYE</li>
+            <li>Flash the ESP32-C6-DevKitM-1</li>
             <li>Check the log messages</li>
           </ul>
         </section>
