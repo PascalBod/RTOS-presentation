@@ -7,13 +7,13 @@ This repository contains material providing an introduction to the use of an RTO
 * What an RTOS is and what it provides
 * Some practical exercises, using the ESP32-C6 as target
 
-This presentation is based on the [course](https://github.com/PascalBod/IMTAtlantique-2024) taught at [IMT Atlantique](https://www.imt-atlantique.fr/en).
+This presentation is based on the [course](https://github.com/PascalBod/IMTAtlantique-2024) taught at [IMT Atlantique](https://www.imt-atlantique.fr/en) and is currently in construction, being adapted to another target board than the one used in the IMT Atlantique course. Additionally, some parts will be enriched. Revisited chapters will be provided one by one, after the already available introductory part.
 
 ## Prerequisites for the practical exercises
 
 ### Software
 
-The exercises rely on the environment development presented [here](https://github.com/PascalBod/lm-esp32-eclipse): Espressif-IDE installed in a Linux Mint Xfce Virtual Machine.
+The exercises which will be provided rely on the environment development presented [here](https://github.com/PascalBod/lm-esp32-eclipse): Espressif-IDE installed in a Linux Mint Xfce Virtual Machine.
 
 Using a virtual machine allows to isolate all specific configuration relating to Espressif-IDE from your other projects. A drawback is that the host computer must be powerful enough and must have more memory.
 
@@ -30,7 +30,7 @@ The exercises use the following hardware:
 * Jumper wires
 * Resistors
 
-A detailed list will be provided soon.
+A detailed list will be provided soon, with links to online shops where to buy.
 
 ## Presentation
 
