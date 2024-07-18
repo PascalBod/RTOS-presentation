@@ -1,1 +1,0 @@
-# Red LED handling
