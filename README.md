@@ -13,7 +13,7 @@ This presentation is based on the [course](https://github.com/PascalBod/IMTAtlan
 
 ### Software
 
-The exercises which will be provided rely on the environment development presented [here](https://github.com/PascalBod/lm-esp32-eclipse): Espressif-IDE installed in a Linux Mint Xfce Virtual Machine.
+The exercises which will be provided will rely on the environment development presented [here](https://github.com/PascalBod/lm-esp32-eclipse): Espressif-IDE installed in a Linux Mint Xfce Virtual Machine.
 
 Using a virtual machine allows to isolate all specific configuration relating to Espressif-IDE from your other projects. A drawback is that the host computer must be powerful enough and must have more memory.
 
@@ -21,7 +21,7 @@ Apple MacOS or Microsoft Windows can be used to install and run Espressif-IDE. B
 
 ### Hardware
 
-The exercises use the following hardware:
+The exercises will use the following hardware:
 * [ESP32-C6-DevKitM-1](https://docs.espressif.com/projects/espressif-esp-dev-kits/en/latest/esp32c6/esp32-c6-devkitm-1/user_guide.html)
 * One USB C to USB A cable, or USB C to USB C, depending on your computer
 * One breadboard

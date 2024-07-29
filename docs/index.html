@@ -23,11 +23,12 @@
       <div class="slides">
 
         <!-- -------------------- Preambule ---------------------------------------- -->
+        
         <section>
-          <h2>Introduction to the use of an RTOS</h2>
+          <h2>Introduction to RTOS for ML</h2>
           <h5>Pascal Bodin</h5>
           <img src="images/energy-system.png" height="350">
-          <div class="pbverysmall">To enter the presentation, click the arrow to the right</div>
+          <div class="pbverysmall">To enter the presentation, click the arrow in bottom right corner</div>
         </section>
         <section>
           <h3>Document history</h3>
@@ -40,12 +41,13 @@
             </thead>
             <tbody>
               <tr>
-                <td>01-May-2024</td>
+                <td>29-Jul-2024</td>
                 <td>Introductory part</td>
               </tr>
             </tbody>
           </table>
         </section>
+        
         <section>
           <p>This work is licensed under a <a rel="license"
                                               href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">
@@ -64,6 +66,7 @@
             </li>
           </ul>
         </section>
+        
         <section>
           <h3>How to navigate</h3>
           <ul>
@@ -85,11 +88,11 @@
                   <ul>
                     <li><a href="#/hardwareProgress">Hardware progress</a></li>
                     <li><a href="#/embeddedApplications">Embedded applications</a></li>
-                    <li><a href="#/reminders">Reminders</a></li>
                   </ul>
                 </li>
                 <li><a href="#/microcontrollerBoard">Microcontroller board</a>
                   <ul>
+                    <li><a href="#/microcontrollerBoardReminders">Reminders</a></li>
                     <li><a href="#/microcontrollerArchitecture">Microcontroller</a></li>
                     <li><a href="#/boardArchitecture">Board architecture</a></li>
                     <li><a href="#/importantCharacteristics">Important characteristics</a></li>
@@ -99,24 +102,28 @@
                 <li><a href="#/softwareDevelopment1">Software development - part 1</a>
                   <ul>
                     <li><a href="#/crossDevelopment">Cross development</a></li>
-                    <li><a href="#/practiceEsp32C6"><b>Practice: Hello World for the ESP32-C6</b></a></li>
                   </ul>
                 </li>
               </ul>
             </div>
           </div>
+          <div class="pbverysmall">
+            To be continued...
+          </div>
         </section>
         
         <!-- -------------------- Foreword ---------------------------------------- -->
+        
         <section id="foreword">
           <h2>Foreword</h2>
         </section>
+        
         <section>
           <h3>Who am I?</h3>
           <ul>
             <li><a href="https://systev.com" target="_blank">
                 Independent consultant and freelancer - connected devices</a> <br />
-              <a href="https://baylibre.com/" targe="_blank">
+              <a href="https://baylibre.com/" target="_blank">
                 <img src="images/logo_baylibre_rvb_400-300x104.png.webp" width="160"></a>
               &nbsp;
               <a href="https://www.connectedcycle.com" target="_blank">
@@ -135,9 +142,10 @@
             <li>
               Co-founded (and closed down) two companies
             </li>
-            <li>First connected objects project: in 1990</li>
+            <li>First connected devices project: in 1990</li>
           </ul>
         </section>
+        
         <section>
           <h3>More information</h3>
           <ul>
@@ -148,16 +156,86 @@
             <li><a href="https://twitter.com/pascalbod06" target="_blank">X</a></li>
           </ul>
         </section>
+        
         <section>
-          <h3>Aim</h3>
+          <h3>Goal</h3>
           <ul>
-            <li>Provide an overview of what a general purpose microcontroller is</li>
-            <li>Provide an overview of microcontroller environment (hardware and software)</li>
-            <li>Provide an overview of how to use an RTOS</li>
+            <li>Understand how to develop, run and debug embedded applications</li>
+            <li>Understand the benefits (and drawbacks) of Real-Time Operating Systems</li>
+            <li>Understand how to get data from sensors and how to store it</li>
           </ul>
+          <div class="fragment">
+            <h3>Non-goal</h3>
+            <ul>
+              <li>How to develop embedded ML applications</li>            
+            </ul>
+          </div>
+        </section>
+        
+        <section>
+          <h3>Needs of ML applications</h3>
+          <div class="r-stack">
+            <div>
+              <img src="images/mlNeeds-0.png" height="400">
+            </div>
+            <div>
+              <img src="images/mlNeeds-1.png" height="400" class="fragment fade-in-then-out">
+            </div>
+          </div>
+        </section>
+        
+        <section>
+          <h4>Technical domains</h4>
+          <img src="images/technicalDomains-1.png" height="150">
+        </section>
+        
+        <section>
+          <h4>Closer look - Computer Science</h4>
+          <div class="r-stack">
+            <div>
+              <img src="images/technicalDomainsComputerScience-0.png" height="500">
+            </div>
+            <div>
+              <img src="images/technicalDomainsComputerScience-1.png" height="500"
+                   class="fragment fade-in-theen-out">
+            </div>
+          </div>
+          <div class="pbverysmall">
+            HAL: Hardware Abstraction Layer - RTOS: Real-Time Operating System
+          </div>
+        </section>
+        
+        <section>
+            <h4>Closer look - Communication</h4>
+            <div class="r-stack">
+              <div>
+                <img src="images/technicalDomainsCommunication-0.png" height="300">
+              </div>
+              <div>
+                <img src="images/technicalDomainsCommunication-1.png" height="300"
+                     class="fragment fade-in-then-out">
+              </div>
+            </div>
+        </section>
+
+        <section>
+            <h4>Closer look - Electronics</h4>
+            <div class="r-stack">
+              <div>
+                <img src="images/technicalDomainsElectronics-0.png" height="400">
+              </div>
+              <div>
+                <img src="images/technicalDomainsElectronics-1.png" height="400"
+                     class="fragment fade-in-then-out">
+               </div>
+            </div>
+            <div class="pbverysmall">
+              MCU: MicroController Unit
+            </div>
         </section>
 
         <!-- -------------------- Introduction ---------------------------------------- -->
+        
         <section id="introduction">
           <h2>Introduction</h2>
         </section>
@@ -183,28 +261,31 @@
                title="NCAR" target="_blank">NCAR</a>
           </div>                    
         </section>
+        
         <section>
           <h4>2022 - iPhone 14</h4>
           <img src="images/iphone-14-model-unselect-gallery-2-202303_GEO_US.png" height="500">
           <div class="pbverysmall">Source: <a href="https://www.apple.com/iphone-14/" title="Apple"
                                               target="_blank">Apple</a></div>
         </section>
+        
         <section>
           <ul>
-            <li>1.37 TFLOPS (GPU)</li>
+            <li>A15 Bionic chip with 5-core GPU: 1.7 TFLOPS</li>
             <li>Price: US$800</li>
           </ul>
           <div class="pbverysmall">Sources: 
-            <a href="https://en.wikipedia.org/wiki/Apple_silicon"
-               title="Wikipedia" target="_blank">Wikipedia</a>
             <a href="https://www.apple.com/shop/buy-iphone/iphone-14"
                title="Apple" target="_blank">Apple</a>
+            <a href="https://www.cpu-monkey.com/en/cpu-apple_a15_bionic_5_gpu"
+               title="cpu-monkey" target="_blank">cpu-monkey</a>
           </div>
         </section>
+        
         <section>
           <p>In 40 years:</p>
           <ul>
-            <li>Processing power multiplied by around 1,400</li>
+            <li>Processing power multiplied by around 1,700</li>
             <li>Cost divided by around 56,000</li>
           </ul>
           <div class="pbverysmall">
@@ -217,6 +298,7 @@
         <section id="embeddedApplications">
           <h3>Embedded applications</h3>
         </section>
+        
         <section>
           <h4>1969 - The computer that made it possible to land on the Moon</h4>
           <img src="images/agc_dsky.jpg">
@@ -233,6 +315,7 @@
             <li>Simple operating system, with priority handling</li>
           </ul>
         </section>
+        
         <section>
           <p class="pbcenter">Compared to current configurations:</p>
           <ul>
@@ -241,18 +324,20 @@
           </ul>
           <p class="pbcenter">Yet it allowed to bring human beings to the Moon.</p>
         </section>
+        
         <section>
           <p class="pbcenter">It's not because you don't have a lot of memory and processing power
             that you can't develop great applications &#x1F642;
           </p>
         </section>
+        
         <section>
           <p class="pbcenter">A modern microcontroller with similar processing power:</p>
           <img src="images/pic18f47k42.png" height="100">
           <br />
           <ul>
-            <li>Permanent memory: 128 Ko</li>
-            <li>Erasable memory: 8 Ko</li>
+            <li>Flash memory: 128 Ko</li>
+            <li>RAM: 8 Ko</li>
             <li>Clock: up to 64 MHz</li>
             <li>Power consumption: 30 mW (microcontroller alone)</li>
             <li>Power consumption in sleep mode: 0,1 &mu;W</li>
@@ -266,91 +351,45 @@
                                                title="Microchip" target="_blank">Microchip</a></div>
         </section>
 
-        <!-- -------------------- Reminders ---------------------------------------- -->
-        <section id="reminders">
-          <h3>Reminders</h3>
-        </section>
-        <section>
-          <h4>Reminder: computer architecture</h4>
-          <img src="images/computerArchitecture.png">
-        </section>
-        <section>
-          <h4>Von Neumann architecture</h4>
-          <ul>
-            <li>Memory stores data and instructions</li>
-            <li>Same bus for data and instructions</li>
-          </ul>
-        </section>
-        <section>
-          <h4>Harvard architecture</h4>
-          <ul>
-            <li>Separate memory for data and for instructions</li>
-            <li>Bus for data and bus for instructions</li>
-          </ul>
-        </section>
-        <section>
-          <p>Variants exist: same memory but separate buses, etc.</p>
-        </section>
-        <section>
-          <h4>8-bit, 16-bit, 32-bit, 64-bit computers</h4>
-          <p><b>Register: </b>a memory cell inside the CPU. A CPU contains several of them.</p>
-          <p>n-bit: n is the number of bits of a register.</p>
-        </section>
-        <section>
-          <h4>Reminder: computer boot process</h4>
-        </section>
-        <section>
-          <div class="r-stack">
-            <div class="fragment fade-in-then-out">
-              <img src="images/computerBoot-1.png">
-              <p>The CPU starts executing a short program in ROM: the <em>bootstrap</em>.</p>
-            </div>
-            <div class="fragment fade-in-then-out">
-              <img src="images/computerBoot-2.png">
-              <p>The bootstrap loads the <em>boot loader</em> from a disk.</p>
-            </div>
-            <div class="fragment fade-in-then-out">
-              <img src="images/computerBoot-3.png">
-              <p>The bootloader loads the Operating System (OS) from a disk.</p>
-            </div>
-          </div>
-        </section>
-        <section>
-          <p>Of course, variants exist!</p>
-          <p>For a PC running Linux:
-            <ul>
-              <li>bootstrap: BIOS</li>
-              <li>bootloading:
-                <ul>
-                  <li>a first-stage bootloader is read from the Master Boot Record (MBR)</li>
-                  <li>the first-stage bootloader loads a second-stage bootloader</li>
-                  <li>the second-stage bootloader loads the Linux kernel</li>
-                </ul>
-              </li>
-            </ul>
-          </p>
-        </section>
-        <section>
-          <h4>Reminder: virtual memory</h4>
-          <img src="images/computerVirtualMemory.png">
-        </section>
-        <section>
-          <p>Main functions of virtual memory:</p>
-          <ul>
-            <li>Provide each process with its own address space</li>
-            <li>Ensure process isolation</li>
-            <li>Ensure OS isolation</li>
-            <li>Provide more memory than physical memory</li>
-          </ul>
-        </section>
-        <section>
-          <p>Nowadays, virtual memory is implemented thanks to an MMU (Memory Management Unit).</p>
-        </section>
-
         <!-- -------------------- Microcontroller board ---------------------------------------- -->
+        
         <section id="microcontrollerBoard">
           <h3>Microcontroller board</h3>
         </section>
+        
+        <section id="microcontrollerBoardReminders">
+          <h4>Reminders - Memory content retention</h4>
+          <ul>
+            <li>Volatile memory: content is lost when the system turns off - RAM</li>
+            <li>Non-volatile memory: content is retained - Flash, EEPROM</li>
+          </ul>
+          <div class="pbverysmall">
+          RAM: Random Access Memory - EEPROM: Electrically Erasable Programmable Read-Only Memory
+          </div>
+        </section>
+        
+        <section>
+          <h4>Reminders - Memory hierarchy</h4>
+          <p>From most rapid access to slowest access:</p>
+          <ul>
+            <li>Registers - inside the CPU</li>
+            <li>Cache - inside and outside the CPU - usually not present in MCU</li>
+            <li>Main memory</li>
+            <li>Disk - magnetic or flash</li>
+          </ul>
+          <div class="pbverysmall">
+          CPU: Central Processing Unit - MCU: MicroController Unit
+          </div>
+        </section>
+        
+        <section>
+          <ul>
+            <li>Registers: RAM</li>
+            <li>Cache: RAM</li>
+            <li>Main memory: RAM + flash</li>
+          </ul>
+        </section>
+        
         <section id="microcontrollerArchitecture">
           <h4>Microcontroller</h4>
           <ul>
@@ -359,14 +398,14 @@
                 <li>Central Processing Unit (CPU)</li>
                 <li>Read-only memory (Flash memory)</li>
                 <li>Read/write memory (RAM - Random Access Memory)</li>
+                <li>Clocks</li>
+                <li>Energy management</li>
                 <li>Peripherals and interfaces:
                   <ul>
                     <li>Analog I/O</li>
                     <li>Digital I/O</li>
                     <li>Timers</li>
-                    <li>Serial links</li>
-                    <li>Serial buses</li>
-                    <li>Watchdog</li>
+                    <li>Serial interfaces</li>
                     <li>etc.</li>
                   </ul>
                 </li>
@@ -374,23 +413,17 @@
             </li>
           </ul>
         </section>
+        
         <section>
-          <h4>Microcontroller memory</h4>
-          <img src="images/microcontrollerBoardMemory.png" height="500">
+          <p>An example of MCU architecture:</p>
+          <img src="images/mcuArchitecture.png">
         </section>
-        <section>
-          <h4>Bootloader</h4>
-          <ul>
-            <li>Allows easy software update</li>
-            <li>Waits for binary data, usually provided on a serial link</li>
-            <li>Is active only under specific conditions (pins set to some levels)</li>
-          </ul>
-          <p class="pbcenter">Note: depending on the µC, a software update may also be performed <em>Over the Air</em> (OTA)</p>
-        </section>
+        
         <section id="boardArchitecture">
           <h4>Board architecture</h4>
           <img src="images/deviceArchitecture.png">
         </section>
+        
         <section>
           <div class="row">
             <div class="column">
@@ -403,15 +436,16 @@
                     <li>Microcontroller
                       <ul>
                         <li>CPU + memory</li>
-                        <li>Some peripherals (e.g. timers, watchdog, etc.)</li>
-                        <li>Interfaces (serial links, serial buses, GPIO, etc.)</li>
+                        <li>Some peripherals (e.g. timers)</li>
+                        <li>Interfaces (e.g. serial interfaces, GPIO)</li>
                       </ul>
                     </li>
+                    <li>Power system</li>
                   </ul>
                 </div>
                 <div class="fragment fade-in-then-out">
                   <ul>
-                    <li>Communication
+                    <li>Wireless communication
                       <ul>
                         <li>Optional</li>
                         <li>May be hosted by the microcontroller (Wi-Fi, Bluetooth, LoRa, etc.)
@@ -424,14 +458,14 @@
                     <li>Optionally:
                       <ul>
                         <li>Additional interfaces</li>
-                        <li>Peripherals (sensors, etc.)</li>
-                        <li>Positioning</li>
+                        <li>Peripherals (e.g. sensors)</li>
+                        <li>Positioning (e.g. GNSS)</li>
                         <li>User interface</li>
-                        <li>Power supply management</li>
                         <li>Data storage</li>
                       </ul>
                     </li>
                   </ul>
+                  <div class="pbverysmall">GNSS: Global Navigation Satellite System</div>
                 </div>
                 <div class="fragment fade-in_then-out">
                   <ul>
@@ -443,10 +477,11 @@
             </div>
           </div>
         </section>
+        
         <section id="importantCharacteristics">
           <h4>Important board/microcontroller characteristics?</h4>
           <ul>
-            <li>Depend on the application!</li>
+            <li>Depend on the target application!</li>
             <li>Example:
               <ul>
                 <li>General Purpose Input/Output (GPIO)</li>
@@ -463,6 +498,7 @@
             </li>
           </ul>
         </section>
+        
         <section>
           <h4>Other important characteristics: hardware tools</h4>
           <ul>
@@ -471,6 +507,7 @@
             <li>Open source hardware</li>
           </ul>
         </section>
+        
         <section>
           <h4>Other important characteristics: software tools</h4>
           <ul>
@@ -479,6 +516,7 @@
             <li>Open source software</li>
           </ul>
         </section>
+        
         <section>
           <h4>Other important characteristics: support</h4>
           <ul>
@@ -486,30 +524,23 @@
             <li>Active community (forums, examples...)</li>
           </ul>
         </section>
+        
         <section id="someUcFamilies">
           <h4>Some common microcontroller families</h4>
-          <ul>
-            <li>Microcontrollers with Arm cores</li>
-            <li>ESP8266/ESP32</li>
-            <li>PSoC</li>
-            <li>RISC-V</li>
-            <li>PIC</li>
-            <li>AVR</li>
-            <li>MIPS32</li>
-            <li>etc.</li>
-          </ul>
         </section>
+        
         <section>
           <h4>Arm</h4>
           <ul>
             <li>UK company created in 1990</li>
-            <li>there isn't any Arm microcontroller</li>
+            <li><b>There isn't any Arm microcontroller</b></li>
             <li>Arm provides Intellectual Property (IP) blocks, under a licensing agreement</li>
-            <li>among these blocks: RISC microcontrollers cores</li>
-            <li>for the IoT (low power, low cost): Cortex-M family</li>
+            <li>Among these blocks: RISC microcontrollers cores</li>
+            <li>For the IoT (low power, low cost): Cortex-M family</li>
           </ul>
-          <p class="pbsmaller">RISC: Reduced Instruction Set Computer</p>
+          <div class="pbverysmall">RISC: Reduced Instruction Set Computer</div>
         </section>
+        
         <section>
           <h4>Shipped processors</h4>
           <ul>
@@ -517,19 +548,20 @@
             <li>including 6.7 billions in Q4 2020</li>
             <li>including 4.4 billions of Cortex-M in Q4 2020</li>
           </ul>
-          <div class="pbverysmall">Source: <a
-                                             href="https://www.arm.com/company/news/2021/02/arm-ecosystem-ships-record-6-billion-arm-based-chips-in-a-single-quarter"
-                                             title="Arm" target="_blank">Arm</a>
+          <div class="pbverysmall">Source: 
+            <a href="https://www.arm.com/company/news/2021/02/arm-ecosystem-ships-record-6-billion-arm-based-chips-in-a-single-quarter"
+               title="Arm" target="_blank">Arm</a>
           </div>
           <ul>
             <li>Sep-2022: more than 250 billions</li>
           </ul>
-          <div class="pbverysmall">Source: <a
-                                             href="https://www.arm.com/company/news/2023/02/arm-announces-q3-fy22-results"
-                                             title="Arm" target="_blank">Arm</a>
+          <div class="pbverysmall">Source: 
+            <a href="https://www.arm.com/company/news/2023/02/arm-announces-q3-fy22-results"
+               title="Arm" target="_blank">Arm</a>
           </div>
           <p>Arm processor architecture is more popular than any other architecture.</p>
         </section>
+        
         <section>
           <p class="pbcenter">Some Cortex-M licensees:</p>
           <ul>
@@ -537,7 +569,7 @@
                    target="_blank">Infineon</a></li>
             <li><a href="https://www.microchip.com/en-us/products/microcontrollers-and-microprocessors/32-bit-mcus/pic32-32-bit-mcus/pic32cm-mc"
                    target="_blank">Microchip</a></li>
-            <li><a href="https://www.nordicsemi.com/Products/Low-power-short-range-wireless"
+            <li><a href="https://www.nordicsemi.com/Products"
                    target="_blank">Nordic Semiconductor</a></li>
             <li><a href="https://www.nxp.com/products/processors-and-microcontrollers/arm-microcontrollers:ARM-MICROCONTROLLERS"
                    target="_blank">NXP Semiconductors</a></li>
@@ -552,10 +584,11 @@
             <li>etc.</li>
           </ul>
         </section>
+        
         <section>
           <h4>Arm cores</h4>
           <div class="r-stack">
-            <div class="fragment fade-in-then-out">
+            <div>
               <img src="images/armProcessorFamily.png" height="500">
             </div>
             <div class="fragment fade-in-then-out">
@@ -569,6 +602,7 @@
                                              href="https://community.arm.com/cn/b/blog/posts/2017-cortex-m-whitepaper-english"
                                              title="Cortex-M for Beginners" target="_blank">Cortex-M for Beginners</a></div>
         </section>
+        
         <section>
           <h4>Instruction sets</h4>
           <img src="images/armProcessorFamilyCortexMInstructions.png" height="500">
@@ -576,6 +610,7 @@
                                              href="https://community.arm.com/cn/b/blog/posts/2017-cortex-m-whitepaper-english"
                                              title="Cortex-M for Beginners" target="_blank">Cortex-M for Beginners</a></div>
         </section>
+        
         <section>
           <h4>Provided elements</h4>
           <img src="images/armCortexMArchitecture.png" height="500">
@@ -583,35 +618,42 @@
                                              href="https://community.arm.com/cn/b/blog/posts/2017-cortex-m-whitepaper-english"
                                              title="Cortex-M for Beginners" target="_blank">Cortex-M for Beginners</a></div>
         </section>
+        
         <section>
           <h4>Example: STMicroelectronics - STM32 family</h4>
         </section>
+        
         <section>
           <img src="images/STM32Series.png" height="600">
           <div class="pbverysmall">Source: <a
                                              href="https://www.st.com/en/microcontrollers-microprocessors/stm32-32-bit-arm-cortex-mcus.html"
                                              title="STMicroelectronics" target="_blank">STMicroelectronics</a></div>
         </section>
+        
         <section>
           <h4>STM32L073RZ</h4>
         </section>
+        
         <section>
           <img src="images/stm32l073xz_192k-medium.jpg">
           <div class="pbverysmall">Source: <a
                                              href="https://www.st.com/en/microcontrollers-microprocessors/stm32l073rz.html"
                                              title="STMicroelectronics" target="_blank">STMicroelectronics</a></div>
         </section>
+        
         <section>
           <img src="images/stm32l073rz.png" height="600">
           <div class="pbverysmall">Source: <a
                                              href="https://www.st.com/en/microcontrollers-microprocessors/stm32l073rz.html#documentation"
                                              title="STMicroelectronics" target="_blank">STMicroelectronics</a></div>
         </section>
+        
         <section>
           <ul>
             <li>Price: US$6.95 (unit) - US$2.66 (10,000)</li>
           </ul>
         </section>
+        
         <section>
           <h5>Development board</h5>
           <img src="images/nucleo-l073rg.png">
@@ -620,9 +662,11 @@
                                              href="https://www.st.com/content/st_com/en/products/evaluation-tools/product-evaluation-tools/mcu-mpu-eval-tools/stm32-mcu-mpu-eval-tools/stm32-nucleo-boards/nucleo-l073rz.html"
                                              title="STMicroelectronics" target="_blank">STMicroelectronics</a></div>
         </section>
+        
         <section>
           <h4>STM32WL55</h4>
         </section>
+        
         <section>
           <img src="images/stm32wlOverview.jpeg">
           <div class="pbverysmall">Source: <a
@@ -635,11 +679,13 @@
                                              href="https://www.st.com/content/st_com/en/products/microcontrollers-microprocessors/stm32-32-bit-arm-cortex-mcus/stm32-wireless-mcus/stm32wl-series.html"
                                              title="STMicroelectronics" target="_blank">STMicroelectronics</a></div>
         </section>
+        
         <section>
           <ul>
             <li>price: US$9.25 (unit) - US$4.54 (10,000)</li>
           </ul>
         </section>
+        
         <section>
           <h5>Development board</h5>
           <img src="images/nucleowl55jc.jpg" height="400">
@@ -648,129 +694,98 @@
                                              href="https://www.st.com/content/st_com/en/products/evaluation-tools/product-evaluation-tools/mcu-mpu-eval-tools/stm32-mcu-mpu-eval-tools/stm32-nucleo-boards/nucleo-wl55jc.html"
                                              title="STMicroelectronics" target="_blank">STMicroelectronics</a></div>
         </section>
-        <section>
-          <h4>Example: Cypress PSoC 4200 family</h4>
-          <div class="row">
-            <div class="column">
-              <img src="images/PSoC_4200_Block_Diagram_rev5.png">
-            </div>
-            <div class="column">
-              <div class="r-stack">
-                <div class="fragment fade-in-then-out">
-                  <p class="pbsmaller">Microcontroller block:</p>
-                  <ul class="pbsmaller">
-                    <li>Cortex-M0 core</li>
-                    <li>Clock: up to 48 MHz</li>
-                    <li>Memory: up to 256 KB Flash, 32 KB RAM</li>
-                    <li>USB, CAN</li>
-                </div>
-                <div class="fragment fade-in-then-out">
-                  <p class="pbsmaller">Analog blocks:</p>
-                  <ul class="pbsmaller">
-                    <li>Up to 4 op amp</li>
-                    <li>A/D converter, up to 1 mega samples/s on 12 bits</li>
-                    <li>Up to 6 comparators</li>
-                    <li>Up to 4 D/A converters</li>
-                    <li>Capacitive sensing</li>
-                  </ul>
-                </div>
-                <div class="fragment fade-in_then-out">
-                  <p class="pbsmaller">Digital blocks:</p>
-                  <ul class="pbsmaller">
-                    <li>Up to 8 universal digital blocks</li>
-                    <li>Up to 8 timers/counters/PWM blocks</li>
-                    <li>Up to 4 serial communication blocks (UART, I2C, SPI)</li>
-                    <li>Segment LCD drive</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="pbverysmall">Source: <a
-                                             href="https://www.cypress.com/products/32-bit-arm-cortex-m0-psoc-4200-programmable-digital-blocks"
-                                             title="Infineon" target="_blank">Infineon</a></div>
-        </section>
-        <section>
-          <h5>Development board</h5>
-          <img src="images/CY8CKit-146.png">
-          <p class="pbcenter">Price: US$19.94</p>
-          <div class="pbverysmall">Source: <a
-                                             href="https://www.cypress.com/documentation/development-kitsboards/psoc-4-cy8ckit-146-4xxx-prototyping-kits"
-                                             title="Infineon" target="_blank">Infineon</a></div>
-        </section>
+        
         <section>
           <h4>Espressif - ESP family</h4>
           <img src="images/Espressif_Standard_Logo_CN_Horizontal.png" width="160"">
-                                                                                  </section>
+        </section>
+        
         <section>
           <h4>Espressif family</h4>
-          <ul>
-            <li>ESP32-S Series</li>
-            <li>ESP32-C Series</li>
-            <li>ESP32-H Series</li>
-            <li>ESP32 Series</li>
-            <li>ESP8266 Series</li>
-            <li>Announced: ESP32-P Series</li>
+          <ul class="pbsmaller">
+            <li>ESP32-P Series - high-power RISC-V dual-core + low-power single-core</li>
+            <li>ESP32-S Series - Xtensa LX7 dual-cor or single-core - Wi-Fi, BLE</li>
+            <li>ESP32-C Series - RISC-V dual-core or single-core - Wi-Fi (2.4 GHz / 5 GHz), BLE, IEEE 802.15.4</li>
+            <li>ESP32-H Series - RISC-V single-core</li>
+            <li>ESP32 Series - Xtensa LX6 dual-core or single-core - Wi-Fi, Bluetooth, BLE</li>
           </ul>
+          <div class="pbverysmall">
+          BLE: Bluetooth Low Energy
+          </div>
+          <div  class="pbverysmall">
+          IEEE 802.15.4: physical layer and MAC layer for Zigbee, 6LowPAN, Thread, Matter, etc.
+          </div>
           <div class="pbverysmall">Source: <a
                                              href="https://www.espressif.com/en/products/socs"
                                              title="Espressif" target="_blank">Espressif</a>
           </div>
         </section>
+        
         <section>
-          <h4>Main characteristics (depend on series)</h4>
-          <ul>
-            <li>Single-core or dual-core (Tensilica Xtensa LX7 / Tensilica L106 / RISC-V)</li>
-            <li>Wi-Fi 2.4 GHz / Wi-Fi 6 / Bluetooth / Bluetooth Low Energy / IEEE 802.15.4 (Thread / Zigbee)</li>
-            <li>Many peripherals</li>
-            <li>Vector instructions &rArr; neural network and digital signal processing</li>
-            <li>Security</li>
-            <li>Low power</li>
-            <li>Software Development Kits (IoT, AI, audio, etc.)</li>
-            <li>Low cost</li>
-          </ul>
-        </section>
-        <section>
-          <p>Price:</p>
-          <ul>
-            <li>ESP32-C3FH4 - 4MB Flash - Wi-Fi + Bluetooth LE: US$1.30</li>
-          </ul>
-        </section>
-        <section>
-          <h5>Development boards</h5>
-          <div class="row">
-            <div class="column">
-              <img src="images/ESP32-C3-DevKitC-02.png">
-              <p class="pbcentersmaller2">ESP32-C3-DevKitC-02 - US$8.00</p>
-            </div>
-            <div class="column">
-              <img src="images/ESP-EYE.png">
-              <p class="pbcentersmaller2">ESP32-EYE - US$19.90</p>
-            </div>
+          <h4>ESP32-C6FH4</h4>
+          <img src="images/esp32c6-functionalBlockDiagram.png" height="550">
+          <div class="pbverysmall">Source: 
+               <a href="https://www.espressif.com/sites/default/files/documentation/esp32-c6_datasheet_en.pdf"
+                  title="ESP32-C6 Datasheet" target="_blank">ESP32-C6 Datasheet</a>
           </div>
-          <div class="pbverysmall">Source: <a href="https://www.espressif.com/en/products/devkits"
-                                              title="Espressif" target="_blank">Espressif</a></div>
+        </section>
+        
+        <section>
+          <h4>Some of the features</h4>
+          <ul>
+            <li>High-power RISC-V processor - clock up to 160 MHz</li>
+            <li>Low-power RISC-V processor - clock up to 20 MHz</li>
+            <li>L1 cache: 32 KB</li>
+            <li>ROM: 320 KB</li>
+            <li>Hig-power SRAM: 512 KB</li>
+            <li>Low-power SRAM: 16 KB</li>
+            <li>Flash: 4 MB</li>
+          </ul>
+        </section>
+        
+        <section>
+          <ul>
+            <li>Price: US$2.05</li>
+          </ul>
+        </section>
+        
+        <section>
+          <h5>Development board</h5>
+          <img src="images/esp32c6-devkitm-1-isometric.png" height="300">
+          <div class="pbverysmall">Source: 
+               <a href="https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32c6/esp32-c6-devkitm-1/user_guide.html"
+                  title="ESP32-C6-DevKitM-1" target="_blank">ESP32-C6-DevKitM-1</a></div>
         </section>
 
+        <section>
+          <ul>
+            <li>Price: US$7.96</li>
+          </ul>
+        </section>
+        
         <!-- -------------------- Software development - part 1 ---------------------------------------- -->
+        
         <section id="softwareDevelopment1">
           <h3>Software development - part 1</h3>
         </section>
+        
         <section id="crossDevelopment">
           <h4>Cross development</h4>
-          <img src="images/crossDevEsp32.png">
+          <img src="images/crossDevEsp32c6.png">
           <div class="pbverysmall">Icons made by <a href="https://www.flaticon.com/authors/freepik"
                                                     title="Freepik" target="_blank">Freepik</a> from <a href="https://www.flaticon.com/"
                                                                                                         title="Flaticon" target="_blank">www.flaticon.com</a></div>
         </section>
+        
         <section>
           <p>With the computer:</p>
           <ul>
             <li>Edit source-code</li>
-            <li>Cross build (cross compile and link)</li>
-            <li>Emulate and debug</li>
+            <li>Cross build (cross compilation and link)</li>
+            <li>Emulate and debug (may require complex setup)</li>
           </ul>
         </section>
+        
         <section>
           <p>With the computer and the microcontroller board:</p>
           <ul>
@@ -778,6 +793,7 @@
             <li>Debug</li>
           </ul>
         </section>
+        
         <section>
           <ul>
             <li>Every microcontroller manufacturer: full development environnement</li>
@@ -786,93 +802,6 @@
           </ul>
         </section>
 
-        <!-- -------------------- Practice: ESP32-C6 ---------------------------------------- -->
-        
-        <section id="practiceEsp32C6">
-          <h3>Practice: Hello World for the ESP32-C6</h3>
-        </section>
-        <section>
-          <h4>ESP32</h4>
-          <img src="images/esp32C6FuncDiagram.png" height="500">
-          <div class="pbverysmall">Source: <a href="https://www.espressif.com/sites/default/files/documentation/esp32-c6_datasheet_en.pdf"
-                                              title="ESP32-C6 datasheet" target="_blank">ESP32-C6 Series Datasheet</a></div>
-        </section>
-        <section>
-          <h4>Main characteristics</h4>
-          <ul>
-            <li>Wi-Fi 6 (b/g/n/ax)</li>
-            <li>Bluetooth 5 (LE, mesh)</li>
-            <li>Dual core:
-                <ul>
-                    <li>HP RISC-V processor - 160 MHz</li>
-                    <li>LP RISC-V processor - 20 MHz</li>
-                </ul>
-            </li>
-            <li>320 KB ROM</li>
-            <li>512 KB HP SRAM</li>
-            <li>16 KB LP SRAM</li>
-            <li>16 KB SRAM in RTC</li>
-            <li>Interface for external Flash and SRAM chips</li>
-            <li>Timers, GPIOs, ADC, SPI, I2S, I2C, UART, etc.</li>
-            <li>Flash: 4 MB in chip package</li>
-          </ul>
-        </section>
-        <section>
-          <h4>ESP32-C6-DevKitM-1</h4>
-          <img src="images/esp32C6DevKitMCallout.png" height="500">
-          <div class="pbverysmall">Source: <a href="https://docs.espressif.com/projects/espressif-esp-dev-kits/en/latest/esp32c6/esp32-c6-devkitm-1/user_guide.html#description-of-components"
-                                              title="ESP32-C6-DevKitM-1 guide" target="_blank">ESP32-C6-DevKitM-1 Getting Started Guide</a></div>
-        </section>
-        <section>
-          <h4>Documentation</h4>
-          <ul>
-            <li><a href="https://www.espressif.com/sites/default/files/documentation/esp32-c6_datasheet_en.pdf"
-                   target="_blank">ESP32-C6 Series Datasheet</a></li>
-            <li><a href="https://www.espressif.com/sites/default/files/documentation/esp32-c6-mini-1_mini-1u_datasheet_en.pdf"
-                    target="_blank">ESP32-C6-MINI-1 Datasheet</a></li>
-            <li><a href="https://www.espressif.com/sites/default/files/documentation/esp32-c6_technical_reference_manual_en.pdf"
-                   target="_blank">ESP32-C6 Technical Reference Manual</a></li>
-            <li><a href="https://docs.espressif.com/projects/espressif-esp-dev-kits/en/latest/esp32c6/esp32-c6-devkitm-1/user_guide.html#getting-started"
-                   target="_blank">ESP32-C6-DevKitM-1 Getting Started Guide</a></li>
-            <li><a href="https://docs.espressif.com/projects/espressif-esp-dev-kits/en/latest/_static/esp32-c6-devkitm-1/schematics/esp32-c6-devkitm-1-schematics.pdf"
-                   target="_blank">ESP32-C6-DevKitM-1 Schematic</a></li>
-          </ul>
-        </section>
-
-        <section>
-          <h4>ESP32 development environment</h4>
-          <div class="r-stack">
-            <div class="fragment fade-out" data-fragment-index="0">
-              <img src="images/esp32DevEnvironmentWithoutCallouts.png">
-            </div>
-            <div class="fragment fade-in-then-out" data-fragment-index="0">
-              <img src="images/esp32DevEnvironmentCallouts1.png">
-            </div>
-            <div class="fragment fade-in-then-out">
-              <img src="images/esp32DevEnvironmentCallouts2.png">
-            </div>
-            <div class="fragment fade-in-then-out">
-              <img src="images/esp32DevEnvironmentCallouts3.png">
-            </div>
-            <div class="fragment fade-in-then-out">
-              <img src="images/esp32DevEnvironment.png">
-            </div>
-          </div>
-        </section>
-        <section>
-          <p>If you completed the prerequisites, you should have a VM with a copy of the <em>RTOS-presentation</em> repository,
-            and Espressif-IDE installed.</p>
-          <p>If not, complete the prerequisites.</p>
-          <p>Then:</p>
-          <ul>
-            <li>Check that connecting the ESP32-C6-DevKitM-1 creates a serial port</li>
-            <li>Create the <em>Hello World</em> project</li>
-            <li>Build it</li>
-            <li>Flash the ESP32-C6-DevKitM-1</li>
-            <li>Check the log messages</li>
-          </ul>
-        </section>
- 
       </div>
     </div>
 
