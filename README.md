@@ -1,13 +1,15 @@
-# An introduction to the use of an RTOS
+# An introduction to the use of an RTOS for Machine Learning
 
 ## Overview
 
-This repository contains material providing an introduction to the use of an RTOS on a microcontroller:
+This repository contains material providing an introduction to the use of an RTOS on a microcontroller for developing Machine Learning applications:
 * Some introductory material about hardware and software
 * What an RTOS is and what it provides
 * Some practical exercises, using the ESP32-C6 as target
 
 This presentation is based on the [course](https://github.com/PascalBod/IMTAtlantique-2024) taught at [IMT Atlantique](https://www.imt-atlantique.fr/en) and is currently in construction, being adapted to another target board than the one used in the IMT Atlantique course. Additionally, some parts will be enriched. Revisited chapters will be provided one by one, after the already available introductory part.
+
+This presentation DOES NOT provide any information about Machine Learning topic.
 
 ## Prerequisites for the practical exercises
 
