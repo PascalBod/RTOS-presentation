@@ -41,6 +41,14 @@
             </thead>
             <tbody>
               <tr>
+                <td>07-Aug-2024</td>
+                <td>Target is now EFR32BG24</td>
+              </tr>
+              <tr>
+                <td>30-Jul-2024</td>
+                <td>First practice session</td>
+              </tr>
+              <tr>
                 <td>29-Jul-2024</td>
                 <td>Introductory part</td>
               </tr>
@@ -102,6 +110,7 @@
                 <li><a href="#/softwareDevelopment1">Software development - part 1</a>
                   <ul>
                     <li><a href="#/crossDevelopment">Cross development</a></li>
+                    <li><a href="#/practiceEfr32bg24DevKit"><b>Practice: Build and run an application for the EFR32xG24 Dev Kit</b></a></li>
                   </ul>
                 </li>
               </ul>
@@ -682,7 +691,7 @@
         
         <section>
           <ul>
-            <li>price: US$9.25 (unit) - US$4.54 (10,000)</li>
+            <li>Price: US$9.25 (unit) - US$4.54 (10,000)</li>
           </ul>
         </section>
         
@@ -693,6 +702,49 @@
           <div class="pbverysmall">Source: <a
                                              href="https://www.st.com/content/st_com/en/products/evaluation-tools/product-evaluation-tools/mcu-mpu-eval-tools/stm32-mcu-mpu-eval-tools/stm32-nucleo-boards/nucleo-wl55jc.html"
                                              title="STMicroelectronics" target="_blank">STMicroelectronics</a></div>
+        </section>
+        
+        <section>
+          <h4>Example: Silicon Labs - EFR32 family</h4>
+        </section>
+
+        <section>
+          <img src="images/efr32bg-family.png" height="400">
+          <div class="pbverysmall">Source: 
+            <a
+              href="https://pages.silabs.com/rs/634-SLU-379/images/Bluetooth-Chipset-Selector-Guide-IC-Silicon-Labs.pdf"
+              title="Silicon Labs Bluetooth SoC and Module Selector Guide"
+              target="_blank">Silicon Labs Bluetooth SoC and Module Selector Guide</a></div>
+        </section>
+        
+        <section>
+          <h4>EFR32BG24</h4>
+        </section>
+        
+        <section>
+          <img src="images/efr32bg24-block-diagram.png">
+          <div class="pbverysmall">Source: 
+            <a
+              href="https://www.silabs.com/documents/public/data-sheets/efr32bg24-datasheet.pdf"
+              title="EFR32BG24 Datasheet"
+              target="_blank">EFR32BG24 Datasheet</a></div>
+        </section>
+        
+        <section>
+          <ul>
+            <li>Price: around US$6 (unit)</li>
+          </ul>
+        </section>
+        
+        <section>
+          <h5>Development board</h5>
+          <img src="images/efr32bg24-dev-kit.png" height="400">
+          <p class="pbcenter">US$79</p>
+          <div class="pbverysmall">Source: 
+            <a
+              href="https://www.silabs.com/documents/public/user-guides/ug524-brd2601b-user-guide.pdf"
+              title="xG24 Dev Kit User's Guide" 
+              target="_blank">xG24 Dev Kit User's Guide</a></div>
         </section>
         
         <section>
@@ -801,7 +853,159 @@
             <li>Often based on Open Source software (Eclipse, gcc, etc.)</li>
           </ul>
         </section>
+        
+        <!-- -------------------- Practice: EFR32BG24 Dev Kit ---------------------------------------- -->
+        
+        <section id="practiceEfr32bg24DevKit">
+          <h3>Practice: Build and run an application for the EFR32xG24 Dev Kit</h3>
+        </section>
+        
+        <section>
+          <h4>Overview</h4>
+          <img src="images/efr32bg24-block-diagram.png">
+          <div class="pbverysmall">Source: 
+            <a
+              href="https://www.silabs.com/documents/public/data-sheets/efr32bg24-datasheet.pdf"
+              title="EFR32BG24 Datasheet"
+              target="_blank">EFR32BG24 Datasheet</a></div>
+        </section>
+        
+        <section>
+          <h4>EF32xG24 Dev Kit</h4>
+          <img src="images/efr32bg24-dev-kit-annotated-photo.png" height="400">
+          <div class="pbverysmall">Source: 
+            <a
+              href="https://www.silabs.com/documents/public/user-guides/ug524-brd2601b-user-guide.pdf"
+              title="xG24 Dev Kit User's Guide" 
+              target="_blank">xG24 Dev Kit User's Guide</a></div>
+        </section>
+        
+        <section>
+          <h4>Reference documentation</h4>
+          <ul>
+            <li>Microcontroller:
+              <ul>
+                <li><a href="https://www.silabs.com/documents/public/data-sheets/efr32bg24-datasheet.pdf"
+                       target="_blank">
+                  EF32BG24 Wireless SoC Family Data Sheet (129 pages)</a></li>
+                <li><a href="https://www.silabs.com/documents/public/reference-manuals/efr32xg24-rm.pdf"
+                       target="_blank">
+                  EFR32xG24 Wireless SoC Reference Manual (1152 pages)</a></li>
+              </ul>
+            </li>
+            <li>Board:
+              <ul>
+                <li><a href="https://www.silabs.com/documents/public/user-guides/ug524-brd2601b-user-guide.pdf"
+                       target="_blank">
+                  xG24 Dev Kit User's Guide</a></li>
+                <li><a href="https://www.silabs.com/documents/public/schematic-files/BRD2601B-A01-schematic.pdf"
+                       target="_blank">
+                  Schematic - Revision A01</a></li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        
+        <section>
+          <h4>Development environments</h4>
+          <p>Several possibilities:</p>
+          <ul>
+            <li>Simplicity Studio v5 (SSv5) - based upon Eclipse IDE</li>
+            <li>VS Code + extension</li>
+            <li>...</li>
+          </ul>
+          <p class="fragment">We will use SSv5.</p>
+        </section>
+        
+        <section>
+          <h4>SSv5</h4>
+          <div class="r-stack">
+            <div class="fragment fade-out" data-fragment-index="0">
+              <img src="images/efr3232DevEnvironmentWithoutCallouts.png">
+            </div>
+            <div class="fragment fade-in-then-out" data-fragment-index="0">
+              <img src="images/efr3232DevEnvironmentCallouts1.png">
+            </div>
+          </div>
+        </section>
+        
+        <section>
+          <h4>Exercise 01</h4>
+          <ol>
+            <li>Ensure you completed the 
+              <a href="https://github.com/PascalBod/RTOS-presentation?tab=readme-ov-file#prerequisites-for-the-practical-exercises"
+                 target="_blank">prerequisites</a></li>
+            <li>Create a new project, still based on the <em>Empty C</em> project, naming it <code>HelloWorld</code></li>
+            <li>Check that you can build it and that you can program the board</li>
+          </ol>
+        </section>
+        
+        <section>
+          <ol start="4">
+            <li>Replace the content of the <code>readme.md</code> file
+                (right-click and <b>Open With > Text Editor</b>) by:</li>
+          </ol>
+          <pre>
+# HelloWorld
 
+This example project shows how to display a message on the
+virtual serial link created over the USB connection.          </pre>
+        </section>
+        
+        <section>
+          <ol start="5">
+            <li>If the content of the <code>HelloWorld.slcp</code> file is not displayed in an editor tab yet,
+                double-click the filename</li>
+            <li>Click on the <b>SOFTWARE COMPONENTS</b> tab</li>
+            <li>Using the search box, install the following components, in this order:
+              <ul>
+                <li><b>Services > IO Stream > IO Stream: STDLIB Configuration</b></li>
+                <li><b>Services > IO Stream > Driver > IO Stream: USART</b></li>
+                <li><b>Services > IO Stream > IO Stream: Retarget STDIO</b></li>
+                <li><b>Application > Utility > Log</b></li>
+              </ul>
+            </li>
+          </ol>
+          <p>Notes:
+            <ul>
+              <li>Only the part after the last <b>></b>
+                character must be used to search</li>
+              <li>When the search result is displayed, click the small triangles on the left-hand side
+                  until the result is fully unfolded</li>
+              <li>For the USART component, keep the default name for the instance</li>
+            </ul>
+          </p>
+        </section>
+        
+        <section>
+          <ol start="8">
+            <li>Double-click the <code>app.c</code> in order to display its content</li>
+            <li>Add the following include directive:
+              <pre>
+#include "app_log.h"
+              </pre>
+            </li>
+            <li>Add the following function call in the <code>app_init</code> function:
+              <pre>
+  app_log("Hello World!\n");
+              </pre>
+            </li>
+            <li>Build the application, and program the board</li>
+          </ol>
+        </section>
+        
+        <section>
+          <ol start="12">
+            <li>In a terminal window, start a serial terminal connected to the board:
+              <pre>
+$ pyserial-miniterm /dev/ttyACM0 115200
+              </pre>
+            </li>
+            <li>Click the board reset button. Each click should display the <em>Hello World!</em>
+                message</li>
+          </ol>
+        </section>
+        
       </div>
     </div>
 
