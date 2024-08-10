@@ -823,26 +823,70 @@
         
         <section id="crossDevelopment">
           <h4>Cross development</h4>
-          <img src="images/crossDevEsp32c6.png">
-          <div class="pbverysmall">Icons made by <a href="https://www.flaticon.com/authors/freepik"
-                                                    title="Freepik" target="_blank">Freepik</a> from <a href="https://www.flaticon.com/"
-                                                                                                        title="Flaticon" target="_blank">www.flaticon.com</a></div>
+          <img src="images/crossDevEfr32bg24.png">
+          <div class="pbverysmall">Icons made by 
+            <a href="https://www.flaticon.com/authors/freepik"
+               title="Freepik" target="_blank">Freepik</a> from 
+            <a href="https://www.flaticon.com/"
+               title="Flaticon" target="_blank">www.flaticon.com</a></div>
         </section>
         
         <section>
-          <p>With the computer:</p>
+          <h4>Reminders</h4>
+        </section>
+
+        <section>
+          <h4>Usual development</h4>
+          <div class="r-stack">
+            <div class="fragment fade-out" data-fragment-index="0">
+              <img src="images/build1.png">
+            </div>
+            <div class="fragment fade-in-then-out" data-fragment-index="0">
+              <img src="images/build2.png">
+            </div>
+            <div class="fragment fade-in-then-out">
+              <img src="images/build3.png">
+            </div>
+            <div class="fragment fade-in-then-out">
+              <img src="images/build4.png">
+            </div>
+            <div class="fragment fade-in-then-out">
+              <p class="pbcenter">Then you run the executable file.</p>
+            </div>
+          </div>
+        </section>
+        
+        <section>
+          <p class="pbcenter"><b>Toolchain</b>: compiler + linker + other utilities</p>
+        </section>
+        
+        <section>
+          <h4>Cross development for microcontroller board</h4>
+          <div class="r-stack">
+            <div class="fragment fade-out" data-fragment-index="0">
+              <img src="images/build5.png">
+            </div>
+            <div class="fragment fade-in-then-out" data-fragment-index="0">
+              <img src="images/transferExecutable.png">
+            </div>
+          </div>
+        </section>
+        
+        <section>
+          <p>Transferring the executable file to the microcontroller board can be done in several ways:</p>
           <ul>
-            <li>Edit source-code</li>
-            <li>Cross build (cross compilation and link)</li>
-            <li>Emulate and debug (may require complex setup)</li>
+            <li>Over a debug interface</li>
+            <li>Over a serial link while the microcontroller runs a <em>bootloader</em></li>
+            <li>Over a wireless connection while the microcontroller runs a <em>bootloader</em></li>
+            <li>Etc.</li>
           </ul>
         </section>
         
         <section>
-          <p>With the computer and the microcontroller board:</p>
+          <h4>Debugging</h4>
           <ul>
-            <li>Program the Flash memory</li>
-            <li>Debug</li>
+            <li>The development computer can control the execution of the application running in the microcontroller</li>
+            <li>Requires a debug interface on the microcontroller board and a serial link</li>
           </ul>
         </section>
         
@@ -850,7 +894,7 @@
           <ul>
             <li>Every microcontroller manufacturer: full development environnement</li>
             <li>Often free</li>
-            <li>Often based on Open Source software (Eclipse, gcc, etc.)</li>
+            <li>Often based on Open Source software (Eclipse, gcc, openOCD, etc.)</li>
           </ul>
         </section>
         
@@ -903,6 +947,13 @@
                   Schematic - Revision A01</a></li>
               </ul>
             </li>
+            <li>Sofware:
+              <ul>
+                <li><a href="https://docs.silabs.com/" target="_blank">Developer Documentation</a></li>
+                <li><a href="https://docs.silabs.com/simplicity-studio-5-users-guide/latest/ss-5-users-guide-overview/"
+                       target="_blank"">Simplicity Studio 5 User's Guide</a></li>
+              </ul>
+            </li>
           </ul>
         </section>
         
@@ -931,81 +982,15 @@
         
         <section>
           <h4>Exercise 01</h4>
-          <ol>
-            <li>Ensure you completed the 
-              <a href="https://github.com/PascalBod/RTOS-presentation?tab=readme-ov-file#prerequisites-for-the-practical-exercises"
-                 target="_blank">prerequisites</a></li>
-            <li>Create a new project, still based on the <em>Empty C</em> project, naming it <code>HelloWorld</code></li>
-            <li>Check that you can build it and that you can program the board</li>
-          </ol>
+          <ul>
+            <li>Using <em>git</em>, clone the <a href="https://github.com/PascalBod/RTOS-presentation"
+                                          target="_blank">
+              <code>RTOS-presentation</code> GitHub repository</a></li>
+            <li>Follow the instructions provided by the <code>RTOS-presentation/exercises/01-HeloWorld/READM.md</code>
+                file.</li>
+          </ul>
         </section>
-        
-        <section>
-          <ol start="4">
-            <li>Replace the content of the <code>readme.md</code> file
-                (right-click and <b>Open With > Text Editor</b>) by:</li>
-          </ol>
-          <pre>
-# HelloWorld
-
-This example project shows how to display a message on the
-virtual serial link created over the USB connection.          </pre>
-        </section>
-        
-        <section>
-          <ol start="5">
-            <li>If the content of the <code>HelloWorld.slcp</code> file is not displayed in an editor tab yet,
-                double-click the filename</li>
-            <li>Click on the <b>SOFTWARE COMPONENTS</b> tab</li>
-            <li>Using the search box, install the following components, in this order:
-              <ul>
-                <li><b>Services > IO Stream > IO Stream: STDLIB Configuration</b></li>
-                <li><b>Services > IO Stream > Driver > IO Stream: USART</b></li>
-                <li><b>Services > IO Stream > IO Stream: Retarget STDIO</b></li>
-                <li><b>Application > Utility > Log</b></li>
-              </ul>
-            </li>
-          </ol>
-          <p>Notes:
-            <ul>
-              <li>Only the part after the last <b>></b>
-                character must be used to search</li>
-              <li>When the search result is displayed, click the small triangles on the left-hand side
-                  until the result is fully unfolded</li>
-              <li>For the USART component, keep the default name for the instance</li>
-            </ul>
-          </p>
-        </section>
-        
-        <section>
-          <ol start="8">
-            <li>Double-click the <code>app.c</code> in order to display its content</li>
-            <li>Add the following include directive:
-              <pre>
-#include "app_log.h"
-              </pre>
-            </li>
-            <li>Add the following function call in the <code>app_init</code> function:
-              <pre>
-  app_log("Hello World!\n");
-              </pre>
-            </li>
-            <li>Build the application, and program the board</li>
-          </ol>
-        </section>
-        
-        <section>
-          <ol start="12">
-            <li>In a terminal window, start a serial terminal connected to the board:
-              <pre>
-$ pyserial-miniterm /dev/ttyACM0 115200
-              </pre>
-            </li>
-            <li>Click the board reset button. Each click should display the <em>Hello World!</em>
-                message</li>
-          </ol>
-        </section>
-        
+                
       </div>
     </div>
 
