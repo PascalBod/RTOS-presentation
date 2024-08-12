@@ -19,12 +19,22 @@ The provided exercises will rely on the environment development presented [here]
 
 Using a virtual machine allows to isolate all specific configuration relating to Espressif-IDE from your other projects. A drawback is that the host computer must be powerful enough and must have more memory.
 
-Apple MacOS or Microsoft Windows can be used to install and run Simplicity Studio. But things are easier and more reliable with Linux.
+The above preconfigured virtual machine will be made available. It will be an x86_64 version.
 
 ### Hardware
 
 The exercises will use the following hardware:
 * [EFR32xG24 Dev Kit](https://www.silabs.com/development-tools/wireless/efr32xg24-dev-kit?tab=overview)
+
+### Software development competencies
+
+* Basic knowledge of *git* - [git user manual](https://git-scm.com/docs/user-manual)
+* Basic knowledge of *GitHub* - [About GitHub and Git](https://docs.github.com/en/get-started/start-your-journey/about-github-and-git)
+* Basic knowledge of *Linux* (knowing the most common commands...) - [An Introduction to Linux Basics, from DigitalOcean](https://www.digitalocean.com/community/tutorials/an-introduction-to-linux-basics)
+* Basic knowledge of *VirtualBox* (knowing how to create a virtual machine...) - [VirtualBox end-user documentation](https://www.virtualbox.org/wiki/End-user_documentation)
+* Good knowledge of one programming language
+
+C language is used, for the exercises. [This Standford Computer Science Education document](http://cslibrary.stanford.edu/101/EssentialC.pdf) provides a good presentation of the language. 
 
 ### What to do before going through the presentation
 
