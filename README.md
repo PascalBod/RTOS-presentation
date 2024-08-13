@@ -17,7 +17,7 @@ This presentation DOES NOT provide any information about Machine Learning topic.
 
 The provided exercises will rely on the environment development presented [here](https://github.com/PascalBod/lm-efr32-simplicityStudio): Silicon Labs Simplicity Studio installed in a Linux Mint Xfce Virtual Machine.
 
-Using a virtual machine allows to isolate all specific configuration relating to Espressif-IDE from your other projects. A drawback is that the host computer must be powerful enough and must have more memory.
+Using a virtual machine allows to isolate all specific configuration relating to Simplicity Studio from your other projects. A drawback is that the host computer must be powerful enough and must have more memory.
 
 The above preconfigured virtual machine will be made available. It will be an x86_64 version.
 
