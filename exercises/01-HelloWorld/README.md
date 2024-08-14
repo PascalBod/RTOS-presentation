@@ -46,11 +46,10 @@ Notes:
     ```
         app_log("Hello World!\n");
     ```
-11. Build the application, and program the board.
-12. In a terminal window, start a serial terminal connected to the board:
+12. Save the file.
+13. Build the application, and program the board.
+14. In a terminal window, start a serial terminal connected to the board:
     ```
     $ pyserial-miniterm /dev/ttyACM0 115200
     ```
-13. Click the board reset button. Each click should display the `Hello World!` message.
-
-
+15. Click the board reset button. Each click should display the `Hello World!` message.
