@@ -4,7 +4,7 @@
 
 Display a message on the virtual serial link created over the USB connection.
 
-## A few words about EFR32BG24 libraries
+## A few words about EFR32MG24 libraries
 
 Many libraries are provided by Silicon Labs for helping the developer in writing code. The libraries contain abstraction code implementing a "high-level" API (Application Programming Interface) to the various microcontroller blocks: peripherals, interfaces, etc. (more information on this topic later in the presentation).
 

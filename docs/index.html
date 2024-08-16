@@ -41,8 +41,12 @@
             </thead>
             <tbody>
               <tr>
+                <td>16-Aug-2024</td>
+                <td>GPIO section</td>
+              </tr>
+              <tr>
                 <td>07-Aug-2024</td>
-                <td>Target is now EFR32BG24</td>
+                <td>Target is now EFR32MG24</td>
               </tr>
               <tr>
                 <td>30-Jul-2024</td>
@@ -111,6 +115,16 @@
                   <ul>
                     <li><a href="#/crossDevelopment">Cross development</a></li>
                     <li><a href="#/practiceEfr32bg24DevKit"><b>Practice: Build and run an application for the EFR32xG24 Dev Kit</b></a></li>
+                  </ul>
+                </li>
+                <li><a href="#/peripherals">Peripherals</a></li>
+              </ul>
+            </div>
+            <div class="pbsmaller">
+              <ul>
+                <li><a href="#/interfaces">Interfaces</a>
+                  <ul>
+                    <li><a href="#/gpioInterface">GPIO</a></li>
                   </ul>
                 </li>
               </ul>
@@ -709,30 +723,39 @@
         </section>
 
         <section>
-          <img src="images/efr32bg-family.png" height="400">
+          <img src="images/siliconLabsWirelessProducts.png">
           <div class="pbverysmall">Source: 
             <a
-              href="https://pages.silabs.com/rs/634-SLU-379/images/Bluetooth-Chipset-Selector-Guide-IC-Silicon-Labs.pdf"
-              title="Silicon Labs Bluetooth SoC and Module Selector Guide"
-              target="_blank">Silicon Labs Bluetooth SoC and Module Selector Guide</a></div>
-        </section>
-        
-        <section>
-          <h4>EFR32BG24</h4>
-        </section>
-        
-        <section>
-          <img src="images/efr32bg24-block-diagram.png">
-          <div class="pbverysmall">Source: 
-            <a
-              href="https://www.silabs.com/documents/public/data-sheets/efr32bg24-datasheet.pdf"
-              title="EFR32BG24 Datasheet"
-              target="_blank">EFR32BG24 Datasheet</a></div>
+              href="https://www.silabs.com/products"
+              title="Silicon Labs Wireless SoCs"
+              target="_blank">Silicon Labs Wireless SoCs</a></div>
         </section>
         
         <section>
           <ul>
-            <li>Price: around US$6 (unit)</li>
+            <li>Bluetooth: EFR32BG21, EFR32BG22, EFR32BG24, EFR32BG26, EFR32BG27</li>
+            <li>Wi-Fi: SiWx915, SiWx917, RS9116, WF200</li>
+            <li>Thread: EFR32MG12, EFR32MG13, EFR32MG21, EFR32MG24</li>
+            <li>Etc.</li>
+          </ul>
+        </section>
+        
+        <section>
+          <h4>EFR32MG24</h4>
+        </section>
+        
+        <section>
+          <img src="images/efr32mg24-block-diagram.png">
+          <div class="pbverysmall">Source: 
+            <a
+              href="https://www.silabs.com/documents/public/data-sheets/efr32mg24-datasheet.pdf"
+              title="EFR32MG24 Datasheet"
+              target="_blank">EFR32MG24 Datasheet</a></div>
+        </section>
+        
+        <section>
+          <ul>
+            <li>Price: around US$7 (unit)</li>
           </ul>
         </section>
         
@@ -906,12 +929,12 @@
         
         <section>
           <h4>Overview</h4>
-          <img src="images/efr32bg24-block-diagram.png">
+          <img src="images/efr32mg24-block-diagram.png">
           <div class="pbverysmall">Source: 
             <a
-              href="https://www.silabs.com/documents/public/data-sheets/efr32bg24-datasheet.pdf"
-              title="EFR32BG24 Datasheet"
-              target="_blank">EFR32BG24 Datasheet</a></div>
+              href="https://www.silabs.com/documents/public/data-sheets/efr32mg24-datasheet.pdf"
+              title="EFR32MG24 Datasheet"
+              target="_blank">EFR32MG24 Datasheet</a></div>
         </section>
         
         <section>
@@ -929,9 +952,9 @@
           <ul>
             <li>Microcontroller:
               <ul>
-                <li><a href="https://www.silabs.com/documents/public/data-sheets/efr32bg24-datasheet.pdf"
+                <li><a href="https://www.silabs.com/documents/public/data-sheets/efr32mg24-datasheet.pdf"
                        target="_blank">
-                  EF32BG24 Wireless SoC Family Data Sheet (129 pages)</a></li>
+                  EF32MG24 Wireless SoC Family Data Sheet (132 pages)</a></li>
                 <li><a href="https://www.silabs.com/documents/public/reference-manuals/efr32xg24-rm.pdf"
                        target="_blank">
                   EFR32xG24 Wireless SoC Reference Manual (1152 pages)</a></li>
@@ -990,7 +1013,233 @@
                 file.</li>
           </ul>
         </section>
-                
+        
+        <!-- -------------------- Peripherals ---------------------------------------- -->
+        
+        <section id="peripherals">
+          <h3>Peripherals</h3>
+        </section>
+
+        <section>
+          <p><b>Peripheral</b>: a piece of equipment that can be connected to the microcontroller
+             or to the microcontroller board.</p>
+        </section>
+        
+        <section>
+          <h4>Sensors</h4>
+          <ul>
+            <li>Pressure</li>
+            <li>Temperature</li>
+            <li>Light level</li>
+            <li>Magnetic field</li>
+            <li>Gas flow</li>
+            <li>Tilt</li>
+            <li>Acceleration</li>
+            <li>Contact</li>
+            <li>etc.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h4>Actuators</h4>
+          <ul>
+            <li>Relay</li>
+            <li>Motor</li>
+            <li>Stepper motor</li>
+            <li>Servomotor</li>
+            <li>etc.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h4>Other peripherals</h4>
+          <ul>
+            <li>Printer</li>
+            <li>Display</li>
+            <li>OBD connector (On-Board Diagnostics)</li>
+            <li>RFID tag reader</li>
+            <li>Computer (!)</li>
+            <li>etc.</li>
+          </ul>
+        </section>
+        
+        <!-- -------------------- Interfaces ---------------------------------------- -->
+        
+        <section id="interfaces">
+          <h3>Interfaces</h3>
+        </section>
+        
+        <section>
+          <p><b>Interface</b>: a means (hardware and software) of connecting a peripheral to the microcontroller or 
+             to the microcontroller board.</p>
+        </section>
+        
+        <section id="gpioInterface">
+          <h4>GPIO (General Purpose digital Input Output)</h4>
+          <ul>
+            <li>Microcontroller pin which can handle a digital signal</li>
+            <li class="fragment">Signal voltage for bit value 0 is 0 V</li>
+            <li class="fragment">Signal voltage for bit value 1 depends on microcontroller. Usually: supply voltage (e.g. 3.3 V)
+            <li class="fragment">Can be configured either as an input or as an output (with some different modes)</li>
+          </ul>
+        </section>
+        
+        <section>
+          <ul>
+            <li>On a microcontroller: usually several "ports" of GPIOs</li>
+            <li>Ports are labelled, by a letter or by a number</li>
+            <li>In a given port, each GPIO is numbered</li>
+          </ul>
+          <p>For instance: PA00 to PA07, PB00 to PB03, PC00 to PC09 and PD00 to PD05.</p>
+        </section>
+        
+        <section>
+          <h4>GPIO as an output</h4>
+          <div class="row">
+            <div class="column">
+              <img src="images/interfacesGpioOutput01.png" height="400">
+            </div>
+            <div class=column>
+              <ul>
+                <li class="fragment">When PD02 is at 1 (i.e. VMCU), the LED is off, as no current can flow through it</li>
+                <li class="fragment">When PD02 is at 0 (i.e. 0 V), the LED is on, as some current can flow through it</li>
+              </ul>
+              <p class="fragment">Easy, isn't it? &#x1F642;</p>
+            </div>
+          </div>
+          <div class="pbsmaller">Note: component references are taken from the Dev Kit board.</div>
+          <div class="pbverysmall">EDA (Electronic Design Automation) tool: <a href="https://www.kicad.org/" title="KiCad" target="_blank">
+               KiCad</a></div>
+        </section>
+        
+        <section>
+          <h4>Physical world has some constraints - 1/2</h4>
+          <div class="row">
+            <div class="column">
+              <img src="images/interfacesGpioOutput01.png" height="400">
+            </div>
+            <div class="column">
+              <ul>
+                <li>Current through the LED should not be greater than a value depending on the LED (for instance: 1.5 mA)</li>
+                <li class="fragment">A resistor in series with the LED can limit the current. Resistor value is given by Ohm's law: 
+             <code>R137 = VMCU / Imax</code></li>
+                <li class="fragment">We have <code>VMCU = 3.3 V</code> and decide on <code>Imax = 1.5 mA</code></li>
+                <li class="fragment">&rArr; <code>R137 = 2.2 k&#8486;</code></li>
+              </ul>
+            </div>
+          </div>
+        </section>
+        
+        <section>
+          <h4>Physical world has some constraints - 2/2</h4>
+          <p>The LED current flows into the microcontroller. A GPIO can't accept more than a given value 
+             (provided by the microcontroller data sheet).</p>
+          <p class="fragment">For the EFR32MG24, maximum value is 50 mA. As R137 limits the current to 1.5 mA, we are OK.</p>
+          <p class="fragment">Another limit: total maximum value for all GPIO pins. For the EFR32MG24: 200 mA.</p>
+          <p class="fragment">Note: the GPIO is configured as an output, but the current flows INTO the microcontroller.</p>
+        </section>
+        
+        <section>
+          <h4>GPIO as an input - 1/5</h4>
+          <div class="row">
+            <div class="column">
+              <img src="images/interfacesGpioInput01.png" height="400">
+            </div>
+            <div class=column>
+              <ul>
+                <li class="fragment">When the switch is closed, PB02 is set to 0 (GND = 0 V)</li>
+                <li class="fragment">When the switch is open, PB02 is not set. It is "floating"</li>
+              </ul>
+              <p class="fragment">How to set PB02 to 1 when the switch is open?</p>
+            </div>
+          </div>
+          <div class="pbsmaller">Note: component references are taken from the Dev Kit board.</div>
+          <div class="pbverysmall">EDA (Electronic Design Automation) tool: <a href="https://www.kicad.org/" title="KiCad" target="_blank">
+               KiCad</a></div>
+        </section>
+
+        <section>
+          <h4>GPIO as an input - 2/5</h4>
+          <div class="row">
+            <div class="column">
+              <img src="images/interfacesGpioInput02.png" height="400">
+            </div>
+            <div class=column>
+              <ul>
+                <li>R140 ensures that PB02 is set to 1 when the switch is open</li>
+                <li class="fragment">It is named <em>pullup resistor</em></li>
+                <li class="fragment">The resistor value is large enough to get a low current through it (but beware: it is not null)</li>
+                <li class="fragment">If the switch was connected to VMCU instead of GND, we would use a <em>pulldown resistor</em></li>
+              </ul>
+            </div>
+          </div>
+          <div class="pbverysmall">EDA (Electronic Design Automation) tool: <a href="https://www.kicad.org/" title="KiCad" target="_blank">
+               KiCad</a></div>
+        </section>
+
+        <section>
+          <h4>GPIO as an input - 3/5</h4>
+          <div class="row">
+            <div class="column">
+              <img src="images/interfacesGpioInput03.png" height="400">
+            </div>
+            <div class=column>
+              <ul>
+                <li>The <a href="https://www.silabs.com/documents/public/schematic-files/BRD2601B-A01-schematic.pdf"
+                       target="_blank">board schematic</a> shows an additional resistor, R141. What is its purpose?</li>
+                <li class="fragment">If the GPIO was configured as an output (bug), set to 1, and the switch was closed: short-circuit</li>
+                <li class="fragment">R141 limits the current in such a case</li>
+              </ul>
+            </div>
+          </div>
+          <div class="pbverysmall">EDA (Electronic Design Automation) tool: <a href="https://www.kicad.org/" title="KiCad" target="_blank">
+               KiCad</a></div>
+        </section>
+
+        <section>
+          <h4>GPIO as an input - 4/5</h4>
+          <div class="row">
+            <div class="column">
+              <img src="images/interfacesGpioInput04.png" height="400">
+            </div>
+            <div class=column>
+              <ul>
+                <li>The <a href="https://www.silabs.com/documents/public/schematic-files/BRD2601B-A01-schematic.pdf"
+                       target="_blank">board schematic</a> shows a capacitor, C142. What is its purpose?</li>
+              </ul>
+            </div>
+          </div>
+          <div class="pbverysmall">EDA (Electronic Design Automation) tool: <a href="https://www.kicad.org/" title="KiCad" target="_blank">
+               KiCad</a></div>
+        </section>
+        
+        <section>
+          <h4>What really happens when closing a switch</h4>
+          <img src="images/0059-Switch_Debouncing_Figure_1.webp" height="300">
+          <p class="pbcenter">Vertical: 1 V / division - Horizontal: 1 ms / division</p>
+          <div class="pbverysmall">Source: <a href="https://circuitcellar.com/resources/quickbits/switch-debouncing/" title="circuit cellar" 
+               target="_blank">
+               circuit cellar</a></div>
+        </section>
+        
+        <section>
+          <h4>GPIO as an input - 5/5</h4>
+          <div class="row">
+            <div class="column">
+              <img src="images/interfacesGpioInput04.png" height="400">
+            </div>
+            <div class=column>
+              <ul>
+                <li>C142 "fills in" the gaps / filters out the highest frequencies</li>
+                <li class="fragment">&rArr; <em>debouncing</em></li>
+                <li class="fragment">Debouncing can also be done in software</li>
+              </ul>
+            </div>
+          </div>
+          <div class="pbverysmall">EDA (Electronic Design Automation) tool: <a href="https://www.kicad.org/" title="KiCad" target="_blank">
+               KiCad</a></div>
+        </section>
+        
       </div>
     </div>
 
