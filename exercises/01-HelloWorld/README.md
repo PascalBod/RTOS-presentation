@@ -10,7 +10,7 @@ Many libraries are provided by Silicon Labs for helping the developer in writing
 
 For Simplicity Studio, these libraries are provided as "software components" which can be added to a project in a simple way.
 
-There are pros and cons to this architecture. It's easy to add, configure and remove software support to a given interface or peripheral. On the other hand, it can be sometimes difficult to understand exactly how a library works. 
+There are pros and cons to this architecture. Adding, configuring and removing software support to a given interface or peripheral is easy. On the other hand, it can be sometimes difficult to understand exactly how a library works. 
 
 ## The exercise
 
@@ -53,3 +53,36 @@ Notes:
     $ pyserial-miniterm /dev/ttyACM0 115200
     ```
 15. Click the board reset button. Each click should display the `Hello World!` message.
+
+## Application architecture
+
+When creating an empty C project, two source-code files are generated for you:
+* `main.c`
+* `app.c`
+
+Some other source-code files are generated in the `autogen` and `simplicity_sdk_2024.6.1` directories. We can ignore them for now.
+
+An application is made of your code, and of the code used by the required libraries. In this example, the application prints a message. In a desktop application, the message would be printed in a terminal window. Here, the message is sent over a serial link. The serial link is created over the USB connection between the microcontroller board and the development computer. On the computer, the message is displayed by the serial terminal application.
+
+Initializing the serial link and redirecting the message to the serial link is performed by some code automatically added by Simplicity Studio. This code has to be run along with your code. This is done by `main.c`:
+```C
+int main(void)
+{
+  // Initialize Silicon Labs device, system, service(s) and protocol stack(s).
+  sl_system_init();
+
+  // Initialize the application.
+  app_init();
+
+  while (1) {
+    // Do not remove this call: Silicon Labs components process action routine
+    // must be called from the super loop.
+    sl_system_process_action();
+
+    // Application process.
+    app_process_action();
+  }
+}
+```
+
+You have to insert your code in the `app_init` and `app_process_action` functions. You have to do this in the `app.c` file.
