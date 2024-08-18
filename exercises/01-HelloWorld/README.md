@@ -54,9 +54,11 @@ Notes:
     ```
 15. Click the board reset button. Each click should display the `Hello World!` message.
 
+The next section, below, provides information about how the application source code is architectured.
+
 ## Application architecture
 
-When creating an empty C project, two source-code files are generated for you:
+When creating an empty C project, two source-code files are generated for you by Simplicity Studio:
 * `main.c`
 * `app.c`
 
@@ -86,3 +88,13 @@ int main(void)
 ```
 
 You have to insert your code in the `app_init` and `app_process_action` functions. You have to do this in the `app.c` file.
+
+## Roles of components
+
+The components we added to the project provide the following functions:
+* **IO Stream: STDLIB Configuration**: the IO Stream is a generic stream which provides a common interface to perform I/O operations on different physical interfaces. By default, write operations performed on the IO Stream are buffered, i.e. are kept in memory until there is enough data to write, or a specific event occurs. This component disables the buffering feature and outputs data as soon as possible
+* **IO Stream: USART**: this component redirects the IO Stream over the Universal Synchronous Asynchronous Receiver Transceiver (USART) interface
+* **IO Stream: Retarget STDIO**: this component retargets stdio (standard C I/O functions) to the IO Stream
+* **Log**: this component provides various functions which can be used to write log messages over the IO Stream
+
+Note: the `main` function is the default entry point of a C program.
