@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repository contains material providing an introduction to the use of an RTOS on a microcontroller for developing Machine Learning applications:
+This repository contains material providing an introduction to the use of an RTOS (Real-Time Operating System) on a microcontroller for developing Machine Learning applications:
 * Some introductory material about hardware and software
 * What an RTOS is and what it provides
 * Some practical exercises, using the EFR32MG24 as target
