@@ -39,4 +39,4 @@ Check the board schematic (either in the presentation or [here](https://www.sila
 
 Add code required to configure the GPIO pin controlling the red LED.
 
-Add code required to make the red LED blink with a period of 250 ms. Note: the code providing the number of milliseconds elapsed since startup is already in place.
+Add code required to make the red LED blink with a total period of 500 ms (250 ms off and 250 ms on). Note: the code providing the number of milliseconds elapsed since startup is already in place.
