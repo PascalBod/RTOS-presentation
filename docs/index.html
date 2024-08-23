@@ -130,7 +130,7 @@
                 <li><a href="#/softwareDevelopment1">Software development - part 1</a>
                   <ul>
                     <li><a href="#/crossDevelopment">Cross development</a></li>
-                    <li><a href="#/practiceEfr32bg24DevKit"><b>Practice: Build and run an application for the EFR32xG24 Dev Kit</b></a></li>
+                    <li><a href="#/exercise01"><b>Practice: Build and run an Hello World application</b></a></li>
                   </ul>
                 </li>
                 <li><a href="#/peripherals">Peripherals</a></li>
@@ -141,8 +141,8 @@
                 <li><a href="#/interfaces">Interfaces</a>
                   <ul>
                     <li><a href="#/gpioInterface">GPIO</a></li>
-                    <li><a href="#/practiceGpioInput"><b>Practice: display button state changes</b></a></li>
-                    <li><a href="#/practiceGpioOutput"><b>Practice: make the red LED blink</b></a></li>
+                    <li><a href="#/exercise02"><b>Practice: display button state changes</b></a></li>
+                    <li><a href="#/exercise03"><b>Practice: make the red LED blink</b></a></li>
                   </ul>
                 </li>
               </ul>
@@ -939,14 +939,15 @@
           </ul>
         </section>
         
-        <!-- -------------------- Practice: EFR32BG24 Dev Kit ---------------------------------------- -->
+        <!-- -------------------- Exercise 01: Hello World ---------------------------------------- -->
         
-        <section id="practiceEfr32bg24DevKit">
-          <h3>Practice: Build and run an application for the EFR32xG24 Dev Kit</h3>
+        <section id="exercise01">
+          <h3>Exercise 01</h3>
+          <p>Build and run an <em>Hello World</em> application for the EFR32xG24 Dev Kit</p>
         </section>
         
         <section>
-          <h4>Overview</h4>
+          <h4>EFR32MG24</h4>
           <img src="images/efr32mg24-block-diagram.png">
           <div class="pbverysmall">Source: 
             <a
@@ -1265,8 +1266,23 @@
                KiCad</a></div>
         </section>
         
-        <section id="practiceGpioInput">
+        <section>
+          <h4>Voltage and current adaptation</h4>
+          <p>If peripheral voltage is different from microcontroller voltage, or if it requires
+             more current than what the microcontroller can provide, or if regulations require 
+             some specific protections, adaptation is required:</p>
+          <ul>
+            <li>Optocoupler</li>
+            <li>Relay</li>
+            <li>Etc.</li>
+          </ul>
+        </section>
+        
+        <!-- -------------------- Practice: GPIO Input ---------------------------------------- -->
+        
+        <section id="exercise02">
           <h4>Exercise 02</h4>
+          <p>Display a message when a button is pushed or released</p>
           <ul>
             <li>Follow the instructions provided by the 
                 <a href="https://github.com/PascalBod/RTOS-presentation/blob/main/exercises/02-GpioInput/README.md"
@@ -1274,9 +1290,12 @@
                 file.</li>
           </ul>
         </section>
+        
+        <!-- -------------------- Practice: GPIO Output ---------------------------------------- -->
 
-        <section id="practiceGpioOutput">
+        <section id="exercise03">
           <h4>Exercise 03</h4>
+          <p>Make a LED blink</p>
           <ul>
             <li>Follow the instructions provided by the 
                 <a href="https://github.com/PascalBod/RTOS-presentation/blob/main/exercises/03-GpioOutput/README.md"
