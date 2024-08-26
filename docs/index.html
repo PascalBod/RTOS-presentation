@@ -41,16 +41,12 @@
             </thead>
             <tbody>
               <tr>
+                <td>26-Aug-2024</td>
+                <td>ADC section</td>
+              </tr>
+              <tr>
                 <td>20-Aug-2024</td>
                 <td>GPIO output: exercise 03</td>
-              </tr>
-              <tr>
-                <td>18-Aug-2024</td>
-                <td>GPIO input: exercise 02</td>
-              </tr>
-              <tr>
-                <td>17-Aug-2024</td>
-                <td>App architecture introduced by exercise 01</td>
               </tr>
               <tr>
                 <td>16-Aug-2024</td>
@@ -143,6 +139,7 @@
                     <li><a href="#/gpioInterface">GPIO</a></li>
                     <li><a href="#/exercise02"><b>Practice: display button state changes</b></a></li>
                     <li><a href="#/exercise03"><b>Practice: make the red LED blink</b></a></li>
+                    <li><a href="#/adcInterface">ADC</a></li>
                   </ul>
                 </li>
               </ul>
@@ -1100,13 +1097,15 @@
              to the microcontroller board.</p>
         </section>
         
+        <!-- -------------------- Interfaces > GPIO ---------------------------------------- -->
+        
         <section id="gpioInterface">
           <h4>GPIO (General Purpose digital Input Output)</h4>
           <ul>
-            <li>Microcontroller pin which can handle a digital signal</li>
+            <li>Microcontroller pin which can handle a digital value: 0 or 1</li>
             <li class="fragment">Signal voltage for bit value 0 is 0 V</li>
-            <li class="fragment">Signal voltage for bit value 1 depends on microcontroller. Usually: supply voltage (e.g. 3.3 V)
-            <li class="fragment">Can be configured either as an input or as an output (with some different modes)</li>
+            <li class="fragment">Signal voltage for bit value 1 depends on microcontroller. Usually: supply voltage (e.g. 3.3 V)</li>
+            <li class="fragment">Can be configured either as an input or as an output (with different modes)</li>
           </ul>
         </section>
         
@@ -1302,6 +1301,60 @@
                    target="_blank""><code>RTOS-presentation/exercises/03-GpioOutput/README.md</code></a>
                 file.</li>
           </ul>
+        </section>
+        
+        <!-- -------------------- Interfaces > ADC ---------------------------------------- -->
+        
+        <section id="adcInterface">
+          <h4>ADC (Analog to Digital Converter)</h4>
+          <ul>
+            <li>In the physical world: an analog signal is continuous in time and in amplitude</li>
+            <li class="fragment">In a computer: data is discrete in time and in amplitude</li>
+            <li class="fragment">ADC: transforms an analog signal into data which is used by the computer to create its
+                perception of the physical world</li>
+          </ul>
+        </section>
+        
+        <section>
+          <img src="images/adc.png">
+        </section>
+        
+        <section>
+          <p><em>Quantization:</em> maps a continuous set of values to a finite set of values</p>
+          <ul>
+            <li>With 4 bits: 16 values</li>
+            <li>With 12 bits: 4096 values</li>
+            <li>With 15 bits: 32,768 values</li>
+            <li>With 24 bits: 16,777,216 values</li>
+            <li>With 32 bits: around 4.3 billions of values</li>
+          </ul>
+          <p>Whatever the number of bits, there are always continuous values which are not part of the finite set of values.
+            <em>Quantization error:</em> difference between the continuous value and the quantized value.</p>
+        </section>
+        
+        <section>
+          <p><em>Sampling:</em> periodically quantizing the continuous value</p>
+          <p><em>Sample rate:</em> sampling frequency</p>
+          <p><em>Nyquist–Shannon sampling theorem:</em> the sample rate must be at least twice the bandwidth of the signal.</p>
+          <ul>
+            <li>Sufficient condition to capture all the information from a continuous-time signal of finite bandwidth</li>
+          </ul>
+        </section>
+        
+        <section>
+          <h4>Some sampling rates</h4>
+          <ul>
+            <li>Legacy analog telephone: 8 kHz (good human sounding voice: 300 - 3400 Hz)</li>
+            <li>Audio CD: 44.1 Hz</li>
+            <li>EFR32MG24: 2 MHz max</li>
+          </ul>
+          <p>Usually: samples/s - sps, ksps, Msps</p>
+        </section>
+
+        <section>
+          <h4>Voltage adaptation</h4>
+          <p>Depending on the signal to be converted, amplification or attenuation can be required.</p>
+          <p>The microcontroller can provide some adaptation means.</p>
         </section>
         
       </div>
