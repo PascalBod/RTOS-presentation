@@ -1350,18 +1350,25 @@
           </ul>
           <p>Usually: samples/s - sps, ksps, Msps</p>
         </section>
+        
+        <section>
+          <h4>Reference voltage</h4>
+          <p>The ADC needs a reference voltage to which it compares the incoming analog voltage.</p>
+          <p>The ADC cannot measure voltages larger than the reference voltage.</p>
+          <p>Depending on the microcontroller, the reference voltage may be internal or external.
+             Several references may be available.</p>
+        </section>
 
+        <section>
+          <h4>Input selection</h4>
+          <p>For some microcontrollers: the ADC block can support measurement on a number of internal and 
+             external signals.</p>
+        </section>
+        
         <section>
           <h4>Voltage adaptation</h4>
           <p>Depending on the signal to be converted, amplification or attenuation can be required.</p>
           <p>The microcontroller can provide some adaptation means.</p>
-        </section>
-        
-        <section>
-          <h4>Configuration</h4>
-          <p>For some microcontrollers: the ADC block can support measurement on a number of internal and 
-             external signals.</p>
-          <p>Several other parameters can be configured. Refer to the reference manual.</p>
         </section>
         
       </div>
