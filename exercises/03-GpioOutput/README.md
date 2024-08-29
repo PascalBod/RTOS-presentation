@@ -9,7 +9,7 @@ Make the board RGB LED blink red.
 1. Import the `exercises/03-GpioOutput` project in Simplicity Studio, following these instructions:
    1. **File > Import...**
    2. Use the **Browse** button to select the `exercises/03-GpioOutput` directory.
-   3. Selct the line containing the **Simplicity Studio (.sls)** project type.
+   3. Select the line containing the **Simplicity Studio (.sls)** project type.
    4. Click the **Next >** button.
    5. Accept the proposed default values and click the **Next >** button.
    6. In the next window, accept the default values again, and click the **Finish** button.

@@ -19,7 +19,7 @@ Display a message when the BTN0 button is pushed or released.
     ```
         CMU_ClockEnable(cmuClock_GPIO, true);
     ```
-7. Open the `02-GpioInput-solution.slcp` file and display the **Platform > Peripheral > GPIO** component information. In the **DOCUMENTATION** block, click the **Open in Browser** link. The displayed web page describes the functions which can be used to configure and use the GPIO pins of the EFR32MG24.
+7. Open the `02-GpioInput.slcp` file and display the **Platform > Peripheral > GPIO** component information. In the **DOCUMENTATION** block, click the **Open in Browser** link. The displayed web page describes the functions which can be used to configure and use the GPIO pins of the EFR32MG24.
 8. Read the descriptions of the `GPIO_PinModeSet` and `GPIO_PinInGet` functions.
 9. Check the board schematic (either in the presentation or [here](https://www.silabs.com/documents/public/schematic-files/BRD2601B-A01-schematic.pdf)) in order to know which GPIO pin should be used to check BTN0 button state
 10. Use the two GPIO functions to initialize the GPIO pin, and read the button state. Your code must display a message when the button is pushed and when the button is released, and only then.
