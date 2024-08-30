@@ -6,7 +6,7 @@ In a first step: get the value of an internal voltage.
 
 In a second step: get this value every second.
 
-The ADC block of the EFR32MG24 is feature rich. Consequently, it's complicated. To save you having to read the related 60 pages of the Reference Manual, a skeleton application is provided. It contains the required initialization and configuration code.
+The ADC block of the EFR32MG24 is feature rich. Consequently, it's complicated. To save you having to read the 60 related pages of the Reference Manual, a skeleton application is provided. It contains the required initialization and configuration code.
 
 Additionally, the sections below provide an overview of the ADC block.
 
@@ -26,6 +26,8 @@ There are several ways to convert an analog signal to data. The EFR32MG24 conver
 ### Reference voltage
 
 The reference voltage can be internal and fixed (1.21 V), internal and based on the analog power supply voltage, or external.
+
+The ADC cannot measure voltages larger than the reference voltage.
 
 ### Analog gain
 
