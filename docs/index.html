@@ -41,8 +41,8 @@
             </thead>
             <tbody>
               <tr>
-                <td>28-Aug-2024</td>
-                <td>Correction of a few typos</td>
+                <td>30-Aug-2024</td>
+                <td>Exercise 04 added</td>
               </tr>
               <tr>
                 <td>26-Aug-2024</td>
@@ -140,6 +140,7 @@
                     <li><a href="#/exercise02"><b>Practice: display button state changes</b></a></li>
                     <li><a href="#/exercise03"><b>Practice: make the red LED blink</b></a></li>
                     <li><a href="#/adcInterface">ADC</a></li>
+                    <li><a href="#/exercise04"><b>Practice: convert an analog signal</b></a></li>
                   </ul>
                 </li>
               </ul>
@@ -1277,6 +1278,24 @@
           </ul>
         </section>
         
+        <section>
+          <h4>GPIO and ML application</h4>
+          <ul>
+            <li>Start/stop a task on a contact closure:
+              <ul>
+                <li>Start processing a video stream when a door opens</li>
+                <li>Start converting and processing analog data when an engine starts</li>
+                <li>Etc.</li>
+              </ul></li>
+            <li>Activate a peripheral:
+              <ul>
+                <li>Start an alarm siren when an unknown person enters a room</li>
+                <li>Stop a conveyor belt when a problem is detected</li>
+                <li>Etc.</li>
+              </ul></li>
+          </ul>
+        </section>
+        
         <!-- -------------------- Practice: GPIO Input ---------------------------------------- -->
         
         <section id="exercise02">
@@ -1369,6 +1388,29 @@
           <h4>Voltage adaptation</h4>
           <p>Depending on the signal to be converted, amplification or attenuation can be required.</p>
           <p>The microcontroller can provide some adaptation means.</p>
+        </section>
+        
+        <section>
+          <h4>ADC and ML application</h4>
+          <ul>
+            <li>Check battery voltage, and reduce the number of tasks when too low</li>
+            <li>Convert microphone signal, to perform wake word detection</li>
+            <li>Convert pressure sensor signal, to perform local weather forecast</li>
+            <li>Etc.</li>
+          </ul>
+        </section>
+        
+        <!-- -------------------- Practice: ADC ---------------------------------------- -->
+
+        <section id="exercise04">
+          <h4>Exercise 04</h4>
+          <p>Convert an analog signal</p>
+          <ul>
+            <li>Follow the instructions provided by the 
+                <a href="https://github.com/PascalBod/RTOS-presentation/blob/main/exercises/04-Adc/README.md"
+                   target="_blank""><code>RTOS-presentation/exercises/04-Adc/README.md</code></a>
+                file.</li>
+          </ul>
         </section>
         
       </div>
