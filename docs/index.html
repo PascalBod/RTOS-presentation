@@ -42,7 +42,7 @@
             <tbody>
               <tr>
                 <td>17-Oct-2024</td>
-                <td>More precision about presentation goal</td>
+                <td>UART section</td>
               </tr>
               <tr>
                 <td>12-Sep-2024</td>
@@ -145,7 +145,7 @@
                     <li><a href="#/exercise03"><b>Practice: make the red LED blink</b></a></li>
                     <li><a href="#/adcInterface">ADC</a></li>
                     <li><a href="#/exercise04"><b>Practice: convert an analog signal</b></a></li>
-                    <li>UART</li>
+                    <li><a href="#/uartInterface">UART</a></li>
                     <li><b>Practice: send characters to the PC</b></li>
                     <li><b>Practice: receive characters from the PC</b></li>
                     <li><b>Practice: send and receive characters</b></li>
@@ -1437,8 +1437,7 @@
           <ul>
             <li>In the physical world: an analog signal is continuous in time and in amplitude</li>
             <li class="fragment">In a computer: data is discrete in time and in amplitude</li>
-            <li class="fragment">ADC: transforms an analog signal into data which is used by the computer to create its
-                perception of the physical world</li>
+            <li class="fragment">ADC: transforms an analog signal into (a sequence of) data</li>
           </ul>
         </section>
         
@@ -1521,6 +1520,105 @@
           </ul>
         </section>
         
+        <!-- -------------------- Interfaces > UART ---------------------------------------- -->
+        
+        <section id="uartInterface">
+          <h4>UART (Universal Asynchronous Receiver/Transmitter)</h4>
+          <p class="pbcenter">Also known as <em>serial connection</em></p>
+        </section>
+        
+        <section>
+          <ul>
+            <li>GPIO: set/get 0 or 1</li>
+            <li>ADC: get the approximate value of a signal</li>
+            <li class="fragment">UART: exchange data</li>
+          </ul>
+        </section>
+        
+        <section>
+          <ul>
+            <li><b>Universal</b>: can be used in many different contexts</li>
+            <li><b>Asynchronous</b>: no common clock required between the receiver and the transmitter</li>
+          </ul>
+          <p>Data is transmitted bit by bit.</p>
+        </section>
+        
+        <section>
+          <h4>Physical layer</h4>
+          <ul>
+            <li>At least 3 wires: <b>Transmit</b>, <b>Receive</b>, <b>Ground</b></li>
+            <li>Additional wires possible: <b>Request to send</b>, <b>Ready for sending</b>, etc.</li>
+            <li>Wires definition: <a href="https://www.itu.int/rec/T-REC-V.24-200002-I/en"
+                target="_blank"><b>V.24</b></a> 
+                (<a href="https://store.accuristech.com/tia/standards/tia-tia-232-f?product_id=2594289"
+                    target="_blank"><b>TIA-232</b></a> in the USA)</li>
+          </ul>
+        </section>
+
+        <section>
+          <p>Electrical levels:</p>
+          <ul>
+            <li><a href="https://www.itu.int/rec/T-REC-V.28-199303-I/en"
+                   target="_blank""><b>V.28</b></a>: -15 V to -3 V and +3 V to +15 V</li>
+            <li>0 and 5 V</li>
+            <li>0 and 3.3 V</li>
+            <li>...</li>
+          </ul>
+        </section>
+        
+        <section>
+          <ul>
+            <li>Distance: < 15 m</li>
+            <li>Maximum speed: 20 kb/s (according to V.28)</li>
+            <li>On short distances: 115 kb/s or more</li>
+          </ul>
+        </section>
+
+        <section>
+          <p>Connectors: DB9 or DB25 D-subminiature connectors</p>
+          <img src="images/db9male-medium.png" width="250">
+          <img src="images/db25male-medium.png" width="300">
+          <div class="pbverysmall">Source: 
+              <a href="https://eu.mouser.com/Connectors/D-Sub-Connectors/D-Sub-Standard-Connectors/_/N-9gybx"
+                 title="Mouser" target="_blank">Mouser</a></div>
+        </section>
+
+        <section>
+          <p>For today's computers: serial-USB adapters</p>
+          <img src="images/ftdi-TTL-232R1.png">
+          <div class="pbverysmall">Source: 
+               <a href="https://www.ftdichip.com/Products/Cables/USBTTLSerial.htm"
+                  title="FTDI" target="_blank">FTDI</a></div>
+        </section>
+
+        <section>
+          <img src="images/uart-db9.png">
+          <div class="pbverysmall">Source: 
+             <a href="https://eu.mouser.com/Connectors/D-Sub-Connectors/D-Sub-Standard-Connectors/_/N-9gybx"
+                title="Mouser" target="_blank">Mouser</a></div>
+        </section>
+
+        <section>
+          <p>Data transfer:</p>
+          <img src="images/serialCommFormat.png">
+        </section>
+        
+        <section>
+          <p class="pbcenter">Important:</p>
+          <ul>
+            <li>Each side must be configured in the same way (speed, parity, etc.)</li>
+          </ul>
+        </section>
+
+        <section>
+          <h4>UART and ML application</h4>
+          <ul>
+            <li>Collect data from a sensor</li>
+            <li>Update the embedded application with a retrained model</li>
+            <li>Etc.</li>
+          </ul>
+        </section>
+
       </div>
     </div>
 
