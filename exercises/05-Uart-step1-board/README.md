@@ -15,3 +15,7 @@ In `app.c`, add required code:
 * To transmit the '*' character every UART_TX_PERIOD_MS millisecond to the PC
 
 To check that the characters are received by the PC, run *pyserial-miniterm* (refer to exercise 01 - Hello World).
+
+## Reference documentation
+
+* [USART peripheral library API](https://docs.silabs.com/gecko-platform/5.0.1/platform-emlib-efr32xg24/usart)
