@@ -41,6 +41,10 @@
             </thead>
             <tbody>
               <tr>
+                <td>21-Oct-2024</td>
+                <td>UART TX exercise</td>
+              </tr>
+              <tr>
                 <td>17-Oct-2024</td>
                 <td>UART section</td>
               </tr>
@@ -49,20 +53,12 @@
                 <td>Full table of contents</td>
               </tr>
               <tr>
-                <td>30-Aug-2024</td>
-                <td>Exercise 04 added</td>
-              </tr>
-              <tr>
                 <td>26-Aug-2024</td>
                 <td>ADC section</td>
               </tr>
               <tr>
                 <td>07-Aug-2024</td>
                 <td>Target is now EFR32MG24</td>
-              </tr>
-              <tr>
-                <td>30-Jul-2024</td>
-                <td>First practice session</td>
               </tr>
               <tr>
                 <td>29-Jul-2024</td>
@@ -146,7 +142,7 @@
                     <li><a href="#/adcInterface">ADC</a></li>
                     <li><a href="#/exercise04"><b>Practice: convert an analog signal</b></a></li>
                     <li><a href="#/uartInterface">UART</a></li>
-                    <li><b>Practice: send characters to the PC</b></li>
+                    <li><a href="#/exercise05Step1"><b>Practice: send characters to the PC</b></a></li>
                     <li><b>Practice: receive characters from the PC</b></li>
                     <li><b>Practice: send and receive characters</b></li>
                     <li><b>Practice: receive messages from the PC</b></li>
@@ -869,7 +865,7 @@
         </section>
         
         <section>
-          <img src="images/efr32mg24-block-diagram.png">
+          <img src="images/efr32mg24-functional-diagram.png">
           <div class="pbverysmall">Source: 
             <a
               href="https://www.silabs.com/documents/public/data-sheets/efr32mg24-datasheet.pdf"
@@ -1054,7 +1050,7 @@
         
         <section>
           <h4>EFR32MG24</h4>
-          <img src="images/efr32mg24-block-diagram.png">
+          <img src="images/efr32mg24-functional-diagram.png">
           <div class="pbverysmall">Source: 
             <a
               href="https://www.silabs.com/documents/public/data-sheets/efr32mg24-datasheet.pdf"
@@ -1063,7 +1059,7 @@
         </section>
         
         <section>
-          <h4>EF32xG24 Dev Kit</h4>
+          <h4>xG24 Dev Kit</h4>
           <img src="images/efr32bg24-dev-kit-annotated-photo.png" height="400">
           <div class="pbverysmall">Source: 
             <a
@@ -1524,7 +1520,6 @@
         
         <section id="uartInterface">
           <h4>UART (Universal Asynchronous Receiver/Transmitter)</h4>
-          <p class="pbcenter">Also known as <em>serial connection</em></p>
         </section>
         
         <section>
@@ -1584,6 +1579,8 @@
         </section>
 
         <section>
+          <p>20 years ago: every computer had one UART port at least, named <em>serial port</em> or
+             <em>COM port</em>
           <p>For today's computers: serial-USB adapters</p>
           <img src="images/ftdi-TTL-232R1.png">
           <div class="pbverysmall">Source: 
@@ -1616,6 +1613,78 @@
             <li>Collect data from a sensor</li>
             <li>Update the embedded application with a retrained model</li>
             <li>Etc.</li>
+          </ul>
+        </section>
+        
+        <!-- -------------------- Exercise 05: UART ---------------------------------------- -->
+        
+        <section id="exercise05Step1">
+          <h3>Exercise 05</h3>
+          <p class="pbcenter">Get acquainted with the UART</p>
+        </section>
+        
+        <section>
+          <h4>EFR32MG24</h4>
+          <p>Functional diagram:</p>
+          <img src="images/efr32mg24-functional-diagram.png">
+          <div class="pbverysmall">Source: 
+            <a
+              href="https://www.silabs.com/documents/public/data-sheets/efr32mg24-datasheet.pdf"
+              title="EFR32MG24 Datasheet"
+              target="_blank">EFR32MG24 Datasheet</a></div>
+        </section>
+        
+        <section>
+          <p>The UART is actually a USART: Universal Synchronous/Asynchronous Receiver/Transmitter.</p>
+          <p>Synchronous part presented in later sections.</p>
+          <p class="fragment">EUSART: an additional UART which can be used in low-energy mode.</p>
+        </section>
+        
+        <section>
+          <p>Block diagram:</p>
+          <img src="images/efr32mg24-block-diagram.png" height="500">
+          <div class="pbverysmall">Source: 
+            <a
+              href="https://www.silabs.com/documents/public/data-sheets/efr32mg24-datasheet.pdf"
+              title="EFR32MG24 Datasheet"
+              target="_blank">EFR32MG24 Datasheet</a></div>
+        </section>
+        
+        <section>
+          <ul>
+            <li>Several blocks between USART signals and µC pins</li>
+            <li>Each block must be configured</li>
+          </ul>
+        </section>
+        
+        <section>
+          <h4>xG24 Dev Kit</h4>
+          <ul>
+            <li>No more serial connectors on modern PCs</li>
+            <li class="fragment">USB allows to transport virtual serial ports</li>
+            <li class="fragment">On Dev Kit: USB on PC side, UART on µC side</li>
+            <li class="fragment">On-board debugger is used as a gateway</li>
+          </ul>
+        </section>
+        
+        <section>
+          <p>Block diagram:</p>
+          <img src="images/xG24-debugger-diagram.png">
+          <div class="pbverysmall">Source: 
+            <a
+              href="https://www.silabs.com/documents/public/user-guides/ug524-brd2601b-user-guide.pdf"
+              title="xG24 User's Guide'"
+              target="_blank">xG24 User's Guide'</a></div>
+        </section>
+        
+        <section>
+          <h4>Exercise 05 - step 1</h4>
+          <ul>
+            <li>Purpose: send characters to the PC</li>
+            <li>What to do: follow the instructions provided by the 
+                <a href="https://github.com/PascalBod/RTOS-presentation/blob/main/exercises/05-Uart-step1-board/README.md"
+                   target="_blank"><code>RTOS-presentation/exercises/05-Uart-step1-board/README.md</code></a>
+                file</li>
           </ul>
         </section>
 

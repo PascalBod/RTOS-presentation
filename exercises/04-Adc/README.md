@@ -16,7 +16,7 @@ Note: the skeleton application is created from the *Hello World* application. In
 
 ### Reference information
 
-* [EFR32xG24 Wireless SoC Reference Manual](https://www.silabs.com/documents/public/reference-manuals/efr32xg24-rm.pdf)
+* [EFR32xG24 Wireless SoC Reference Manual](https://www.silabs.com/documents/public/reference-manuals/efr32xg24-rm.pdf) - section 23, starting on page 745
 * [AN1189: Incremental Analog to Digital Converter (IADC)](https://www.silabs.com/documents/public/application-notes/an1189-efr32-iadc.pdf)
 
 ### IADC
