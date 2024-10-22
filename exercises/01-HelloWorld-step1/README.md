@@ -1,4 +1,4 @@
-# Exercise 01 - Hello World
+# Exercise 01 - step 1 - Hello World
 
 ## Purpose of the exercise
 

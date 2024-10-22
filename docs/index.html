@@ -41,8 +41,8 @@
             </thead>
             <tbody>
               <tr>
-                <td>21-Oct-2024</td>
-                <td>FSM</td>
+                <td>22-Oct-2024</td>
+                <td>Debugger</td>
               </tr>
               <tr>
                 <td>17-Oct-2024</td>
@@ -126,7 +126,9 @@
                 <li><a href="#/softwareDevelopment1">Software development - introduction</a>
                   <ul>
                     <li><a href="#/crossDevelopment">Cross development</a></li>
-                    <li><a href="#/exercise01"><b>Practice: Build and run an Hello World application</b></a></li>
+                    <li><a href="#/exercise01Step1"><b>Practice: build and run an Hello World application</b></a></li>
+                    <li><a href="#/debugging">Debugging</a></li>
+                    <li><a href="#/exercise01Step2"><b>Practice: set a breakpoint</b></a></li>
                   </ul>
                 </li>
                 <li><a href="#/peripherals">Peripherals</a></li>
@@ -1047,9 +1049,9 @@
           </ul>
         </section>
         
-        <!-- -------------------- Exercise 01: Hello World ---------------------------------------- -->
+        <!-- -------------------- Exercise 01 - step 1: Hello World ---------------------------------------- -->
         
-        <section id="exercise01">
+        <section id="exercise01Step1">
           <h3>Exercise 01</h3>
           <p>Build and run an <em>Hello World</em> application for the EFR32xG24 Dev Kit</p>
         </section>
@@ -1136,16 +1138,57 @@
         </section>
         
         <section>
-          <h4>Exercise 01</h4>
+          <h4>Exercise 01 - step 1</h4>
           <ul>
             <li>Using <em>git</em>, clone the <a href="https://github.com/PascalBod/RTOS-presentation"
                                           target="_blank">
               <code>RTOS-presentation</code> GitHub repository</a></li>
             <li>Follow the instructions provided by the 
-                <a href="https://github.com/PascalBod/RTOS-presentation/blob/main/exercises/01-HelloWorld/README.md"
-                   target="_blank"><code>RTOS-presentation/exercises/01-HelloWorld/README.md</code></a>
+                <a href="https://github.com/PascalBod/RTOS-presentation/blob/main/exercises/01-HelloWorld-step1/README.md"
+                   target="_blank"><code>RTOS-presentation/exercises/01-HelloWorld-step1/README.md</code></a>
                 file.</li>
           </ul>
+        </section>
+        
+        <!-- -------------------- Software development - introduction > debugging ------------------------- -->
+        
+        <section id="debugging">
+          <h4>Debugging</h4>
+          <p><em>Debugging:</em> process of finding the root cause of a bug.</p>
+          <p class="fragment">Always try to reduce time devoted to debugging. How to do this is not part
+             of this course, even if it contains some related information.</p>
+        </section>
+        
+        <section>
+          <h4>Generic architecture</h4>
+          <img src="images/debuggingArchitecture.png">
+        </section>
+        
+        <section>
+          <ul>
+            <li>Microcontroller controlled by the debug probe</li>
+            <li class="fragment">JTAG: an industry standard, initially developped for verifying printed circuit boards (PCB)</li>
+            <li class="fragment">SWD: an Arm standard, fully debug oriented</li>
+            <li class="fragment">Debug probe controlled by the debugger server</li>
+            <li class="fragment">Debugger client used to send commands: run, pause, step, set breakpoint, etc.</li>
+          </ul>
+        </section>
+        
+        <section>
+          <p>For most of the dev boards, a simple probe is part of the board:</p>
+          <img src="images/onBoardDebugger.png">
+        </section>
+        
+        <!-- -------------------- Exercise 01 - step 2: breakpoint ---------------------------------------- -->
+        
+        <section id="exercise01Step2">
+          <h4>Exercise 01 - step 2</h4>
+          <ul>
+            <li>Follow the instructions provided by the 
+                <a href="https://github.com/PascalBod/RTOS-presentation/blob/main/exercises/01-HelloWorld-step2/README.md"
+                   target="_blank"><code>RTOS-presentation/exercises/01-HelloWorld-step2/README.md</code></a>
+                file.</li>          
+            </ul>
         </section>
         
         <!-- -------------------- Peripherals ---------------------------------------- -->
