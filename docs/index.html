@@ -42,7 +42,7 @@
             <tbody>
               <tr>
                 <td>22-Oct-2024</td>
-                <td>Debugger</td>
+                <td>Debugger, SPI</td>
               </tr>
               <tr>
                 <td>17-Oct-2024</td>
@@ -154,7 +154,7 @@
                     <li><a href="#/exercise05Step1"><b>Practice: send characters to the PC</b></a></li>
                     <li><a href="#/exercise05Step2"><b>Practice: echo received characters</b></a></li>
                     <li><b>Practice: receive messages from the PC</b></li>
-                    <li>SPI</li>
+                    <li><a href="#/spiInterface">SPI</a></li>
                     <li><b>Practice: get data from the inertial sensor</b></li>
                     <li>I<sup>2</sup>C</li>
                     <li><b>Practice: get data from the temperature sensor</b></li>
@@ -1849,6 +1849,79 @@
                 file</li>
           </ul>
         </section>
+        
+        <!-- -------------------- Interfaces > SPI ---------------------------------------- -->
+        
+        <section id="spiInterface">
+          <h4>SPI (Serial Peripheral Interface)</h4>
+        </section>
+        
+        <section>
+          <p>Some serial port deficiencies:</p>
+          <ul>
+            <li>About 20% of overhead (1 start bit + 1 stop bit)</li>
+            <li>Both sides must be configured in the same way
+            <li>TX must be connected to RX and vice versa</li>
+            <li>Connects two devices only (for V.24)</li>
+          </ul>
+        </section>
+        
+        <section>
+          <p>SPI is an asymmetric, synchronous protocol:</p>
+          <ul>
+            <li>Two roles: controller and peripheral</li>
+            <li>A clock is provided by the controller</li>
+            <li>Four wires:
+              <ul>
+                <li>PICO (Peripheral In Controller Out)</li>
+                <li>POCI (Peripheral Out Controller In)</li>
+                <li>CS (Chip Select)</li>
+                <li>SCK (Serial Clock)</li>
+              </ul>
+            </li>
+          </ul>
+          <img src="images/spiWiring.png" height="200">
+          <div class="pbverysmall">Source: 
+            <a
+              href="https://www.oshwa.org/a-resolution-to-redefine-spi-signal-names/"
+              title="OSHWA"
+              target="_blank">OSHWA</a></div>
+        </section>
+        
+        <section>
+          <p>Note: wires were previously known as MOSI (Master Out Slave In), MISO, SS (Slave Select).</p>
+          <p>You may still come across these names.</p>
+        </section>
+        
+        <section>
+          <p>The clock tells the peripheral when it has to read/send data. Several possible configurations:</p>
+          <img src="images/spiClocking.png">
+          <div class="pbverysmall">Source: 
+            <a
+              href="https://www.silabs.com/documents/public/reference-manuals/efr32xg24-rm.pdf"
+              title="EFR32xG24 Reference Manual"
+              target="_blank">EFR32xG24 Reference Manual</a></div>
+        </section>
+        
+        <section>
+          <p>The controller starts the clock signal, sends a command, the peripheral replies.</p>
+          <p>Both the controller and the peripheral have to transmit data while the clock is active, 
+             including while the peripheral replies.</p>
+          <p>The controller can send any byte during the reply. Usual value is <code>0xFF</code>.</p>
+        </section>
+        
+        <section>
+          <p>Multiple peripherals can be connected to the same SPI bus. The controller uses the CS signal
+             to select the active peripheral at a given time.</p>
+        </section>
+        
+        <section>
+          <ul>
+            <li>Maximum speed: up to 100 MHz.</li>
+            <li>Maximum distance: a few tens of cm.</li>
+          </ul>
+        </section>
+        
 
       </div>
     </div>
