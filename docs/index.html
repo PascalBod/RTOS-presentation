@@ -155,7 +155,7 @@
                     <li><a href="#/exercise05Step2"><b>Practice: echo received characters</b></a></li>
                     <li><b>Practice: receive messages from the PC</b></li>
                     <li><a href="#/spiInterface">SPI</a></li>
-                    <li><b>Practice: get data from the inertial sensor</b></li>
+                    <li><a href="#/exercise06"><b>Practice: get data from the inertial sensor</a></b></li>
                     <li>I<sup>2</sup>C</li>
                     <li><b>Practice: get data from the temperature sensor</b></li>
                   </ul>
@@ -1814,7 +1814,7 @@
             <a
               href="https://www.silabs.com/documents/public/user-guides/ug524-brd2601b-user-guide.pdf"
               title="xG24 User's Guide'"
-              target="_blank">xG24 User's Guide'</a></div>
+              target="_blank">xG24 User's Guide</a></div>
         </section>
         
         <section>
@@ -1853,17 +1853,18 @@
         <!-- -------------------- Interfaces > SPI ---------------------------------------- -->
         
         <section id="spiInterface">
-          <h4>SPI (Serial Peripheral Interface)</h4>
-        </section>
-        
-        <section>
-          <p>Some serial port deficiencies:</p>
+          <h4>Some serial port deficiencies</h4>
           <ul>
             <li>About 20% of overhead (1 start bit + 1 stop bit)</li>
             <li>Both sides must be configured in the same way
-            <li>TX must be connected to RX and vice versa</li>
+            <li>TX must be connected to RX. Or not</li>
             <li>Connects two devices only (for V.24)</li>
           </ul>
+          <p>Interfaces presented in next sections provide another kind of solution.</p>
+        </section>
+        
+        <section>
+          <h4>SPI (Serial Peripheral Interface)</h4>
         </section>
         
         <section>
@@ -1873,24 +1874,20 @@
             <li>A clock is provided by the controller</li>
             <li>Four wires:
               <ul>
+                <li>SCK (Serial Clock)</li>
                 <li>PICO (Peripheral In Controller Out)</li>
                 <li>POCI (Peripheral Out Controller In)</li>
                 <li>CS (Chip Select)</li>
-                <li>SCK (Serial Clock)</li>
               </ul>
             </li>
           </ul>
           <img src="images/spiWiring.png" height="200">
-          <div class="pbverysmall">Source: 
-            <a
-              href="https://www.oshwa.org/a-resolution-to-redefine-spi-signal-names/"
-              title="OSHWA"
-              target="_blank">OSHWA</a></div>
         </section>
         
         <section>
           <p>Note: wires were previously known as MOSI (Master Out Slave In), MISO, SS (Slave Select).</p>
           <p>You may still come across these names.</p>
+          <p>SDO (Serial Data Out) and SDI (Serial Data In) may also be used.</p>
         </section>
         
         <section>
@@ -1905,9 +1902,10 @@
         
         <section>
           <p>The controller starts the clock signal, sends a command, the peripheral replies.</p>
-          <p>Both the controller and the peripheral have to transmit data while the clock is active, 
-             including while the peripheral replies.</p>
-          <p>The controller can send any byte during the reply. Usual value is <code>0xFF</code>.</p>
+          <p class="fragment">The clock must be kept active for the duration of the reply &rArr; the controller must know
+             the length of the reply.</p>
+          <p class="fragment">Data must be provided on POCI and PICO while the clock is active &rArr; the controller may 
+             send any byte while receiving the reply, if it doesn't have something else to send.</p>
         </section>
         
         <section>
@@ -1919,6 +1917,75 @@
           <ul>
             <li>Maximum speed: up to 100 MHz.</li>
             <li>Maximum distance: a few tens of cm.</li>
+          </ul>
+        </section>
+        
+        <section>
+          <p>The data protocol is defined by the peripheral:</p>
+          <ul>
+            <li>The list of commands</li>
+            <li>The replies</li>
+            <li>Etc.</li>
+          </ul>
+        </section>
+        
+        <section>
+          <p>To summarize:</p>
+            <ul>
+              <li>Serial port: allows for more than several meters</li>
+              <li>SPI: short distances, higher speed</li>
+            </ul>
+        </section>
+        
+        <!-- -------------------- Exercise 06: SPI ---------------------------------------- -->
+        
+        <section id="exercise06">
+          <h3>Exercise 06</h3>
+          <p class="pbcenter">Get acquainted with the SPI bus</p>
+        </section>
+        
+        <section>
+          <h4>On the EFR32MG24</h4>
+          <ul>
+            <li>The SPI is implemented over the (E)USART</li>
+            <li>This explains the "S" in the USART acronym</li>
+          </ul>
+        </section>
+        
+        <section>
+          <h4>On the xG24 Dev Kit</h4>
+          <ul>
+            <li>The IMU (Inertial Measurement Unit) can use SPI</li>
+            <li>3-axis gyroscope, 3-axis accelerometer, temperature sensor</li>
+          </ul>
+        </section>
+        
+        <section>
+          <p>Block diagram:</p>
+          <img src="images/xg24_imu_diagram.png">
+          <div class="pbverysmall">Source: 
+            <a
+              href="https://www.silabs.com/documents/public/user-guides/ug524-brd2601b-user-guide.pdf"
+              title="xG24 User's Guide'"
+              target="_blank">xG24 User's Guide</a></div>
+        </section>
+        
+        <section>
+          <ul>
+            <li>A switch controls the connection</li>
+            <li>Pullup resistor on CS &rArr; sensor not selected by default</li>
+            <li>SPI signals are connected to PC and PA ports</li>
+          </ul>
+        </section>
+        
+        <section>
+          <h4>Exercise 06</h4>
+          <ul>
+            <li>Purpose: get accelerometer data</li>
+            <li>What to do: follow the instructions provided by the 
+                <a href="https://github.com/PascalBod/RTOS-presentation/blob/main/exercises/06-Spi-accel/README.md"
+                   target="_blank"><code>RTOS-presentation/exercises/06-Spi-accel/README.md</code></a>
+                file</li>
           </ul>
         </section>
         
