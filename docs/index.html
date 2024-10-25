@@ -41,6 +41,10 @@
             </thead>
             <tbody>
               <tr>
+                <td>25-Oct-2024</td>
+                <td>I<sup>2</sup>C</td>
+              </tr>
+              <tr>
                 <td>22-Oct-2024</td>
                 <td>Debugger, SPI</td>
               </tr>
@@ -156,7 +160,7 @@
                     <li><b>Practice: receive messages from the PC</b></li>
                     <li><a href="#/spiInterface">SPI</a></li>
                     <li><a href="#/exercise06"><b>Practice: get data from the inertial sensor</a></b></li>
-                    <li>I<sup>2</sup>C</li>
+                    <li><a href="#/i2cInterface">I<sup>2</sup>C</a></li>
                     <li><b>Practice: get data from the temperature sensor</b></li>
                   </ul>
                 </li>
@@ -1839,17 +1843,6 @@
           </ul>
         </section>
 
-        <section>
-          <h4 id="exercise05Step2">Exercise 05 - step 2</h4>
-          <ul>
-            <li>Purpose: echo characters sent to the board</li>
-            <li>What to do: follow the instructions provided by the 
-                <a href="https://github.com/PascalBod/RTOS-presentation/blob/main/exercises/05-Uart-step2-board/README.md"
-                   target="_blank"><code>RTOS-presentation/exercises/05-Uart-step2-board/README.md</code></a>
-                file</li>
-          </ul>
-        </section>
-        
         <!-- -------------------- Interfaces > SPI ---------------------------------------- -->
         
         <section id="spiInterface">
@@ -1860,7 +1853,7 @@
             <li>TX must be connected to RX. Or not</li>
             <li>Connects two devices only (for V.24)</li>
           </ul>
-          <p>Interfaces presented in next sections provide another kind of solution.</p>
+          <p>Interfaces presented in next sections provide other kinds of solutions.</p>
         </section>
         
         <section>
@@ -1868,7 +1861,7 @@
         </section>
         
         <section>
-          <p>SPI is an asymmetric, synchronous protocol:</p>
+          <p>SPI is an a synchronous protocol with:</p>
           <ul>
             <li>Two roles: controller and peripheral</li>
             <li>A clock is provided by the controller</li>
@@ -1882,6 +1875,13 @@
             </li>
           </ul>
           <img src="images/spiWiring.png" height="200">
+          <p class="pbcenter pbsmaller">(Power lines not shown)</p>
+        </section>
+        
+        <section>
+            <p>Multiple peripherals:</p>
+            <img src="images/spiWiringMultiplePeripherals.png">
+            <p class="pbcenter pbsmaller">(Power lines not shown)</p>
         </section>
         
         <section>
@@ -1901,7 +1901,7 @@
         </section>
         
         <section>
-          <p>The controller starts the clock signal, sends a command, the peripheral replies.</p>
+          <p>The controller starts the clock signal, sends a byte, the peripheral replies.</p>
           <p class="fragment">The clock must be kept active for the duration of the reply &rArr; the controller must know
              the length of the reply.</p>
           <p class="fragment">Data must be provided on POCI and PICO while the clock is active &rArr; the controller may 
@@ -1915,18 +1915,15 @@
         
         <section>
           <ul>
-            <li>Maximum speed: up to 100 MHz.</li>
+            <li>Maximum speed: up to 10 Mb/s.</li>
             <li>Maximum distance: a few tens of cm.</li>
           </ul>
         </section>
         
         <section>
-          <p>The data protocol is defined by the peripheral:</p>
-          <ul>
-            <li>The list of commands</li>
-            <li>The replies</li>
-            <li>Etc.</li>
-          </ul>
+          <p>The data protocol is defined by the peripheral.</p>
+          <p>Quite often: the peripheral contains registers with specific values for each register.</p>
+          <p>Registers can be read and/or written.</p>          
         </section>
         
         <section>
@@ -1986,6 +1983,88 @@
                 <a href="https://github.com/PascalBod/RTOS-presentation/blob/main/exercises/06-Spi-accel/README.md"
                    target="_blank"><code>RTOS-presentation/exercises/06-Spi-accel/README.md</code></a>
                 file</li>
+          </ul>
+        </section>
+        
+        <!-- -------------------- Interfaces > I2C ---------------------------------------- -->
+        
+        <section id="i2cInterface">
+          <h4>Reducing the number of wires</h4>
+          <p>SPI with multiple peripherals:</p>
+          <img src="images/spiWiringMultiplePeripherals.png">
+          <p>Many wires...</p>
+        </section>
+        
+        <section>
+          <h4>I<sup>2</sup>C (Inter-Integrated Circuit)</h4>
+        </section>
+        
+        <section>
+          <p>I<sup>2</sup>C is another synchronous protocol with:</p>
+          <ul>
+            <li>Two roles: controller and peripheral <em>(target)</em></li>
+            <li>Multiple controllers can be present</li>
+            <li>Two wires:
+              <ul>
+                <li>SCL (Serial Clock line)</li>
+                <li>SDA (Serial Data line)</li>
+              </ul>
+            </li>
+          </ul>
+          <img src="images/i2cWiring.png" height="200">
+          <p class="pbcenter pbsmaller">(Power lines not shown)</p>
+        </section>
+        
+        <section>
+          <p>Multiple peripherals:</p>
+          <img src="images/i2cWiringMultiplePeripherals.png">
+          <p class="pbcenter pbsmaller">(Power lines not shown)</p>
+        </section>
+        
+        <section>
+          <ul>
+            <li>Each device has a unique 7-bit address (no CS signal)</li>
+            <li>The controller provides the clock</li>
+          </ul>
+          <img src="images/i2cDataTransfer.png">
+          <div class="pbverysmall">Source: 
+            <a
+              href="https://www.nxp.com/docs/en/user-guide/UM10204.pdf"
+              title="I2C-bus specification and user manual"
+              target="_blank">I2C-bus specification and user manual</a></div>
+        </section>
+        
+        <section>
+          <p>When multiple controllers are connected:</p>
+          <ul>
+            <li>Clock synchronization</li>
+            <li>Arbitration</li>
+          </ul>
+          <p>Done thanks to wired-AND connections of SCL and SDA, with the pullup resistors.</p>
+          <p>For more information:
+            <a href="https://www.nxp.com/docs/en/user-guide/UM10204.pdf" target="_blank"">
+               I<sup>2</sup>C-bus specification and user manual</a></p>
+        </section>
+        
+        <section>
+          <ul>
+            <li>Standard-mode speed: 100 kb/s</li>
+            <li>High-speed mode: 3.4 Mb/s</li>
+            <li>Maximum distance: a few tens of cm.</li>
+          </ul>
+        </section>
+        
+        <section>
+          <p>The data protocol is defined by the peripheral.</p>
+          <p>Quite often: the peripheral contains registers with specific values for each register.</p>
+          <p>Registers can be read and/or written.</p>
+        </section>
+        
+        <section>
+          <p>To summarize:</p>
+          <ul>
+            <li>Allows for multi-controller configurations</li>
+            <li>More complex than SPI to implement. But that's not your problem &#x1F642;</li>
           </ul>
         </section>
         

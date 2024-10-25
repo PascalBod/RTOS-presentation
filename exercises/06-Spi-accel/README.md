@@ -11,7 +11,7 @@ Install the *moreutils* package, in order to get the *ts* command:
 $ sudo apt install moreutils
 ```
 
-Browse the [ICM-20689 Datasheet](https://invensense.tdk.com/wp-content/uploads/2021/03/DS-000143-ICM-20689-TYP-v1.1.pdf), to get an overview of the commands and replies that can be exchanged over SPI.
+Browse the [ICM-20689 Datasheet](https://invensense.tdk.com/wp-content/uploads/2021/03/DS-000143-ICM-20689-TYP-v1.1.pdf), to get an overview of interactions that can happen over the SPI bus.
 
 Import the `06-Spi-accel` project.
 
@@ -27,4 +27,4 @@ Answer the following questions:
 * How long does it take to the application to retrieve one acceleration sample?
 * From this duration, deduce the maximum number per second of samples that can be retrieved by the application
 * With the current version of the application, is it possible that a sample is lost, i.e. that a new sample is provided by the IMU while the application has not read yet the previous one? Note: the answer must not be simply "yes" or "no" :-)
-* The current application architecture has a deficiency regarding the way it retrieves the samples. What is the deficiency?
+* The current application architecture has a deficiency regarding the way it retrieves the samples. What is ths deficiency?
