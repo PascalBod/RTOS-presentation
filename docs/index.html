@@ -41,6 +41,10 @@
             </thead>
             <tbody>
               <tr>
+                <td>26-Oct-2024</td>
+                <td>Interaction examples for SPI and I<sup>2</sup>C</td>
+              </tr>
+              <tr>
                 <td>25-Oct-2024</td>
                 <td>I<sup>2</sup>C</td>
               </tr>
@@ -1891,7 +1895,7 @@
         </section>
         
         <section>
-          <p>The clock tells the peripheral when it has to read/send data. Several possible configurations:</p>
+          <p>Data is synchronized with the clock. Several possible configurations:</p>
           <img src="images/spiClocking.png">
           <div class="pbverysmall">Source: 
             <a
@@ -1901,16 +1905,10 @@
         </section>
         
         <section>
-          <p>The controller starts the clock signal, sends a byte, the peripheral replies.</p>
-          <p class="fragment">The clock must be kept active for the duration of the reply &rArr; the controller must know
-             the length of the reply.</p>
-          <p class="fragment">Data must be provided on POCI and PICO while the clock is active &rArr; the controller may 
-             send any byte while receiving the reply, if it doesn't have something else to send.</p>
-        </section>
-        
-        <section>
-          <p>Multiple peripherals can be connected to the same SPI bus. The controller uses the CS signal
-             to select the active peripheral at a given time.</p>
+          <p>The protocol allows full-duplex operations.</p>
+          <p>The controller controls the clock.</p>
+          <p>When multiple peripherals are connected, the controller uses the CS signal
+             to activate the peripheral it wants to interact with.</p>
         </section>
         
         <section>
@@ -1921,9 +1919,32 @@
         </section>
         
         <section>
+          <h4>How data is exchanged</h4>
           <p>The data protocol is defined by the peripheral.</p>
-          <p>Quite often: the peripheral contains registers with specific values for each register.</p>
-          <p>Registers can be read and/or written.</p>          
+          <p>Quite often: the peripheral interacts through registers.</p>
+          <p>Registers can be read and/or written.</p>
+          <img src="images/peripheralStructure.png" height="300">      
+        </section>
+        
+        <section>
+          <h4>Read operation</h4>
+          <ul>
+            <li>The controller selects the peripheral (CS low) and starts the clock</li>
+            <li>On PICO: the controller sends MSB set to 1 + register address on 7 bits</li>
+            <li>On POCI: the peripheral sends data over 8 bits</li>
+            <li>If clock goes on and CS is not raised, the peripheral sends next register</li>
+            <li>...</li>
+          </ul>
+        </section>
+        
+        <section>
+          <h4>Write operation</h4>
+          <ul>
+            <li>The controller selects the peripheral and starts the clock</li>
+            <li>On PICO: the controller sends MSB set to 0 + register address on 7 bits</li>
+            <li>On PICO: the controller sends data over 8 bits</li>
+            <li>The controller stops the clock and raise CS</li>
+          </ul>
         </section>
         
         <section>
@@ -2025,6 +2046,7 @@
           <ul>
             <li>Each device has a unique 7-bit address (no CS signal)</li>
             <li>The controller provides the clock</li>
+            <li>Every byte is acknowledged by a bit</li>
           </ul>
           <img src="images/i2cDataTransfer.png">
           <div class="pbverysmall">Source: 
@@ -2055,11 +2077,60 @@
         </section>
         
         <section>
+          <h4>How data is exchanged</h4>
           <p>The data protocol is defined by the peripheral.</p>
-          <p>Quite often: the peripheral contains registers with specific values for each register.</p>
+          <p>Quite often: as for SPI, the peripheral interacts through registers.</p>
           <p>Registers can be read and/or written.</p>
+          <img src="images/peripheralStructure.png" height="300">      
         </section>
         
+        <section>
+          <h4>Read operation</h4>
+          <ul>
+            <li>The controller sends the register address in write mode to the peripheral address</li>
+            <li>The peripheral sends out data from auto-incremented register address until the controller stops the interaction</li>
+          </ul>
+        </section>
+          
+        <section>
+          <p class="pbsmaller">Detailed view:</p>
+          <ul class="pbsmaller">
+            <li>The controller sets a START condition</li>
+            <li>The controller sends the peripheral address over 7 bits + LSB set to 0</li>
+            <li>The peripheral sends an ACK bit</li>
+            <li>The controller sends the register address</li>
+            <li>The peripheral sends an ACK bit</li>
+            <li>The controller sends a START condition</li>
+            <li>The controller sends the peripheral address over 7 bits + LSB set to 1</li>
+            <li>The peripheral sends an ACK bit</li>
+            <li>The peripheral sends data</li>
+            <li>The controller sends an ACK bit</li>
+            <li>The peripheral sends next register, until the controller sets a STOP condition</li>
+          </ul>
+        </section>
+        
+        <section>
+          <h4>Write operation</h4>
+          <ul>
+            <li>The controller sends the register address in read mode to the peripheral address</li>
+            <li>Then it sends pairs of register address and register data until it stops the interaction</li>
+          </ul>
+        </section>
+        
+        <section>
+          <p class="pbsmaller">Detailed view:</p>
+          <ul class="pbsmaller">
+            <li>The controller sets a START condition</li>
+            <li>The controller sends the peripheral address over 7 bits + LSB set to 0</li>
+            <li>The peripheral sends an ACK bit</li>
+            <li>The controller sends the register address</li>
+            <li>The peripheral sends an ACK bit</li>
+            <li>The controller sends the register data</li>
+            <li>The peripheral sends an ACK bit</li>
+            <li>The controller goes on sending register address and register data until it sets the STOP condition</li>
+          </ul>
+        </section>
+
         <section>
           <p>To summarize:</p>
           <ul>
@@ -2067,7 +2138,6 @@
             <li>More complex than SPI to implement. But that's not your problem &#x1F642;</li>
           </ul>
         </section>
-        
 
       </div>
     </div>
