@@ -26,5 +26,5 @@ Answer the following questions:
 * What is the maximum number of samples per second that can be provided by the IMU?
 * How long does it take to the application to retrieve one acceleration sample?
 * From this duration, deduce the maximum number per second of samples that can be retrieved by the application
-* With the current version of the application, is it possible that a sample is lost, i.e. that a new sample is provided by the IMU while the application has not read yet the previous one? Note: the answer must not be simply "yes" or "no" :-)
-* The current application architecture has a deficiency regarding the way it retrieves the samples. What is ths deficiency?
+* With the current version of the application, is it possible that a sample is lost, i.e. that a new sample is provided by the IMU while the application has not read yet the previous one? Note: the answer must not be a simple "yes" or "no" :-)
+* The current application architecture has a deficiency regarding the way it retrieves the samples. What is the deficiency?
