@@ -182,7 +182,7 @@ void app_init(void)
   bool bool_rs;
 
   // To let us know which application we are running.
-  app_log("07-I2C - v0.4.3\n");
+  app_log("07-I2C - v0.4.4\n");
 
   // Power the sensor. See xG24 User's Guide, section 3.4.1.
   GPIO_PinModeSet(ENABLE_IMU_PORT, ENABLE_IMU_PIN, gpioModePushPull, 1);

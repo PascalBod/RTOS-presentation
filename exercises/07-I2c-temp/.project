@@ -346,16 +346,6 @@
 			<locationURI>STUDIO_SDK_LOC/hardware/driver/configuration_over_swo/src/sl_cos.c</locationURI>
 		</link>
 		<link>
-			<name>simplicity_sdk_2024.6.2/hardware/driver/si70xx/inc/sl_si70xx.h</name>
-			<type>1</type>
-			<locationURI>STUDIO_SDK_LOC/hardware/driver/si70xx/inc/sl_si70xx.h</locationURI>
-		</link>
-		<link>
-			<name>simplicity_sdk_2024.6.2/hardware/driver/si70xx/src/sl_si70xx.c</name>
-			<type>1</type>
-			<locationURI>STUDIO_SDK_LOC/hardware/driver/si70xx/src/sl_si70xx.c</locationURI>
-		</link>
-		<link>
 			<name>simplicity_sdk_2024.6.2/platform/CMSIS/Core/Include/cmsis_compiler.h</name>
 			<type>1</type>
 			<locationURI>STUDIO_SDK_LOC/platform/CMSIS/Core/Include/cmsis_compiler.h</locationURI>

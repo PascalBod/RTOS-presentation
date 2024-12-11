@@ -343,14 +343,6 @@
             </folder>
           </folder>
         </folder>
-        <folder name="si70xx">
-          <folder name="src">
-            <file name="sl_si70xx.c" uri="studio:/sdk/hardware/driver/si70xx/src/sl_si70xx.c"/>
-          </folder>
-          <folder name="inc">
-            <file name="sl_si70xx.h" uri="studio:/sdk/hardware/driver/si70xx/inc/sl_si70xx.h"/>
-          </folder>
-        </folder>
       </folder>
     </folder>
   </folder>
@@ -381,7 +373,6 @@
   <includePath uri="studio:/sdk/platform/service/iostream/inc"/>
   <includePath uri="studio:/sdk/platform/service/memory_manager/inc"/>
   <includePath uri="studio:/sdk/hardware/driver/mx25_flash_shutdown/inc/sl_mx25_flash_shutdown_usart"/>
-  <includePath uri="studio:/sdk/hardware/driver/si70xx/inc"/>
   <includePath uri="studio:/sdk/platform/common/toolchain/inc"/>
   <includePath uri="studio:/sdk/platform/service/system/inc"/>
   <includePath uri="studio:/sdk/platform/service/sleeptimer/inc"/>

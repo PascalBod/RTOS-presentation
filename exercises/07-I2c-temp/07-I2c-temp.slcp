@@ -37,7 +37,6 @@ component:
 - {id: iostream_stdlib_config}
 - instance: [vcom]
   id: iostream_usart
-- {id: si70xx_driver}
 - {id: sl_system}
 - {id: sleeptimer}
 define:
