@@ -41,8 +41,8 @@
             </thead>
             <tbody>
               <tr>
-                <td>26-Oct-2024</td>
-                <td>Interaction examples for SPI and I<sup>2</sup>C</td>
+                <td>11-Dec-2024</td>
+                <td>I<sup>2</sup>C exercise</td>
               </tr>
               <tr>
                 <td>25-Oct-2024</td>
@@ -167,7 +167,7 @@
                     <li><a href="#/spiInterface">SPI</a></li>
                     <li><a href="#/exercise06"><b>Practice: get data from the inertial sensor</a></b></li>
                     <li><a href="#/i2cInterface">I<sup>2</sup>C</a></li>
-                    <li><b>Practice: get data from the temperature sensor</b></li>
+                    <li><a href="#/exercise07"><b>Practice: get data from the temperature sensor</a></b></li>
                   </ul>
                 </li>
               </ul>
@@ -1967,7 +1967,7 @@
         <section>
           <h4>On the EFR32MG24</h4>
           <ul>
-            <li>The SPI is implemented over the (E)USART</li>
+            <li>The SPI interface is implemented over the (E)USART interface</li>
             <li>This explains the "S" in the USART acronym</li>
           </ul>
         </section>
@@ -1992,7 +1992,7 @@
         
         <section>
           <ul>
-            <li>A switch controls the connection</li>
+            <li>A switch controls sensor power</li>
             <li>Pullup resistor on CS &rArr; sensor not selected by default</li>
             <li>SPI signals are connected to PC and PA ports</li>
           </ul>
@@ -2055,7 +2055,7 @@
             <a
               href="https://www.nxp.com/docs/en/user-guide/UM10204.pdf"
               title="I2C-bus specification and user manual"
-              target="_blank">I2C-bus specification and user manual</a></div>
+              target="_blank">I<sup>2</sup>C-bus specification and user manual</a></div>
         </section>
         
         <section>
@@ -2064,7 +2064,7 @@
             <li>Clock synchronization</li>
             <li>Arbitration</li>
           </ul>
-          <p>Done thanks to wired-AND connections of SCL and SDA, with the pullup resistors.</p>
+          <p>Done thanks to wired-AND connections of SCL and SDA and pullup resistors.</p>
           <p>For more information:
             <a href="https://www.nxp.com/docs/en/user-guide/UM10204.pdf" target="_blank"">
                I<sup>2</sup>C-bus specification and user manual</a></p>
@@ -2140,6 +2140,57 @@
             <li>More complex than SPI to implement. But that's not your problem &#x1F642;</li>
           </ul>
         </section>
+        
+        <!-- -------------------- Exercise 07: I2C ---------------------------------------- -->
+        
+        <section id="exercise07">
+          <h3>Exercise 07</h3>
+          <p class="pbcenter">Get acquainted with the I<sup>2</sup>C bus</p>
+        </section>
+        
+        <section>
+          <h4>On the EFR32MG24</h4>
+          <ul>
+            <li>The I<sup>2</sup>C interface is a standalone block</li>
+          </ul>
+        </section>
+        
+        <section>
+          <h4>On the xG24 Dev Kit</h4>
+          <ul>
+            <li>The relative humidity and temperature sensor uses I<sup>2</sup>C</li>
+          </ul>
+        </section>
+        
+        <section>
+          <p>Block diagram:</p>
+          <img src="images/xg24_rhTSensor_diagram.png">
+          <div class="pbverysmall">Source: 
+            <a
+              href="https://www.silabs.com/documents/public/user-guides/ug524-brd2601b-user-guide.pdf"
+              title="xG24 User's Guide'"
+              target="_blank">xG24 User's Guide</a></div>
+        </section>
+        
+        <section>
+          <ul>
+            <li>A switch controls sensor power</li>
+            <li>I<sup>2</sup>C signals are connected to PC port</li>
+          </ul>
+        </section>
+        
+        <section>
+          <h4>Exercise 07</h4>
+          <ul>
+            <li>Purpose: get temperature data</li>
+            <li>What to do: follow the instructions provided by the 
+                <a href="https://github.com/PascalBod/RTOS-presentation/blob/main/exercises/07-I2c-temp/README.md"
+                   target="_blank"><code>RTOS-presentation/exercises/07-I2c-temp/README.md</code></a>
+                file</li>
+          </ul>
+        </section>
+        
+
 
       </div>
     </div>
