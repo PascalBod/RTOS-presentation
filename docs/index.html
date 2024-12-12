@@ -41,8 +41,8 @@
             </thead>
             <tbody>
               <tr>
-                <td>11-Dec-2024</td>
-                <td>I<sup>2</sup>C exercise</td>
+                <td>12-Dec-2024</td>
+                <td>Floating-point arithmetic</td>
               </tr>
               <tr>
                 <td>25-Oct-2024</td>
@@ -144,19 +144,19 @@
             </div>
             <div class="pbsmaller">
               <ul>
-                <li><a href="#/interfaces">Interfaces</a>
+                <li><a href="#/interfacesPart1">Interfaces - part 1</a>
                   <ul>
                     <li><a href="#/gpioInterface">GPIO</a></li>
                     <li><a href="#/exercise02"><b>Practice: display button state changes</b></a></li>
                     <li><a href="#/exercise03"><b>Practice: make the red LED blink</b></a></li>
                   </ul>
                 </li>
-                <li>Software development - design pattern
+                <li><a href="#/fsm">Software development - design pattern</a>
                   <ul>
                     <li><a href="#/fsm">Finite State Machine</a></li>
                   </ul>
                 </li>
-                <li>Interfaces
+                <li><a href="#/interfacesPart2">Interfaces - part 2</a>
                   <ul>
                     <li><a href="#/adcInterface">ADC</a></li>
                     <li><a href="#/exercise04"><b>Practice: convert an analog signal</b></a></li>
@@ -180,14 +180,9 @@
           <div class="pbcolumns">
             <div class="pbsmaller">
               <ul>
-                <li>Software development - part 2
+                <li><a href="#/softwareDevelopmentPart2">Software development - part 2</a>
                   <ul>
-                    <li>Floating-point numbers</li>
-                    <li><b>Practice: play with floating-point numbers</b></li>
-                  </ul>
-                </li>
-                <li>Software development - part 3
-                  <ul>
+                    <li><a href="#/floatingPoint">Floating-point arithmetic</a></li>
                     <li>Memory: code and data</li>
                     <li>Memory: automatic/dynamic storage</li>
                     <li>How an application starts</li>
@@ -1250,10 +1245,10 @@
           </ul>
         </section>
         
-        <!-- -------------------- Interfaces ---------------------------------------- -->
+        <!-- -------------------- Interfaces - part 1 ------------------------------------- -->
         
-        <section id="interfaces">
-          <h3>Interfaces</h3>
+        <section id="interfacesPart1">
+          <h3>Interfaces - part 1</h3>
         </section>
         
         <section>
@@ -1572,9 +1567,14 @@
 								current_state = WAIT_STX;
 							}
 						}
-					</code></pre>
-				</section>
+		  </code></pre>
+		</section>
 
+        <!-- -------------------- Interfaces - part 2 ---------------------------------------- -->
+        
+        <section id="interfacesPart2">
+          <h3>Interfaces - part 2</h3>
+        </section>
         
         <!-- -------------------- Interfaces > ADC ---------------------------------------- -->
         
@@ -2190,7 +2190,175 @@
           </ul>
         </section>
         
+        <!-- -------------------- Software development - part 2 ---------------------------------------- -->
 
+        <section id="softwareDevelopmentPart2">
+          <h3>Software development - part 2</h3>
+        </section>
+        
+        <!-- -------------------- Floating point numbers ---------------------------------------- -->
+
+        <section id="floatingPoint">
+          <h3>Floating-point arithmetic</h3>
+        </section>
+        
+        <section>
+          <h4>Integer ranges</h4>
+          <ul>
+            <li>With <code>n</code> bits:
+              <ul>
+                <li>Signed integer: <code>[-2<sup>n-1</sup>, 2<sup>n-1</sup> - 1]</code></li>
+                <li>Unsigned integer: <code>[0, 2<sup>n</sup> - 1]</code></li>
+            </ul></li>
+          </ul>
+        </section>
+        
+        <section>
+          <h4>Integer ranges</h4>
+          <ul>
+            <li>8 bits:
+              <ul>
+                <li><code>[-128, 127]</code></li>
+                <li><code>[0, 255]</code></li>
+              </ul>
+            </li>
+            <li>32 bits:
+              <ul>
+                <li><code>[-2,147,483,648, 2,147,483,647]</code></li>
+                <li><code>[0, 4,294,967,296]</code></li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        
+        <section>
+          <h4>Problem</h4>
+          <ul>
+            <li>How to encode:
+              <ul>
+                <li>Very large numbers?</li>
+                <li>Rational numbers (<code>2/3</code>...)?</li>
+                <li>Irrational numbers (<code><math><msqrt><mi>2</mi></msqrt></math></code>...)?</li>
+                <li>Transcendental numbers (<code>e</code>...)?</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        
+        <section>
+          <h4>When are those types of numbers needed?</h4>
+          <ul>
+            <li>Many algorithms: optimization, calculating distances, surfaces and volumes, etc.</li>
+            <li>Many machine learning algorithms</li>
+            <li>Simple example: calculate a long distance over the surface of the Earth</li>
+          </ul>
+        </section>
+        <section>
+          <h4>A solution: floating-point representation</h4>
+          <ul>
+            <li><code>sign x significand x base<sup>exponent</sup></code></li>
+            <li>The significand (or mantissa) controls accuracy</li>
+            <li>The exponent controls range</li>
+            <li>Base is usually <code>2</code></li>
+          </ul>
+        </section>
+        
+        <section>
+          <h4>A standard: IEEE 754</h4>
+          <ul>
+            <li>Base 2 or 10</li>
+            <li>Single precision: 23 bit significand, 8 bit exponent</li>
+            <li>Double precision: 52 bit significand, 11 bit exponent</li>
+            <li>...</li>
+          </ul>
+          <div class="pbverysmall">Source: <a href="https://ieeexplore.ieee.org/document/8766229"
+                                              target="_blank">IEEE 754</a></div>
+        </section>
+        
+        <section>
+          <h4>IEEE 754 single precision base 2</h4>
+          <table class="pbsmaller">
+            <tbody>
+              <tr>
+                <td>0</td>
+                <td>00000000</td>
+                <td>0000000000000000000000000000000</td>
+              </tr>
+              <tr>
+                <td>S</td>
+                <td>E</td>
+                <td>M</td>
+              </tr>
+            </tbody>
+          </table>
+          <img src="images/floatingPointNumberValue.png" class="fragment">
+        </section>
+        
+        <section>
+          <ul>
+            <li>Sign: one bit</li>
+            <li>Significand: a decimal value greater than or equal to <code>1</code> 
+              and less than <code>2</code>. Leading <code>1</code>
+              is assumed and not encoded &rArr; actually 24 bits</li>
+            <li>Exponent: biased, so that resulting value is always positive. Bias is
+              <code>127</code></li>
+          </ul>
+        </section>
+        
+        <section>
+          <p>An IEEE 754 converter running in a web browser: <br/>
+             <a href="https://www.h-schmidt.net/FloatConverter/IEEE754.html"
+                target="_blank">https://www.h-schmidt.net/FloatConverter/IEEE754.html</a></p>
+        </section>
+        
+        <section>
+          <h4>Some complexity and side effects</h4>
+          <ul>
+            <li>Two zero values: a positive one and a negative one</li>
+            <li>Two infinities</li>
+            <li>NaN (Not a Number)
+              <ul>
+                <li>Quiet NaN (&rArr; indeterminate operation)</li>
+                <li>Signalling NaN (&rArr; invalid operation)</li>
+              </ul>
+            </li>
+            <li>Denormalized numbers</li>
+            <li>Rounding &rArr; a calculation result may be different from the theorical value</li>
+          </ul>
+        </section>
+        
+        <section>
+          <h4>Floating-point arithmetic and microcontrollers</h4>
+          <ul>
+            <li>Low-cost microcontrollers: no instructions for floating-point arithmetic</li>
+            <li>Other microcontrollers: Floating-Point Unit (FPU)</li>
+          </ul>
+        </section>
+        
+        <section>
+          <h4>A software solution when no FPU</h4>
+          <p>Floating-point library:</p>
+          <ul>
+            <li>Implements floating-point arithmetic in software</li>
+            <li>Drawbacks:
+              <ul>
+                <li>Increases the size of the application</li>
+                <li>Increases the number of executed instructions</li>
+                <li>May be distributed under paid license</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        
+        <section>
+          <h4>Other solutions, depending on the context</h4>
+          <ul>
+            <li>Tensor Flow: post-training integer quantization</li>
+            <li>A short distance over the Earth's surface: integer operations are (almost) enough</li>
+            <li>Etc.</li>
+          </ul>
+        </section>
+        
 
       </div>
     </div>
