@@ -51,7 +51,7 @@ C language is used, for the practice sessions. [This Standford Computer Science 
 > A few notes about using this VM:
 > * The memory assigned to the VM is 4 GB. If your PC has enough RAM, don't hesitate to increase the VM memory to 6 or 8 GB.
 > * You still need to create a personal account on the Silicon Labs website, as described [here](https://github.com/PascalBod/lm-efr32-simplicityStudio?tab=readme-ov-file#prerequisites-1).
-> * A VM shared directory is predefined. As the host directory does not exist when you start the VM, you will get an error message. Ignore it. Then, you can configure the share directory, as explained [here](https://github.com/PascalBod/lm-vm) (look for the *To share files between the VM and the host computer* phrase).
+> * A VM shared directory is predefined. As the host directory does not exist when you start the VM, you will get an error message. Ignore it. Then, you can configure the share directory, as explained [here](https://github.com/PascalBod/lm-vm) (look for the *share files* phrases. There are two of them).
 > * The only declared user is `developer`. The associated password is `developer`. 
 > * From time to time, a window may ask you to choose a password for a new keyring. Click the **Cancel** button.
 

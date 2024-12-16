@@ -16,7 +16,7 @@
  ******************************************************************************/
 
 /*
-    RTOS for ML presentation - solution to exercise 07.
+    RTOS for ML presentation - exercise 07.
     Copyright (C) 2024  Pascal Bodin
 
     This program is free software: you can redistribute it and/or modify
