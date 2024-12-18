@@ -834,6 +834,20 @@
                 file</li>
           </ul>
         </section>
+        
+        <!-- -------------------- Concurrency > mutex vs semaphore ------------ -->
+        
+        <section>
+          <h3>Mutex vs semaphore</h3>
+          <ul>
+            <li>A mutex provides priority inheritance, a semaphore does not</li>
+            <li>A mutex can be used recursively by a task</li>
+            <li>A mutex must be released by the task which acquired it</li>
+            <li>A mutex is used to guard a resource</li>
+            <li>A semaphore is used to manage a set of resources or to count events</li>
+          </ul>
+        </section>
+
 
 
 	
