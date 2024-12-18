@@ -16,7 +16,7 @@
  ******************************************************************************/
 
 /*
-    RTOS for ML presentation - solution to exercise 11.
+    RTOS for ML presentation - exercise 12.
     Copyright (C) 2024  Pascal Bodin
 
     This program is free software: you can redistribute it and/or modify
@@ -37,7 +37,9 @@
 #include <stdint.h>
 
 #include "app_log.h"
+#include "em_system.h"
 #include "FreeRTOS.h"
+#include "sl_udelay.h"
 #include "task.h"
 
 #define TASK_STACK_SIZE configMINIMAL_STACK_SIZE
@@ -45,6 +47,9 @@
 
 #define LONG_DELAY_MS   200
 #define SHORT_DELAY_MS  10
+
+// Maximum delay for sl_udelay_wait: 100000 µs.
+#define RESET_DELAY_US  100000
 
 static volatile uint32_t a;
 static volatile uint32_t b;
@@ -59,6 +64,14 @@ static StackType_t  xStack_3[TASK_STACK_SIZE];
 
 static TickType_t long_delay;
 static TickType_t short_delay;
+
+static void reset_on_fatal_error(void) {
+
+  app_log_error("About to reset\n");
+  sl_udelay_wait(RESET_DELAY_US);
+  NVIC_SystemReset();
+
+}
 
 static void task1_code(void *arg) {
 
@@ -78,6 +91,9 @@ static void task1_code(void *arg) {
       if (b != 1) {
           app_log_warning("b value: %lu\n", b);
       }
+      // Simulate some processing.
+      vTaskDelay(long_delay);
+      //
   }
 
 }
@@ -125,7 +141,7 @@ void share_init(void) {
                               &xTaskBuffer_1);
   if (xHandle == NULL) {
       app_log_error("NULL returned by xTaskCreateStatic\n");
-      return;
+      reset_on_fatal_error();
   }
 
   xHandle = xTaskCreateStatic(task2_code,
@@ -137,7 +153,7 @@ void share_init(void) {
                               &xTaskBuffer_2);
   if (xHandle == NULL) {
       app_log_error("NULL returned by xTaskCreateStatic\n");
-      return;
+      reset_on_fatal_error();
   }
 
   xHandle = xTaskCreateStatic(task3_code,
@@ -149,7 +165,7 @@ void share_init(void) {
                               &xTaskBuffer_3);
   if (xHandle == NULL) {
       app_log_error("NULL returned by xTaskCreateStatic\n");
-      return;
+      reset_on_fatal_error();
   }
 
   long_delay =  pdMS_TO_TICKS(LONG_DELAY_MS);

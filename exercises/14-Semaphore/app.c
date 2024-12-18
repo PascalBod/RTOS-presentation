@@ -15,9 +15,9 @@
  *
  ******************************************************************************/
 
+#include <semaphore.h>
 #include "app_log.h"
 
-#include "share.h"
 
 /***************************************************************************//**
  * Initialize application.
@@ -25,9 +25,9 @@
 void app_init(void)
 {
 
-  app_log_info("Shared structure bug - v0.2.0\n");
+  app_log_info("Semaphore - v0.1.2\n");
 
-  share_init();
+  semaphore_init();
 
 }
 

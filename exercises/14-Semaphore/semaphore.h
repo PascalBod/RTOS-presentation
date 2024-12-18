@@ -1,6 +1,6 @@
 /***************************************************************************//**
  * @file
- * @brief Top level application functions
+ * @brief Blink examples functions
  *******************************************************************************
  * # License
  * <b>Copyright 2020 Silicon Laboratories Inc. www.silabs.com</b>
@@ -15,25 +15,9 @@
  *
  ******************************************************************************/
 
-#include "app_log.h"
+#ifndef BLINK_H
+#define BLINK_H
 
-#include "share.h"
+void semaphore_init(void);
 
-/***************************************************************************//**
- * Initialize application.
- ******************************************************************************/
-void app_init(void)
-{
-
-  app_log_info("Shared structure bug - v0.2.0\n");
-
-  share_init();
-
-}
-
-/***************************************************************************//**
- * App ticking function.
- ******************************************************************************/
-void app_process_action(void)
-{
-}
+#endif  // BLINK_H

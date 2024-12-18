@@ -29,4 +29,10 @@ As `a` is initialized to `1` and `b` is set to the value of `a` only when `a` co
 
 Build and run the application, and check the output. What do you get? Can you find a reason for the exhibited behavior?
 
+## Note
+
+With this exercise, we start using an error handling mechanism which resets the application in case of (real) trouble. The `reset_on_fatal_error` is called whenever a fatal error is detected. The function prints a log message, waits a bit (not so saturate a possible log device) and resets.
+
+Of course, if the problem is still present after reset, a new reset will be triggered. But resetting usually cures most of the bugs: memory corruption, too much consumed resources, etc.
+
 

@@ -15,25 +15,17 @@
  *
  ******************************************************************************/
 
-#include "app_log.h"
-
-#include "share.h"
+#ifndef APP_H
+#define APP_H
 
 /***************************************************************************//**
  * Initialize application.
  ******************************************************************************/
-void app_init(void)
-{
-
-  app_log_info("Shared structure bug - v0.2.0\n");
-
-  share_init();
-
-}
+void app_init(void);
 
 /***************************************************************************//**
  * App ticking function.
  ******************************************************************************/
-void app_process_action(void)
-{
-}
+void app_process_action(void);
+
+#endif  // APP_H
