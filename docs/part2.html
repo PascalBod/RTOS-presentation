@@ -70,6 +70,7 @@
                     <li><a href="#/queueBenefits">Queue: a useful tool</a></li>
                     <li><a href="#/exercise16"><b>Practice: time-stamped button presses</b></a></li>
                     <li><a href="#/exercise17"><b>Practice: a log server</b></a></li>
+                    <li><a href="#/concurrencySummary">Concurrency: summary</a></li>
                   </ul>
                 </li>
               </ul>
@@ -82,11 +83,9 @@
           <div class="pbcolumns">
             <div class="pbsmaller">
               <ul>
-                <li><a href="#/concurrencySummary">Concurrency: summary</a></li>
-                <li>Time</li>
-                <li>Memory allocation</li>
-                <li>Middleware</li>
-                <li><b>Practice: a non-trivial application</b></li>
+                <li><a href="#/time">Time</a></li>
+                <li><a href="#/memoryAllocation">Memory allocation</a></li>
+                <li><a href="#/middleware">Middleware</a></li>
               </ul>
             </div>
           </div>
@@ -1012,8 +1011,131 @@
           <p class="fragment">In the end, many things depend on the architecture, i.e. on the developer(s).</p>
         </section>
         
+        <!-- -------------------- Time ------------ -->
+        
+        <section id="time">
+          <h2>Time</h2>
+        </section>
+        
+        <section>
+          <h3>Timer</h3>
+          <p>We used one in exercise 9.</p>
+          <ul>
+            <li>Software timers: service provided by the RTOS, based on at least one hardware timer</li>
+            <li>No limitation (excepted RAM) on the number of timers</li>
+            <li>When the timer reaches its duration, it calls its callback function</li>
+            <li>The callback function is passed a parameter that allows to identify the timer</li>
+            <li>Do not block in the callback function!</li>
+          </ul>
+        </section>
+        
+        <section>
+          <h3>Time functions</h3>
+          <ul>
+            <li>Time is local to the microcontroller</li>
+            <li>Function to get current (local) time</li>
+            <li>Function to convert time (e.g. POSIX format)</li>
+          </ul>
+        </section>
+        
+        <section>
+          <p>In some systems integrating several devices and/or PCs, servers, etc., it may be important to have a 
+             common time.</p>
+          <p class="fragment">If the devices are connected to the Internet, 
+             <a href="https://www.rfc-editor.org/rfc/rfc5905" target="_blank">NTP (Network Time Protocol)</a> can be used.</p>
+          <p class="fragment">If not, you're on your own.</p>
+          <div class="fragment">
+            <p>Possible solutions:</p>
+              <ul>
+                <li>A Real-Time Clock (RTC)</li>
+                <li>A simple message exchange to get (approximate) time</li>
+                <li>Etc.</li>
+              </ul>
+          </div>
+        </section>
+        
+        <!-- -------------------- Memory allocation ------------ -->
+        
+        <section id="memoryAllocation">
+          <h2>Memory allocation</h2>
+        </section>
 
+        <section>
+          <h3>Dynamic memory allocation</h3>
+          <ul>
+            <li>An application may require an amount of memory not known beforehand</li>
+            <li>An application may require to allocate some memory to some task, and reallocate it to some other task
+              later on</li>
+            <li>Some data structures and associated operations may require dynamic memory (linked lists...)</li>
+          </ul>
+          <p>&rArr; C library provides <code>malloc</code> and <code>free</code> functions</p>
+        </section>
+        
+        <section>
+          <h3>Dynamic memory allocation</h3>
+          <ul>
+            <li>Memory is allocated when the application requests it</li>
+            <li>The application must release memory when no more used: no garbage collector</li>
+            <li>The memory is allocated from the <em>heap</em></li>
+          </ul>
+        </section>
+        
+        <section>
+          <h3>Drawbacks of dynamic memory allocation</h3>
+          <ul>
+            <li>
+              Several interwoven allocation/release cycles of memory blocks of different sizes may lead
+              to heap fragmentation
+            </li>
+            <li>
+              Allocation and release times are not deterministic (but not as bad as garbage collecting
+              for higher-level languages)
+            </li>
+          </ul>
+          <p>&rArr; If possible, do not use dynamic memory allocation</p>
+        </section>
+        
+        <section>
+          <p>For FreeRTOS, <a href="https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/09-Memory-management/01-Memory-management"
+             target="_blank">a page to read</a>.</p>
+        </section>
+        
+        <!-- -------------------- Middleware ------------ -->
+        
+        <section id="middleware">
+          <h2>Middleware</h2>
+        </section>
+        
+        <section>
+          <p>Quite often, developing an application requires more than an RTOS:</p>
+          <ul>
+            <li>Storing data in flash memory</li>
+            <li>Handling integrated radio interfaces (Wi-Fi, Bluetooth...)</li>
+            <li>Using one of the IP protocols (TCP, UDP...) over some networking layer</li>
+            <li>Using some messaging protocols (MQTT, CoAP...)</li>
+            <li>Logging</li>
+            <li>Updating the code in the field (FUOTA - Firmware Update Over The Air)</li>
+            <li>Artifical Intelligence tooling</li>
+            <li>etc.</li>
+          </ul>
+        </section>
+        
+        <section>
+          <p>The availability of such middleware components depends on the RTOS.</p>
+          <p>Some components may be generic (RTOS independent) but may require some integration.</p>
+          <p>&rArr; Check the ecosystem against your needs before choosing an RTOS</p>
+        </section>
+        
+        <section>
+          <p><a href="https://www.freertos.org/Documentation/03-Libraries/01-Library-overview/01-All-libraries"
+             target="_blank">Some libraries for FreeRTOS</a>.</p>
+        </section>
+        
+        <!-- -------------------- That's all folks!' ------------ -->
 
+        <section>
+          <p class="pbcenter">Thank you for your attention.</p>
+        </section>
 
 	
       </div>
