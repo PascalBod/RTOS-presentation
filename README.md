@@ -13,7 +13,7 @@ Practice sessions provide hands-on experience of the presented concepts.
 
 The hardware target for the practice sessions is the [Silicon Labs EFR32xG24 Dev Kit](https://www.silabs.com/development-tools/wireless/efr32xg24-dev-kit?tab=overview), based on the [EFR32MG24 wireless System on Chip (SoC)](https://www.silabs.com/wireless/zigbee/efr32mg24-series-2-socs).
 
-The presentation will be used in the *Machine Learning and Embedded Systems* course taught at [IMT Atlantique](https://www.imt-atlantique.fr/en) in January 2025. and is being finalized.
+The presentation will be used in the *Machine Learning and Embedded Systems* course taught at [IMT Atlantique](https://www.imt-atlantique.fr/en) in January 2025.
 
 The presentation DOES NOT provide any information about Machine Learning topic.
 
