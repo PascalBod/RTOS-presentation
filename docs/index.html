@@ -41,8 +41,8 @@
             </thead>
             <tbody>
               <tr>
-                <td>06-Jan-2025</td>
-                <td>Margaret Hamilton</td>
+                <td>08-Jan-2025</td>
+                <td>Static/automatic memory info correction</td>
               </tr>
               <tr>
                 <td>20-Dec-2024</td>
@@ -2446,6 +2446,8 @@
           <div class="row">
             <div class="column">
               <pre><code data-trim data-noescape data-line-numbers class="codeblock">
+                  int res;
+                  
                   int function1(int p) {
                     int temp = p * 10;
                     return temp;
@@ -2456,15 +2458,15 @@
                     return temp + 3;
                   }
                   
-                  int res = function2(3);
+                  res = function2(3);
                   ...
               </code></pre>
             </div>
             <div class="column">
-              <p class="pbsmaller">At line 11: <code>res</code> is allocated from automatic storage</p>
-              <p class="pbsmaller">Automatic storage is also allocated for the argument, <code>3</code></p>
-              <p class="pbsmaller">At line 7: <code>temp</code> is local to <code>function2</code>. Automatic storage</p>
-              <p class="pbsmaller">At line 2: <code>temp</code> is local to <code>function1</code>. Automatic storage</p>
+              <p class="pbsmaller">At line 1: <code>res</code> is allocated from static storage</p>
+              <p class="pbsmaller">At line 13: automatic storage is allocated for the argument, <code>3</code></p>
+              <p class="pbsmaller">At line 9: <code>temp</code> is local to <code>function2</code>. Automatic storage</p>
+              <p class="pbsmaller">At line 4: <code>temp</code> is local to <code>function1</code>. Automatic storage</p>
             </div>
           </div>
           <p>Automatic storage allocated to a function can be reused when the function exits.</p>
