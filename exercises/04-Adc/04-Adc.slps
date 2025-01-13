@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="ASCII"?>
 <model:MDescriptors xmlns:model="http://www.silabs.com/ss/Studio.ecore">
   <descriptors name="04-Adc">
-    <properties key="projectCommon.sdkId" value="com.silabs.sdk.stack.sisdk:2024.6.1._-689904623"/>
-    <properties key="universalConfig.relativeWorkspacePath" value="../04-Adc-solution.slcw"/>
+    <properties key="projectCommon.sdkId" value="com.silabs.sdk.stack.sisdk:2024.6.2._-482801502"/>
+    <properties key="universalConfig.relativeWorkspacePath" value="../04-Adc.slcw"/>
     <properties key="universalConfig.generationDirectory" value=""/>
     <properties key="universalConfig.toolchainCompatibility" value="iar gcc"/>
     <properties key="universalConfig.incrementalOverwriteConfigs" value="false"/>

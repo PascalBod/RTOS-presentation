@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="uc.module.setup.componentSetup.com.silabs.ss.tool.ide.arm.toolchain.gnu.cdt.debug#com.silabs.ss.tool.ide.arm.toolchain.gnu.cdt:12.2.1.20221205.gcc" propertyScope="project">
-  <folder name="simplicity_sdk_2024.6.1">
+  <folder name="simplicity_sdk_2024.6.2">
     <folder name="platform">
       <folder name="Device">
         <folder name="SiliconLabs">
@@ -287,6 +287,8 @@
         <folder name="inc">
           <file name="sl_hal_sysrtc.h" uri="studio:/sdk/platform/peripheral/inc/sl_hal_sysrtc.h"/>
           <file name="sl_hal_sysrtc_compat.h" uri="studio:/sdk/platform/peripheral/inc/sl_hal_sysrtc_compat.h"/>
+          <file name="peripheral_sysrtc.h" uri="studio:/sdk/platform/peripheral/inc/peripheral_sysrtc.h"/>
+          <file name="peripheral_sysrtc_compat.h" uri="studio:/sdk/platform/peripheral/inc/peripheral_sysrtc_compat.h"/>
         </folder>
       </folder>
     </folder>
