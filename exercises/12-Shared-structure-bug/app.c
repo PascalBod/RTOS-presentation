@@ -25,7 +25,7 @@
 void app_init(void)
 {
 
-  app_log_info("Shared structure bug - v0.2.0\n");
+  app_log_info("Shared structure bug - v0.2.1\n");
 
   share_init();
 

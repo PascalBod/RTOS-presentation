@@ -171,4 +171,7 @@ void share_init(void) {
   long_delay =  pdMS_TO_TICKS(LONG_DELAY_MS);
   short_delay =  pdMS_TO_TICKS(SHORT_DELAY_MS);
 
+  a = 1;
+  b = 1;
+
 }
