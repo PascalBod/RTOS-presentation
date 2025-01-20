@@ -570,7 +570,7 @@
           <h3>Critical section</h3>
           <ul>
             <li>Part of a program that must be protected from being executed by concurrent tasks</li>
-            <li>In other words: it must provide <em>atomic</em> access to a shared resource</li>
+            <li>In other words: it requires <em>atomic</em> execution</li>
           </ul>
         </section>
         
@@ -740,6 +740,7 @@
           <ul>
             <li>Task T1 would like to acquire a first mutex, MA and then a second one, MB</li>
             <li>Task T2 would like to acquire MB and then MA</li>
+            <li>T1 and T2 have the same priority</li>
           </ul>
         </section>
         
@@ -882,7 +883,7 @@
         <section>
           <p>Usually:</p>
           <ul>
-            <li>A queue is FIFO (Firt In First Out)</li>
+            <li>A queue is FIFO (First In First Out)</li>
             <li>The write operation returns immediately</li>
             <li>Trying to read from an empty queue blocks</li>
             <li>Trying to write into a full queue blocks or returns an error</li>
@@ -948,8 +949,8 @@
           <ul>
             <li>Purpose: use a queue to handle button presses</li>
             <li>What to do: follow the instructions provided by the 
-                <a href="https://github.com/PascalBod/RTOS-presentation/blob/main/exercises/16-Button-presses/README.md"
-                   target="_blank"><code>RTOS-presentation/exercises/16-Button-presses/README.md</code></a>
+                <a href="https://github.com/PascalBod/RTOS-presentation/blob/main/exercises/16-All-button-presses/README.md"
+                   target="_blank"><code>RTOS-presentation/exercises/16-All-button-presses/README.md</code></a>
                 file</li>
           </ul>
         </section>

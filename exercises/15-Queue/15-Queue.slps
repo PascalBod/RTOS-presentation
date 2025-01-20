@@ -2,7 +2,7 @@
 <model:MDescriptors xmlns:model="http://www.silabs.com/ss/Studio.ecore">
   <descriptors name="15-Queue">
     <properties key="projectCommon.sdkId" value="com.silabs.sdk.stack.sisdk:2024.6.2._-482801502"/>
-    <properties key="universalConfig.relativeWorkspacePath" value="../15-Queue-solution.slcw"/>
+    <properties key="universalConfig.relativeWorkspacePath" value="../15-Queue.slcw"/>
     <properties key="universalConfig.generationDirectory" value=""/>
     <properties key="universalConfig.toolchainCompatibility" value="iar gcc"/>
     <properties key="projectCommon.boardIds" value="brd2601b:0.0.0.A01"/>

@@ -34,10 +34,12 @@
 */
 
 #include <stdbool.h>
+#include <stddef.h>
 #include <stdint.h>
 
 #include "app_log.h"
 #include "FreeRTOS.h"
+#include "FreeRTOSConfig.h"
 #include "semphr.h"
 #include "sl_udelay.h"
 #include "task.h"
@@ -94,7 +96,7 @@ void task_code(void *pvParameters) {
     app_log_info("Task %lu started\n", id);
 
     // TODO:
-    // - Wait for wait_time_ms
+    // - Wait for pramsPtr->wait_time_ms
     // - Try to take the semaphore
     // - Wait for TASK_WORKING_TIME_MS
     // - Give the semaphore
