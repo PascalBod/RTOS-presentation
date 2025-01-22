@@ -96,7 +96,7 @@ void task_code(void *pvParameters) {
     app_log_info("Task %lu started\n", id);
 
     // TODO:
-    // - Wait for pramsPtr->wait_time_ms
+    // - Wait for paramsPtr->wait_time_ms
     // - Try to take the semaphore
     // - Wait for TASK_WORKING_TIME_MS
     // - Give the semaphore
