@@ -1,5 +1,8 @@
 # Introduction to Embedded Systems for Machine Learning
 
+> ![Note]
+> This presentation is replaced by [*Introduction to Embedded Systems for Machine Learning*](https://github.com/PascalBod/embedded-systems-for-ML).
+
 ## Overview
 
 This repository contains a presentation providing an introduction to embedded systems. The targeted audience is machine learning application developers, who want to better understand what an embedded system is, and how it can be used.
