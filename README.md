@@ -1,6 +1,6 @@
 # Introduction to Embedded Systems for Machine Learning
 
-> ![Note]
+> [!Note]
 > This presentation is replaced by [*Introduction to Embedded Systems for Machine Learning*](https://github.com/PascalBod/embedded-systems-for-ML).
 
 ## Overview
